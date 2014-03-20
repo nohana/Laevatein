@@ -8,32 +8,32 @@ Call photo image selection activity by the following code snipet.
 
 ```java
 public class SomeActivity extends Activity {
-    public static final int REQUEST_CODE_CHOOSE = 1;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_some);
-    }
+  public static final int REQUEST_CODE_CHOOSE = 1;
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_some);
+  }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultcode, Intent data) {
-      super.onActivityResult(requestCode, resultCode, data);
-      switch (requestCode) {
-      case REQUEST_CODE_CHOOSE:
-        if (resultCode == RESULT_OK) {
-          // Get result and proceed your work from here...
-          List<Uri> selected = Laevatein.obtainResult(data);
-        }
-        break;
-      default:
-        break;
+  @Override
+  protected void onActivityResult(int requestCode, int resultcode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    switch (requestCode) {
+    case REQUEST_CODE_CHOOSE:
+      if (resultCode == RESULT_OK) {
+        // Get result and proceed your work from here...
+        List<Uri> selected = Laevatein.obtainResult(data);
       }
+      break;
+    default:
+      break;
     }
+  }
 
-    public void onClickButton(View view) {
-      // call chooser on click button like this
-      Laevatein.from(this).choose(MimeType.of(MimeType.JPEG)).forResult(REQUEST_CODE_CHOOSE);
-    }
+  public void onClickButton(View view) {
+    // call chooser on click button like this
+    Laevatein.from(this).choose(MimeType.of(MimeType.JPEG)).forResult(REQUEST_CODE_CHOOSE);
+  }
 }
 ```
 

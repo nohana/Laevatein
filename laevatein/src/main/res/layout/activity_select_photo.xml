@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.laevatein.internal.ui.PhotoSelectionActivity">
+    <FrameLayout
+        android:id="@+id/container_grid_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/l_fragment_list_directory"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="com.laevatein.internal.ui.DirectoryListFragment"
+        tools:layout="@layout/fragment_list_directory"/>
+</android.support.v4.widget.DrawerLayout>
