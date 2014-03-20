@@ -1,9 +1,13 @@
 package com.laevatein.internal.entity;
 
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,6 +46,20 @@ public class Directory implements Parcelable {
 
     public static Directory fromFile(@Nonnull File dir) {
         return new Directory(dir.getName(), dir);
+    }
+
+    public static List<Directory> getPictureDirs() {
+        List<Directory> dirs = new ArrayList<Directory>();
+        File picDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File[] dirArray = picDir.listFiles();
+        if (dirArray == null) {
+            return Collections.emptyList();
+        }
+
+        for (File dir : dirArray) {
+            dirs.add(fromFile(dir));
+        }
+        return dirs;
     }
 
     @Override

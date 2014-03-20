@@ -15,7 +15,7 @@ import android.view.MenuItem;
  * @since 2014/03/20
  * @version 1.0.0
  */
-public class PhotoSelectionActivity extends ActionBarActivity {
+public class PhotoSelectionActivity extends ActionBarActivity implements DirectoryListFragment.OnDirectorySelectListener {
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
@@ -44,6 +44,11 @@ public class PhotoSelectionActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         PhotoSelectionOptionsMenu menu = PhotoSelectionOptionsMenu.valueOf(item);
         return menu.getHandler().handle(this, null) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSelect() {
+
     }
 
     /* package */ SelectedUriCollection getCollection() {

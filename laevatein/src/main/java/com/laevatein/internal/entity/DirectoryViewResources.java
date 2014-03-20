@@ -1,5 +1,7 @@
 package com.laevatein.internal.entity;
 
+import com.laevatein.R;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -35,12 +37,12 @@ public final class DirectoryViewResources implements Parcelable {
     /* package */ DirectoryViewResources(Parcel source) {
         mLayoutId = source.readInt();
         mImageViewId = source.readInt();
-        mLabelViewId = source.readByte();
+        mLabelViewId = source.readInt();
     }
 
     public static DirectoryViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new DirectoryViewResources(0, 0, 0);
+            sDefault = new DirectoryViewResources(R.layout.list_item_default_directory, R.id.default_list_image, R.id.default_directory_label);
         }
         return sDefault;
     }
@@ -55,6 +57,15 @@ public final class DirectoryViewResources implements Parcelable {
         dest.writeInt(mLayoutId);
         dest.writeInt(mImageViewId);
         dest.writeInt(mLabelViewId);
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("layoutId:").append(mLayoutId)
+                .append(", imageId:").append(mImageViewId)
+                .append(", labelId:").append(mLabelViewId)
+                .toString();
     }
 
     public int getLayoutId() {
