@@ -16,11 +16,14 @@
 package com.laevatein.internal.ui;
 
 import com.laevatein.R;
-import com.laevatein.internal.entity.DirectoryViewResources;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.misc.ui.FragmentUtils;
-import com.laevatein.internal.ui.helper.options.DirectoryListViewHelper;
+import com.laevatein.internal.model.DevicePhotoAlbumCollection;
+import com.laevatein.internal.ui.helper.AlbumListViewHelper;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,7 +36,10 @@ import android.widget.AdapterView;
  * @since 2014/03/20
  * @version 1.0.0
  */
-public class DirectoryListFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class AlbumListFragment extends Fragment implements
+        AdapterView.OnItemClickListener,
+        DevicePhotoAlbumCollection.DevicePhotoAlbumCallbacks {
+    private final DevicePhotoAlbumCollection mCollection = new DevicePhotoAlbumCollection();
     private OnDirectorySelectListener mListener;
 
     @Override
@@ -48,22 +54,40 @@ public class DirectoryListFragment extends Fragment implements AdapterView.OnIte
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_directory, container, false);
+        return inflater.inflate(R.layout.fragment_list_album, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DirectoryViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_DIR_VIEW_RES);
-        DirectoryListViewHelper.setUpListView(this, this, resources);
+        AlbumViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_DIR_VIEW_RES);
+        AlbumListViewHelper.setUpListView(this, this, resources);
+        mCollection.onCreate(getActivity(), this);
+        mCollection.loadAlbums();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mCollection.onDestroy();
+        super.onDestroyView();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        AlbumListViewHelper.callOnSelect(mListener, (Cursor) parent.getItemAtPosition(position));
+    }
 
+    @Override
+    public void onLoad(Cursor cursor) {
+        AlbumListViewHelper.setCursor(this, cursor);
+    }
+
+    @Override
+    public void onReset() {
+        AlbumListViewHelper.setCursor(this, null);
     }
 
     public interface OnDirectorySelectListener {
-        public void onSelect();
+        public void onSelect(Album album);
     }
 }

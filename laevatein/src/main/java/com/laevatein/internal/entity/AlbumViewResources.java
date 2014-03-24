@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2014 nohana, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.laevatein.internal.entity;
 
 import com.laevatein.R;
@@ -11,38 +26,38 @@ import android.os.Parcelable;
  * @version 1.0.0
  * @hide
  */
-public final class DirectoryViewResources implements Parcelable {
-    public static final Creator<DirectoryViewResources> CREATOR = new Creator<DirectoryViewResources>() {
+public final class AlbumViewResources implements Parcelable {
+    public static final Creator<AlbumViewResources> CREATOR = new Creator<AlbumViewResources>() {
         @Override
-        public DirectoryViewResources createFromParcel(Parcel source) {
-            return new DirectoryViewResources(source);
+        public AlbumViewResources createFromParcel(Parcel source) {
+            return new AlbumViewResources(source);
         }
 
         @Override
-        public DirectoryViewResources[] newArray(int size) {
-            return new DirectoryViewResources[size];
+        public AlbumViewResources[] newArray(int size) {
+            return new AlbumViewResources[size];
         }
     };
-    private static volatile DirectoryViewResources sDefault;
+    private static volatile AlbumViewResources sDefault;
     private final int mLayoutId;
     private final int mImageViewId;
     private final int mLabelViewId;
 
-    public DirectoryViewResources(int layoutId, int imageViewId, int labelViewId) {
+    public AlbumViewResources(int layoutId, int imageViewId, int labelViewId) {
         mLayoutId = layoutId;
         mImageViewId = imageViewId;
         mLabelViewId = labelViewId;
     }
 
-    /* package */ DirectoryViewResources(Parcel source) {
+    /* package */ AlbumViewResources(Parcel source) {
         mLayoutId = source.readInt();
         mImageViewId = source.readInt();
         mLabelViewId = source.readInt();
     }
 
-    public static DirectoryViewResources getDefault() {
+    public static AlbumViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new DirectoryViewResources(R.layout.list_item_default_directory, R.id.default_list_image, R.id.default_directory_label);
+            sDefault = new AlbumViewResources(R.layout.list_item_default_album, R.id.default_list_image, R.id.default_directory_label);
         }
         return sDefault;
     }

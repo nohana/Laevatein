@@ -17,6 +17,7 @@ package com.laevatein.internal.ui;
 
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
@@ -33,7 +34,7 @@ import android.view.MenuItem;
  * @since 2014/03/20
  * @version 1.0.0
  */
-public class PhotoSelectionActivity extends ActionBarActivity implements DirectoryListFragment.OnDirectorySelectListener {
+public class PhotoSelectionActivity extends ActionBarActivity implements AlbumListFragment.OnDirectorySelectListener {
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
@@ -83,7 +84,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements Directo
     }
 
     @Override
-    public void onSelect() {
+    public void onSelect(Album album) {
 
     }
 

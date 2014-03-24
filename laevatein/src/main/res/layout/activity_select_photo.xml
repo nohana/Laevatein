@@ -15,6 +15,6 @@
         android:layout_width="@dimen/drawer_menu_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="com.laevatein.internal.ui.DirectoryListFragment"
+        android:name="com.laevatein.internal.ui.AlbumListFragment"
         tools:layout="@layout/fragment_list_directory"/>
 </android.support.v4.widget.DrawerLayout>

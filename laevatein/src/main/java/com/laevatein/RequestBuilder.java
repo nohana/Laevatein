@@ -15,7 +15,7 @@
  */
 package com.laevatein;
 
-import com.laevatein.internal.entity.DirectoryViewResources;
+import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
@@ -37,7 +37,7 @@ public final class RequestBuilder {
     private final Set<MimeType> mMimeType;
     private final SelectionSpec mSelectionSpec;
     private ItemViewResources mItemViewResources;
-    private DirectoryViewResources mDirectoryViewResources;
+    private AlbumViewResources mAlbumViewResources;
 
     /**
      *
@@ -69,8 +69,8 @@ public final class RequestBuilder {
      * @param directoryNameViewId
      * @return
      */
-    public RequestBuilder bindEachDirectoryWith(int layoutId, int imageViewId, int directoryNameViewId) {
-        mDirectoryViewResources = new DirectoryViewResources(layoutId, imageViewId, directoryNameViewId);
+    public RequestBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
+        mAlbumViewResources = new AlbumViewResources(layoutId, imageViewId, directoryNameViewId);
         return this;
     }
 
@@ -93,15 +93,15 @@ public final class RequestBuilder {
         if (activity == null) {
             return; // cannot continue;
         }
-        if (mDirectoryViewResources == null) {
-            mDirectoryViewResources = DirectoryViewResources.getDefault();
+        if (mAlbumViewResources == null) {
+            mAlbumViewResources = AlbumViewResources.getDefault();
         }
         if (mItemViewResources == null) {
             mItemViewResources = ItemViewResources.getDefault();
         }
 
         Intent intent = new Intent(activity, PhotoSelectionActivity.class);
-        intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mDirectoryViewResources);
+        intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mAlbumViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES, mItemViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         activity.startActivityForResult(intent, requestCode);
