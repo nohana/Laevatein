@@ -30,7 +30,8 @@ import java.util.Set;
  * @since 2014/03/19
  * @version 1.0.0
  */
-public class RequestBuilder {
+@SuppressWarnings("unused") // public APIs
+public final class RequestBuilder {
     public static final String TAG = RequestBuilder.class.getSimpleName();
     private final Laevatein mLaevatein;
     private final Set<MimeType> mMimeType;

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_default_drawer">#111</color>
+    <color name="label_default_directory_name">#fff</color>
+</resources>

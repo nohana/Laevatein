@@ -22,6 +22,7 @@ import java.util.Set;
  * @author keishin.yokomaku
  * @since 2014/03/19
  */
+@SuppressWarnings("unused") // public APIs
 public enum MimeType {
     JPEG("image/jpeg"),
     PNG("image/png"),

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DrawerMenuItem">
+        <item name="android:paddingLeft">@dimen/listPreferredItemPaddingLeft</item>
+        <item name="android:paddingRight">@dimen/listPreferredItemPaddingRight</item>
+        <item name="android:paddingTop">@dimen/listPreferredItemPaddingTop</item>
+        <item name="android:paddingBottom">@dimen/listPreferredItemPaddingBottom</item>
+        <item name="android:minHeight">?android:listPreferredItemHeight</item>
+    </style>
+</resources>

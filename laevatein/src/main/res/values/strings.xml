@@ -1,3 +1,4 @@
 <resources>
-
+    <string name="content_desc_open_drawer">メニューを開く</string>
+    <string name="content_desc_close_drawer">メニューを閉じる</string>
 </resources>

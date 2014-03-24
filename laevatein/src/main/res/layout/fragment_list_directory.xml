@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ListView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:id="@+id/l_list_directory"
+    android:layout_width="@dimen/drawer_menu_width"
     android:layout_height="match_parent"
-    android:background="#111">
-    <ListView
-        android:id="@+id/l_list_directory"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</RelativeLayout>
+    android:background="@color/background_default_drawer"/>
