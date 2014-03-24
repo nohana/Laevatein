@@ -4,6 +4,7 @@ import com.amalgam.content.ContextUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -36,14 +37,21 @@ public class AlbumPhotoAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        Item item = Item.valueOf(cursor);
+    public void bindView(View view, final Context context, Cursor cursor) {
+        final Item item = Item.valueOf(cursor);
 
         ImageView thumbnail = (ImageView) view.findViewById(mResources.getImageViewId());
+        thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoGridViewHelper.callPreview(context, item);
+            }
+        });
         CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
         Picasso.with(context).load(item.buildContentUri())
                 .resizeDimen(R.dimen.gridItemImageWidth, R.dimen.gridItemImageHeight)
                 .centerCrop()
                 .into(thumbnail);
     }
+
 }

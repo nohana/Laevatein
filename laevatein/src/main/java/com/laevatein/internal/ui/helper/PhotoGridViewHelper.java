@@ -16,15 +16,18 @@
 package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
+import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 /**
@@ -42,15 +45,20 @@ public final class PhotoGridViewHelper {
         return ((PhotoSelectionActivity) fragment.getActivity()).getCollection();
     }
 
-    public static void setUpGridView(Fragment fragment, AdapterView.OnItemClickListener listener, ItemViewResources resources) {
+    public static void setUpGridView(Fragment fragment, ItemViewResources resources) {
         GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
         gridView.setAdapter(new AlbumPhotoAdapter(fragment.getActivity(), null, resources));
-        gridView.setOnItemClickListener(listener);
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
         GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
         CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
         adapter.swapCursor(cursor);
+    }
+
+    public static void callPreview(Context context, Item item) {
+        Intent intent = new Intent(context, ImagePreviewActivity.class);
+        intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
+        context.startActivity(intent);
     }
 }

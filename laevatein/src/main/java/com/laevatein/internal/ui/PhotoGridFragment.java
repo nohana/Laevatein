@@ -30,7 +30,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 /**
  * @author KeithYokoma
@@ -39,8 +38,7 @@ import android.widget.AdapterView;
  * @hide
  */
 public class PhotoGridFragment extends Fragment implements
-        AlbumPhotoCollection.AlbumPhotoCallbacks,
-        AdapterView.OnItemClickListener {
+        AlbumPhotoCollection.AlbumPhotoCallbacks {
     public static final String TAG = PhotoGridFragment.class.getSimpleName();
     private static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
     private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
@@ -63,7 +61,7 @@ public class PhotoGridFragment extends Fragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
-        PhotoGridViewHelper.setUpGridView(this, this, resources);
+        PhotoGridViewHelper.setUpGridView(this, resources);
         mSelectedCollection = PhotoGridViewHelper.getSelectedPhotoSet(this);
         mPhotoCollection.onCreate(getActivity(), this);
         mPhotoCollection.load(getArguments().<Album>getParcelable(ARGS_ALBUM));
@@ -83,10 +81,5 @@ public class PhotoGridFragment extends Fragment implements
     @Override
     public void onReset() {
         PhotoGridViewHelper.setCursor(this, null);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }
