@@ -25,6 +25,7 @@ public class SelectedUriCollection {
             mUris = new LinkedHashSet<Uri>();
         } else {
             List<Uri> saved = savedInstanceState.getParcelableArrayList(STATE_SELECTION);
+            mUris = new LinkedHashSet<Uri>(saved);
         }
     }
 
@@ -42,5 +43,9 @@ public class SelectedUriCollection {
 
     public List<Uri> asList() {
         return new ArrayList<Uri>(mUris);
+    }
+
+    public boolean isSelected(Uri uri) {
+        return mUris.contains(uri);
     }
 }
