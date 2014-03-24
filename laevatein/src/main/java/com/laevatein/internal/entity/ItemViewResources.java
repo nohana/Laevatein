@@ -1,5 +1,7 @@
 package com.laevatein.internal.entity;
 
+import com.laevatein.R;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -40,7 +42,7 @@ public final class ItemViewResources implements Parcelable {
 
     public static ItemViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new ItemViewResources(0, 0, 0);
+            sDefault = new ItemViewResources(R.layout.grid_item_default_photo, R.id.default_grid_image, R.id.default_check_box);
         }
         return sDefault;
     }

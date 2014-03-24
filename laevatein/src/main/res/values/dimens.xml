@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- for drawers -->
     <dimen name="listPreferredItemPaddingLeft">8dp</dimen>
     <dimen name="listPreferredItemPaddingRight">8dp</dimen>
     <dimen name="listPreferredItemPaddingTop">8dp</dimen>
     <dimen name="listPreferredItemPaddingBottom">8dp</dimen>
-    <dimen name="drawer_menu_width">240dp</dimen>
+    <dimen name="drawerMenuWidth">240dp</dimen>
+
+    <!-- for grid views -->
+    <dimen name="gridItemImageWidth">48dp</dimen>
+    <dimen name="gridItemImageHeight">48dp</dimen>
+    <dimen name="gridItemSpacing">8dp</dimen>
 </resources>

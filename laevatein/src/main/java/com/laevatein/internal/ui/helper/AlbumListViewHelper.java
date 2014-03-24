@@ -31,7 +31,11 @@ import android.widget.ListView;
  * @author keishin.yokomaku
  * @since 2014/03/20
  */
-public class AlbumListViewHelper {
+public final class AlbumListViewHelper {
+    private AlbumListViewHelper() {
+        throw new AssertionError("oops! the utility class is about to be instantiated...");
+    }
+
     public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener, AlbumViewResources resources) {
         ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_directory);
         listView.setOnItemClickListener(listener);

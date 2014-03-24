@@ -6,5 +6,9 @@
     <GridView
         android:id="@+id/grid_photo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:numColumns="4"
+        android:columnWidth="@dimen/gridItemImageWidth"
+        android:verticalSpacing="@dimen/gridItemSpacing"
+        android:horizontalSpacing="@dimen/gridItemSpacing"/>
 </RelativeLayout>

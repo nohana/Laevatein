@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<com.laevatein.internal.misc.widget.SquareGridViewItemRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,4 +14,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
-</RelativeLayout>
+</com.laevatein.internal.misc.widget.SquareGridViewItemRelativeLayout>

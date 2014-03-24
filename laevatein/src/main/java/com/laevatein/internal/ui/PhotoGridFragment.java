@@ -15,22 +15,78 @@
  */
 package com.laevatein.internal.ui;
 
+import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.misc.ui.FragmentUtils;
+import com.laevatein.internal.model.AlbumPhotoCollection;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/20
  * @version 1.0.0
+ * @hide
  */
-public class PhotoGridFragment extends Fragment {
+public class PhotoGridFragment extends Fragment implements
+        AlbumPhotoCollection.AlbumPhotoCallbacks,
+        AdapterView.OnItemClickListener {
+    public static final String TAG = PhotoGridFragment.class.getSimpleName();
+    private static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
+    private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
+    private SelectedUriCollection mSelectedCollection;
+
+    public static PhotoGridFragment newInstance(Album album) {
+        PhotoGridFragment fragment = new PhotoGridFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARGS_ALBUM, album);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_grid_photo, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
+        PhotoGridViewHelper.setUpGridView(this, this, resources);
+        mSelectedCollection = PhotoGridViewHelper.getSelectedPhotoSet(this);
+        mPhotoCollection.onCreate(getActivity(), this);
+        mPhotoCollection.load(getArguments().<Album>getParcelable(ARGS_ALBUM));
+    }
+
+    @Override
+    public void onDestroyView() {
+        mPhotoCollection.onDestroy();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onLoad(Cursor cursor) {
+        PhotoGridViewHelper.setCursor(this, cursor);
+    }
+
+    @Override
+    public void onReset() {
+        PhotoGridViewHelper.setCursor(this, null);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }

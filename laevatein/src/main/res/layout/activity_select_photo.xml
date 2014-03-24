@@ -12,7 +12,7 @@
         android:layout_height="match_parent"/>
     <fragment
         android:id="@+id/l_fragment_list_directory"
-        android:layout_width="@dimen/drawer_menu_width"
+        android:layout_width="@dimen/drawerMenuWidth"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.laevatein.internal.ui.AlbumListFragment"
