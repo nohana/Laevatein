@@ -17,6 +17,7 @@ package com.laevatein;
 
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.SelectionErrorResource;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
@@ -36,6 +37,8 @@ public final class RequestBuilder {
     private final Laevatein mLaevatein;
     private final Set<MimeType> mMimeType;
     private final SelectionSpec mSelectionSpec;
+    private final SelectionErrorResource mCountErrorResource;
+    private final SelectionErrorResource mQualityErrorResource;
     private ItemViewResources mItemViewResources;
     private AlbumViewResources mAlbumViewResources;
 
@@ -48,6 +51,8 @@ public final class RequestBuilder {
         mLaevatein = laevatein;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
+        mCountErrorResource = new SelectionErrorResource();
+        mQualityErrorResource = new SelectionErrorResource();
     }
 
     /**
@@ -76,11 +81,49 @@ public final class RequestBuilder {
 
     /**
      *
-     * @param maxSelectionCount
+     * @param min
+     * @param max
      * @return
      */
-    public RequestBuilder setMaxSelectionCount(int maxSelectionCount) {
-        mSelectionSpec.setMaxSelectable(maxSelectionCount);
+    public RequestBuilder count(int min, int max) {
+        mSelectionSpec.setMinSelectable(min);
+        mSelectionSpec.setMaxSelectable(max);
+        return this;
+    }
+
+    /**
+     *
+     * @param type
+     * @param messageResource
+     * @return
+     */
+    public RequestBuilder outOfRangeError(ErrorViewType type, int messageResource) {
+        mCountErrorResource.setErrorViewType(type);
+        mCountErrorResource.setErrorMessage(messageResource);
+        return this;
+    }
+
+    /**
+     *
+     * @param minPixel
+     * @param maxPixel
+     * @return
+     */
+    public RequestBuilder requiredQuality(int minPixel, int maxPixel) {
+        mSelectionSpec.setMinPixels(minPixel);
+        mSelectionSpec.setMaxPixels(maxPixel);
+        return this;
+    }
+
+    /**
+     *
+     * @param type
+     * @param messageResource
+     * @return
+     */
+    public RequestBuilder outOfQualityError(ErrorViewType type, int messageResource) {
+        mQualityErrorResource.setErrorViewType(type);
+        mQualityErrorResource.setErrorMessage(messageResource);
         return this;
     }
 

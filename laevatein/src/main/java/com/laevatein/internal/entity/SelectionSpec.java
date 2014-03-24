@@ -22,13 +22,22 @@ public final class SelectionSpec implements Parcelable {
         }
     };
     private int mMaxSelectable;
+    private int mMinSelectable;
+    private long mMinPixels;
+    private long mMaxPixels;
 
     public SelectionSpec() {
+        mMinSelectable = 0;
         mMaxSelectable = 1;
+        mMinPixels = 0L;
+        mMaxPixels = Long.MAX_VALUE;
     }
 
     /* package */ SelectionSpec(Parcel source) {
+        mMinSelectable = source.readInt();
         mMaxSelectable = source.readInt();
+        mMinPixels = source.readLong();
+        mMaxPixels = source.readLong();
     }
 
     @Override
@@ -38,14 +47,41 @@ public final class SelectionSpec implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mMinSelectable);
         dest.writeInt(mMaxSelectable);
+        dest.writeLong(mMinPixels);
+        dest.writeLong(mMaxPixels);
     }
 
     public void setMaxSelectable(int maxSelectable) {
         mMaxSelectable = maxSelectable;
     }
 
+    public void setMinSelectable(int minSelectable) {
+        mMinSelectable = minSelectable;
+    }
+
+    public void setMinPixels(long minPixels) {
+        mMinPixels = minPixels;
+    }
+
+    public void setMaxPixels(long maxPixels) {
+        mMaxPixels = maxPixels;
+    }
+
+    public int getMinSelectable() {
+        return mMinSelectable;
+    }
+
     public int getMaxSelectable() {
         return mMaxSelectable;
+    }
+
+    public long getMinPixels() {
+        return mMinPixels;
+    }
+
+    public long getMaxPixels() {
+        return mMaxPixels;
     }
 }
