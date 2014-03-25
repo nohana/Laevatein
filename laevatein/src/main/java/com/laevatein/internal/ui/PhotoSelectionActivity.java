@@ -90,6 +90,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements AlbumLi
         manager.beginTransaction()
                 .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
                 .commit();
+        mDrawer.closeDrawers();
     }
 
     public SelectedUriCollection getCollection() {
