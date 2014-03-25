@@ -49,7 +49,15 @@ public final class PhotoGridViewHelper {
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
         GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
-        gridView.setAdapter(new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection));
+        AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection);
+        adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
+        gridView.setAdapter(adapter);
+    }
+
+    public static void tearDownGridView(Fragment fragment) {
+        GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
+        AlbumPhotoAdapter adapter = (AlbumPhotoAdapter) gridView.getAdapter();
+        adapter.unregisterCheckStateListener();
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
@@ -86,5 +94,12 @@ public final class PhotoGridViewHelper {
             checkBox.setChecked(false);
             // Make error view
         }
+    }
+
+    public static void callCheckStateListener(AlbumPhotoAdapter.CheckStateListener listener) {
+        if (listener == null) {
+            return;
+        }
+        listener.onUpdate();
     }
 }

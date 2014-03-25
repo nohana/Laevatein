@@ -1,4 +1,10 @@
 <resources>
-    <string name="content_desc_open_drawer">メニューを開く</string>
-    <string name="content_desc_close_drawer">メニューを閉じる</string>
+    <string name="content_desc_open_drawer">Open menu</string>
+    <string name="content_desc_close_drawer">Close menu</string>
+
+    <string name="action_finish_select">Done</string>
+    <string name="action_cancel_select">Cancel</string>
+
+    <string name="confirm_dialog_title">Attention</string>
+    <string name="confirm_dialog_message">Are your sure you want to discard the selection?</string>
 </resources>

@@ -15,6 +15,7 @@
  */
 package com.laevatein.internal.ui.helper.options;
 
+import com.laevatein.R;
 import com.laevatein.internal.misc.ui.helper.options.OptionsMenu;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
@@ -27,8 +28,8 @@ import android.view.MenuItem;
  * @hide
  */
 public enum PhotoSelectionOptionsMenu implements OptionsMenu<PhotoSelectionActivity, PhotoSelectionOptionsMenuHandler> {
-    SELECT(0, new FinishSelectMenuHandler()),
-    CANCEL(0, new CancelSelectMenuHandler()),
+    SELECT(R.id.action_finish_select, new FinishSelectMenuHandler()),
+    CANCEL(R.id.action_cancel_select, new CancelSelectMenuHandler()),
     UNKNOWN(-1, new UnknownMenuHandler()); // null object pattern
 
     private final int mMenuId;

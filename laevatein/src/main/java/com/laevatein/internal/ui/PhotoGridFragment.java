@@ -22,6 +22,7 @@ import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 
 import android.database.Cursor;
@@ -38,7 +39,7 @@ import android.view.ViewGroup;
  * @hide
  */
 public class PhotoGridFragment extends Fragment implements
-        AlbumPhotoCollection.AlbumPhotoCallbacks {
+        AlbumPhotoCollection.AlbumPhotoCallbacks, AlbumPhotoAdapter.CheckStateListener {
     public static final String TAG = PhotoGridFragment.class.getSimpleName();
     private static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
     private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
@@ -69,6 +70,7 @@ public class PhotoGridFragment extends Fragment implements
 
     @Override
     public void onDestroyView() {
+        PhotoGridViewHelper.tearDownGridView(this);
         mPhotoCollection.onDestroy();
         super.onDestroyView();
     }
@@ -81,5 +83,10 @@ public class PhotoGridFragment extends Fragment implements
     @Override
     public void onReset() {
         PhotoGridViewHelper.setCursor(this, null);
+    }
+
+    @Override
+    public void onUpdate() {
+        getActivity().supportInvalidateOptionsMenu();
     }
 }

@@ -41,6 +41,7 @@ import android.widget.ImageView;
 public class AlbumPhotoAdapter extends CursorAdapter {
     private final ItemViewResources mResources;
     private final SelectedUriCollection mCollection;
+    private CheckStateListener mListener;
 
     public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources, SelectedUriCollection collection) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -71,6 +72,8 @@ public class AlbumPhotoAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 PhotoGridViewHelper.syncCheckState(mCollection, item, check);
+                PhotoGridViewHelper.callCheckStateListener(mListener);
+
             }
         });
         Picasso.with(context).load(item.buildContentUri())
@@ -79,4 +82,15 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                 .into(thumbnail);
     }
 
+    public void registerCheckStateListener(CheckStateListener listener) {
+        mListener = listener;
+    }
+
+    public void unregisterCheckStateListener() {
+        mListener = null;
+    }
+
+    public static interface CheckStateListener {
+        public void onUpdate();
+    }
 }

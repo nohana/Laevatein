@@ -60,6 +60,10 @@ public class SelectedUriCollection {
         return new ArrayList<Uri>(mUris);
     }
 
+    public boolean isEmpty() {
+        return mUris == null || mUris.isEmpty();
+    }
+
     public boolean isSelected(Uri uri) {
         return mUris.contains(uri);
     }

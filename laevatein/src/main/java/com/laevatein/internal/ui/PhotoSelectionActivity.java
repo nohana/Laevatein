@@ -18,10 +18,13 @@ package com.laevatein.internal.ui;
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
+import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -35,7 +38,9 @@ import android.view.MenuItem;
  * @since 2014/03/20
  * @version 1.0.0
  */
-public class PhotoSelectionActivity extends ActionBarActivity implements AlbumListFragment.OnDirectorySelectListener {
+public class PhotoSelectionActivity extends ActionBarActivity implements
+        AlbumListFragment.OnDirectorySelectListener,
+        ConfirmationDialogFragment.ConfirmationSelectionListener {
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
@@ -75,7 +80,14 @@ public class PhotoSelectionActivity extends ActionBarActivity implements AlbumLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_options_select_photo, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        PhotoSelectionViewHelper.refreshOptionsMenuState(mCollection, menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -95,5 +107,16 @@ public class PhotoSelectionActivity extends ActionBarActivity implements AlbumLi
 
     public SelectedUriCollection getCollection() {
         return mCollection;
+    }
+
+    @Override
+    public void onPositive() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+
+    @Override
+    public void onNegative() {
+        // nothing to do.
     }
 }

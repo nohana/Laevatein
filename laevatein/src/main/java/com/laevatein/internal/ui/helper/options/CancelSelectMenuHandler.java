@@ -15,8 +15,11 @@
  */
 package com.laevatein.internal.ui.helper.options;
 
+import com.laevatein.R;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
+
+import android.app.Activity;
 
 /**
  * @author keishin.yokomaku
@@ -25,7 +28,13 @@ import com.laevatein.internal.ui.PhotoSelectionActivity;
 public class CancelSelectMenuHandler implements PhotoSelectionOptionsMenuHandler {
     @Override
     public boolean handle(PhotoSelectionActivity activity, Void extra) {
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(0, 0);
+        if (activity.getCollection().isEmpty()) {
+            activity.setResult(Activity.RESULT_CANCELED);
+            activity.finish();
+            return true;
+        }
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+                R.string.confirm_dialog_title, R.string.confirm_dialog_message);
         dialog.show(activity.getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
         return true;
     }

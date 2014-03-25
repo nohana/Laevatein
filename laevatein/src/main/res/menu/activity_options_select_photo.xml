@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:compat="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_finish_select"
+        android:title="@string/action_finish_select"
+        compat:showAsAction="always"/>
+    <item
+        android:id="@+id/action_cancel_select"
+        android:title="@string/action_cancel_select"
+        compat:showAsAction="always"/>
+</menu>
