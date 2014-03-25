@@ -28,6 +28,7 @@ import java.util.Set;
 /**
  * @author KeithYokoma
  * @since 2014/03/19
+ * @version 1.0.0
  */
 @SuppressWarnings("unused") // public APIs
 public enum MimeType {

@@ -30,6 +30,8 @@ import android.widget.TextView;
 /**
  * @author KeithYokoma
  * @since 2014/03/24
+ * @version 1.0.0
+ * @hide
  */
 public class DevicePhotoAlbumAdapter extends CursorAdapter {
     private final AlbumViewResources mResources;

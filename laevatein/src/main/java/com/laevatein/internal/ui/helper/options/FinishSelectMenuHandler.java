@@ -25,7 +25,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/25
  */
 public class FinishSelectMenuHandler implements PhotoSelectionOptionsMenuHandler {

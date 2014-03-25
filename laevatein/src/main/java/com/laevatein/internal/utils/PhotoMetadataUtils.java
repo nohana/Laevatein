@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/25
  * @version 1.0.0
  * @hide

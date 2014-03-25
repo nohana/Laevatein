@@ -38,6 +38,7 @@ import android.view.MenuItem;
  * @author KeithYokoma
  * @since 2014/03/20
  * @version 1.0.0
+ * @hide
  */
 public class PhotoSelectionActivity extends ActionBarActivity implements
         AlbumListFragment.OnDirectorySelectListener,

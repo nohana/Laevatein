@@ -35,6 +35,7 @@ import android.widget.AdapterView;
  * @author KeithYokoma
  * @since 2014/03/20
  * @version 1.0.0
+ * @hide
  */
 public class AlbumListFragment extends Fragment implements
         AdapterView.OnItemClickListener,

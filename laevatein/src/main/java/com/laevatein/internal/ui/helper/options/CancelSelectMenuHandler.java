@@ -22,7 +22,7 @@ import com.laevatein.internal.ui.PhotoSelectionActivity;
 import android.app.Activity;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/25
  */
 public class CancelSelectMenuHandler implements PhotoSelectionOptionsMenuHandler {
