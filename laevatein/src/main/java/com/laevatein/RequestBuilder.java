@@ -97,7 +97,7 @@ public final class RequestBuilder {
      * @param messageResource
      * @return
      */
-    public RequestBuilder outOfRangeError(ErrorViewType type, int messageResource) {
+    public RequestBuilder outOfCount(ErrorViewType type, int messageResource) {
         mCountErrorResource.setErrorViewType(type);
         mCountErrorResource.setErrorMessage(messageResource);
         return this;
@@ -109,7 +109,7 @@ public final class RequestBuilder {
      * @param maxPixel
      * @return
      */
-    public RequestBuilder requiredQuality(int minPixel, int maxPixel) {
+    public RequestBuilder quality(int minPixel, int maxPixel) {
         mSelectionSpec.setMinPixels(minPixel);
         mSelectionSpec.setMaxPixels(maxPixel);
         return this;
@@ -121,7 +121,7 @@ public final class RequestBuilder {
      * @param messageResource
      * @return
      */
-    public RequestBuilder outOfQualityError(ErrorViewType type, int messageResource) {
+    public RequestBuilder outOfQuality(ErrorViewType type, int messageResource) {
         mQualityErrorResource.setErrorViewType(type);
         mQualityErrorResource.setErrorMessage(messageResource);
         return this;
