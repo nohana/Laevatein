@@ -7,4 +7,6 @@
 
     <string name="confirm_dialog_title">Attention</string>
     <string name="confirm_dialog_message">Are your sure you want to discard the selection?</string>
+
+    <string name="format_selection_count">%1$d / %2$d</string>
 </resources>

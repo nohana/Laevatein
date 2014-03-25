@@ -6,6 +6,7 @@ import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -27,7 +28,7 @@ public final class PhotoSelectionViewHelper {
         MenuItem count = menu.findItem(R.id.action_count_selection);
         updateSelectMenuState(select, collection, activity.isDrawerOpen());
         updateCancelMenuState(cancel, activity.isDrawerOpen());
-        updateSelectionCount(count, collection.count());
+        updateSelectionCount(activity, count, collection);
     }
 
     public static void updateSelectMenuState(MenuItem item, SelectedUriCollection collection, boolean drawerOpen) {
@@ -35,7 +36,7 @@ public final class PhotoSelectionViewHelper {
             return;
         }
         item.setVisible(!drawerOpen);
-        item.setEnabled(!collection.isEmpty());
+        item.setEnabled(!collection.isEmpty() && collection.isCountInRange());
     }
 
     public static void updateCancelMenuState(MenuItem item, boolean drawerOpen) {
@@ -45,11 +46,11 @@ public final class PhotoSelectionViewHelper {
         item.setVisible(!drawerOpen);
     }
 
-    public static void updateSelectionCount(MenuItem item, int count) {
+    public static void updateSelectionCount(Activity activity, MenuItem item, SelectedUriCollection collection) {
         if (item == null) {
             return;
         }
-        item.setTitle(String.valueOf(count));
+        item.setTitle(activity.getString(R.string.format_selection_count, collection.count(), collection.getMax()));
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {

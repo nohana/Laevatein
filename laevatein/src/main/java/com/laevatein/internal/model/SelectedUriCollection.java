@@ -78,7 +78,19 @@ public class SelectedUriCollection {
         return true; // TODO
     }
 
+    public boolean isCountInRange() {
+        return mSpec.getMinSelectable() <= mUris.size() && mUris.size() <= mSpec.getMaxSelectable();
+    }
+
     public int count() {
         return mUris.size();
+    }
+
+    public int getMin() {
+        return mSpec.getMinSelectable();
+    }
+
+    public int getMax() {
+        return mSpec.getMaxSelectable();
     }
 }
