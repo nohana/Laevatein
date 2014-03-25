@@ -46,7 +46,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESULT_SELECTION");
-    private final SelectedUriCollection mCollection = new SelectedUriCollection();
+    private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
     private PhotoSelectionActivityDrawerToggle mToggle;
     private DrawerLayout mDrawer;
 

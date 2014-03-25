@@ -50,7 +50,7 @@ public final class PhotoSelectionViewHelper {
         if (item == null) {
             return;
         }
-        item.setTitle(activity.getString(R.string.format_selection_count, collection.count(), collection.getMax()));
+        item.setTitle(activity.getString(R.string.format_selection_count, collection.count(), collection.maxCount()));
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
@@ -59,6 +59,5 @@ public final class PhotoSelectionViewHelper {
                 .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
                 .commit();
         drawer.closeDrawers();
-        activity.supportInvalidateOptionsMenu();
     }
 }

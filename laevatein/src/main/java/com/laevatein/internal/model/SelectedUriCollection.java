@@ -17,10 +17,13 @@ package com.laevatein.internal.model;
 
 import com.amalgam.os.BundleUtils;
 import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.utils.PhotoMetadataUtils;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -34,8 +37,13 @@ import java.util.Set;
  */
 public class SelectedUriCollection {
     private static final String STATE_SELECTION = BundleUtils.buildKey(SelectedUriCollection.class, "STATE_SELECTION");
+    private final WeakReference<Context> mContext;
     private Set<Uri> mUris;
     private SelectionSpec mSpec;
+
+    public SelectedUriCollection(Context context) {
+        mContext = new WeakReference<Context>(context);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -75,7 +83,17 @@ public class SelectedUriCollection {
     }
 
     public boolean isAcceptable(Uri uri) {
-        return true; // TODO
+        return hasEnoughQuality(uri);
+    }
+
+    public boolean hasEnoughQuality(Uri uri) {
+        Context context = mContext.get();
+        if (context == null) {
+            return false;
+        }
+
+        int pixels = PhotoMetadataUtils.getPixelsCount(context.getContentResolver(), uri);
+        return mSpec.getMinPixels() <= pixels && pixels <= mSpec.getMaxPixels();
     }
 
     public boolean isCountInRange() {
@@ -86,11 +104,7 @@ public class SelectedUriCollection {
         return mUris.size();
     }
 
-    public int getMin() {
-        return mSpec.getMinSelectable();
-    }
-
-    public int getMax() {
+    public int maxCount() {
         return mSpec.getMaxSelectable();
     }
 }

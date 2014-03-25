@@ -62,10 +62,12 @@ public class PhotoGridFragment extends Fragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
+        Album album = getArguments().getParcelable(ARGS_ALBUM);
         mSelectedCollection = PhotoGridViewHelper.getSelectedPhotoSet(this);
         PhotoGridViewHelper.setUpGridView(this, resources, mSelectedCollection);
         mPhotoCollection.onCreate(getActivity(), this);
-        mPhotoCollection.load(getArguments().<Album>getParcelable(ARGS_ALBUM));
+        mPhotoCollection.load(album);
+        getActivity().setTitle(album.getDisplayName());
     }
 
     @Override

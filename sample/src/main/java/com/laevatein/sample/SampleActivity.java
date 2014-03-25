@@ -37,6 +37,10 @@ public class SampleActivity extends ActionBarActivity {
     }
 
     public void onClickButton(View view) {
-        Laevatein.from(this).choose(MimeType.of(MimeType.JPEG)).forResult(REQUEST_CODE_CHOOSE);
+        Laevatein.from(this)
+                .choose(MimeType.of(MimeType.JPEG))
+                .count(0, 10)
+                .requiredQuality(300000, Integer.MAX_VALUE)
+                .forResult(REQUEST_CODE_CHOOSE);
     }
 }
