@@ -71,4 +71,8 @@ public class SelectedUriCollection {
     public boolean isAcceptable(Uri uri) {
         return true; // TODO
     }
+
+    public int count() {
+        return mUris.size();
+    }
 }

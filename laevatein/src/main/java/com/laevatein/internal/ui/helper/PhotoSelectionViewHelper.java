@@ -17,7 +17,9 @@ public final class PhotoSelectionViewHelper {
 
     public static void refreshOptionsMenuState(SelectedUriCollection collection, Menu menu) {
         MenuItem select = menu.findItem(R.id.action_finish_select);
+        MenuItem count = menu.findItem(R.id.action_count_selection);
         updateSelectMenuState(select, !collection.isEmpty());
+        updateSelectionCount(count, collection.count());
     }
 
     public static void updateSelectMenuState(MenuItem item, boolean condition) {
@@ -25,5 +27,12 @@ public final class PhotoSelectionViewHelper {
             return;
         }
         item.setEnabled(condition);
+    }
+
+    public static void updateSelectionCount(MenuItem item, int count) {
+        if (item == null) {
+            return;
+        }
+        item.setTitle(String.valueOf(count));
     }
 }
