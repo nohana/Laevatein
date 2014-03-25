@@ -21,7 +21,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/20
  * @version 1.0.0
  * @hide

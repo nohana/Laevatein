@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import javax.annotation.Nullable;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/24
  */
 public class SelectionErrorResource implements Parcelable {

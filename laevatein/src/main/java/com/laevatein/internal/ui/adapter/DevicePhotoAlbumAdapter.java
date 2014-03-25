@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/24
  */
 public class DevicePhotoAlbumAdapter extends CursorAdapter {

@@ -28,7 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/20
  */
 public final class AlbumListViewHelper {

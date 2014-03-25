@@ -19,7 +19,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/19
  */
 @SuppressWarnings("unused") // public APIs

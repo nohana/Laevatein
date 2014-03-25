@@ -33,7 +33,7 @@ import android.widget.CheckBox;
 import android.widget.GridView;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/24
  * @version 1.0.0
  * @hide

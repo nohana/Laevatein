@@ -10,7 +10,7 @@ import android.provider.MediaStore;
 import javax.annotation.Nullable;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/24
  */
 public class Item implements Parcelable {
