@@ -63,4 +63,8 @@ public class SelectedUriCollection {
     public boolean isSelected(Uri uri) {
         return mUris.contains(uri);
     }
+
+    public boolean isAcceptable(Uri uri) {
+        return true; // TODO
+    }
 }

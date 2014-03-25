@@ -26,8 +26,10 @@ import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.widget.CheckBox;
 import android.widget.GridView;
 
 /**
@@ -45,9 +47,9 @@ public final class PhotoGridViewHelper {
         return ((PhotoSelectionActivity) fragment.getActivity()).getCollection();
     }
 
-    public static void setUpGridView(Fragment fragment, ItemViewResources resources) {
+    public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
         GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
-        gridView.setAdapter(new AlbumPhotoAdapter(fragment.getActivity(), null, resources));
+        gridView.setAdapter(new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection));
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
@@ -60,5 +62,29 @@ public final class PhotoGridViewHelper {
         Intent intent = new Intent(context, ImagePreviewActivity.class);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
         context.startActivity(intent);
+    }
+
+    public static void syncCheckState(SelectedUriCollection collection, Item item, CheckBox checkBox) {
+        Uri uri = item.buildContentUri();
+        if (collection.isSelected(uri)) {
+            removeSelection(collection, uri, checkBox);
+        } else {
+            addSelection(collection, uri, checkBox);
+        }
+    }
+
+    public static void removeSelection(SelectedUriCollection collection, Uri uri, CheckBox checkBox) {
+        collection.remove(uri);
+        checkBox.setChecked(false);
+    }
+
+    public static void addSelection(SelectedUriCollection collection, Uri uri, CheckBox checkBox) {
+        if (collection.isAcceptable(uri)) {
+            collection.add(uri);
+            checkBox.setChecked(true);
+        } else {
+            checkBox.setChecked(false);
+            // Make error view
+        }
     }
 }

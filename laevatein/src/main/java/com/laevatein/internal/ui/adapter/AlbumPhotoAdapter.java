@@ -4,6 +4,7 @@ import com.amalgam.content.ContextUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 import com.squareup.picasso.Picasso;
 
@@ -24,10 +25,12 @@ import android.widget.ImageView;
  */
 public class AlbumPhotoAdapter extends CursorAdapter {
     private final ItemViewResources mResources;
+    private final SelectedUriCollection mCollection;
 
-    public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources) {
+    public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources, SelectedUriCollection collection) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mResources = resources;
+        mCollection = collection;
     }
 
     @Override
@@ -47,7 +50,14 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                 PhotoGridViewHelper.callPreview(context, item);
             }
         });
-        CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        check.setChecked(mCollection.isSelected(item.buildContentUri()));
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoGridViewHelper.syncCheckState(mCollection, item, check);
+            }
+        });
         Picasso.with(context).load(item.buildContentUri())
                 .resizeDimen(R.dimen.gridItemImageWidth, R.dimen.gridItemImageHeight)
                 .centerCrop()
