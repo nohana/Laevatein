@@ -71,7 +71,7 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoGridViewHelper.syncCheckState(mCollection, item, check);
+                PhotoGridViewHelper.syncCheckState(context, mCollection, item, check);
                 PhotoGridViewHelper.callCheckStateListener(mListener);
 
             }

@@ -15,7 +15,14 @@
  */
 package com.laevatein;
 
+import com.laevatein.internal.utils.PhotoMetadataUtils;
+
+import android.content.ContentResolver;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,14 +31,16 @@ import java.util.Set;
  */
 @SuppressWarnings("unused") // public APIs
 public enum MimeType {
-    JPEG("image/jpeg"),
-    PNG("image/png"),
-    GIF("image/gif");
+    JPEG("image/jpeg", new HashSet<String>() {{ add("jpg"); add("jpeg"); }}),
+    PNG("image/png", new HashSet<String>() {{ add("png"); }}),
+    GIF("image/gif", new HashSet<String>() {{ add("gif"); }});
 
     private final String mMimeTypeName;
+    private final Set<String> mExtensions;
 
-    private MimeType(String mimeTypeName) {
+    private MimeType(String mimeTypeName, Set<String> extensions) {
         mMimeTypeName = mimeTypeName;
+        mExtensions = extensions;
     }
 
     public static Set<MimeType> allOf() {
@@ -45,5 +54,25 @@ public enum MimeType {
     @Override
     public String toString() {
         return mMimeTypeName;
+    }
+
+    public boolean checkType(ContentResolver resolver, Uri uri) {
+        MimeTypeMap map = MimeTypeMap.getSingleton();
+        if (uri == null) {
+            return false;
+        }
+        String type = map.getExtensionFromMimeType(resolver.getType(uri));
+        for (String extension : mExtensions) {
+            if (extension.equals(type)) {
+                return true;
+            } else if (type != null) {
+                return false;
+            }
+            String path = PhotoMetadataUtils.getPath(resolver, uri);
+            if (path != null && path.toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

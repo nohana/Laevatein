@@ -7,4 +7,7 @@
 
     <string name="confirm_dialog_title">確認</string>
     <string name="confirm_dialog_message">写真の選択を破棄してもよろしいですか?</string>
+
+    <string name="error_invalid_format">選択できない形式の写真です</string>
+    <string name="error_quality">画質が不十分な写真です</string>
 </resources>

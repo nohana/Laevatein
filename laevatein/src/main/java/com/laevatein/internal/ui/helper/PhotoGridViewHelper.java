@@ -15,9 +15,11 @@
  */
 package com.laevatein.internal.ui.helper;
 
+import com.amalgam.app.SupportSimpleAlertDialogFragment;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
@@ -28,6 +30,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.CursorAdapter;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -72,12 +75,12 @@ public final class PhotoGridViewHelper {
         context.startActivity(intent);
     }
 
-    public static void syncCheckState(SelectedUriCollection collection, Item item, CheckBox checkBox) {
+    public static void syncCheckState(Context context, SelectedUriCollection collection, Item item, CheckBox checkBox) {
         Uri uri = item.buildContentUri();
         if (collection.isSelected(uri)) {
             removeSelection(collection, uri, checkBox);
         } else {
-            addSelection(collection, uri, checkBox);
+            addSelection(context, collection, uri, checkBox);
         }
     }
 
@@ -86,13 +89,16 @@ public final class PhotoGridViewHelper {
         checkBox.setChecked(false);
     }
 
-    public static void addSelection(SelectedUriCollection collection, Uri uri, CheckBox checkBox) {
-        if (collection.isAcceptable(uri)) {
+    public static void addSelection(Context context, SelectedUriCollection collection, Uri uri, CheckBox checkBox) {
+        UncapableCause cause = collection.isAcceptable(uri);
+        if (cause == null) {
             collection.add(uri);
             checkBox.setChecked(true);
         } else {
             checkBox.setChecked(false);
-            // Make error view
+            FragmentActivity activity = (FragmentActivity) context;
+            SupportSimpleAlertDialogFragment.newInstance(cause.getErrorMessageRes())
+                    .show(activity.getSupportFragmentManager(), SupportSimpleAlertDialogFragment.TAG);
         }
     }
 
