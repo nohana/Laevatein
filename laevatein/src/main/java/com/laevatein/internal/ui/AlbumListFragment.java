@@ -78,8 +78,10 @@ public class AlbumListFragment extends Fragment implements
     }
 
     @Override
-    public void onLoad(Cursor cursor) {
+    public void onLoad(final Cursor cursor) {
         AlbumListViewHelper.setCursor(this, cursor);
+        AlbumListViewHelper.callOnDefaultSelect(getActivity(), mListener, cursor);
+
     }
 
     @Override

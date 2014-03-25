@@ -15,6 +15,7 @@
  */
 package com.laevatein.internal.ui.helper;
 
+import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.AlbumViewResources;
@@ -23,6 +24,8 @@ import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
 
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.CursorAdapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -51,5 +54,21 @@ public final class AlbumListViewHelper {
     public static void callOnSelect(AlbumListFragment.OnDirectorySelectListener listener, Cursor cursor) {
         Album album = Album.valueOf(cursor);
         listener.onSelect(album);
+    }
+
+    public static void callOnDefaultSelect(final FragmentActivity activity, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
+        HandlerUtils.getMainHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                FragmentManager manager = activity.getSupportFragmentManager();
+                Fragment f = manager.findFragmentById(R.id.container_grid_fragment);
+                if (f != null) {
+                    return;
+                }
+
+                cursor.moveToFirst();
+                callOnSelect(listener, cursor);
+            }
+        });
     }
 }
