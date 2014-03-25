@@ -1,9 +1,14 @@
 package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -45,5 +50,14 @@ public final class PhotoSelectionViewHelper {
             return;
         }
         item.setTitle(String.valueOf(count));
+    }
+
+    public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
+                .commit();
+        drawer.closeDrawers();
+        activity.supportInvalidateOptionsMenu();
     }
 }

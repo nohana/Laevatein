@@ -28,7 +28,6 @@ import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -101,12 +100,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
 
     @Override
     public void onSelect(Album album) {
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction()
-                .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
-                .commit();
-        mDrawer.closeDrawers();
-        supportInvalidateOptionsMenu();
+        PhotoSelectionViewHelper.setPhotoGridFragment(this, mDrawer, album);
     }
 
     public SelectedUriCollection getCollection() {
