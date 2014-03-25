@@ -20,6 +20,8 @@ import com.laevatein.internal.entity.Item;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
@@ -33,6 +35,12 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 public final class PreviewHelper {
     private PreviewHelper() {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
+    }
+
+    public static void setUpActionBar(ActionBarActivity activity) {
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public static void assign(Activity activity, Item item) {

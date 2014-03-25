@@ -22,6 +22,7 @@ import com.laevatein.internal.ui.helper.PreviewHelper;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
 /**
  * @author KeithYokoma
@@ -36,6 +37,16 @@ public class ImagePreviewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
+        PreviewHelper.setUpActionBar(this);
         PreviewHelper.assign(this, getIntent().<Item>getParcelableExtra(EXTRA_ITEM));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (R.id.home == item.getItemId() || android.R.id.home == item.getItemId()) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
