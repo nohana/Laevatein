@@ -142,6 +142,7 @@ public final class RequestBuilder {
         if (mItemViewResources == null) {
             mItemViewResources = ItemViewResources.getDefault();
         }
+        mSelectionSpec.setMimeTypeSet(mMimeType);
 
         Intent intent = new Intent(activity, PhotoSelectionActivity.class);
         intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mAlbumViewResources);

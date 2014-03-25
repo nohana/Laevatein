@@ -1,7 +1,14 @@
 package com.laevatein.internal.entity;
 
+import com.laevatein.MimeType;
+
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author KeithYokoma
@@ -25,6 +32,7 @@ public final class SelectionSpec implements Parcelable {
     private int mMinSelectable;
     private long mMinPixels;
     private long mMaxPixels;
+    private Set<MimeType> mMimeTypeSet;
 
     public SelectionSpec() {
         mMinSelectable = 0;
@@ -38,6 +46,9 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
+        List<MimeType> list = new ArrayList<MimeType>();
+        source.readList(list, MimeType.class.getClassLoader());
+        mMimeTypeSet = EnumSet.copyOf(list);
     }
 
     @Override
@@ -51,6 +62,7 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxSelectable);
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
+        dest.writeList(new ArrayList<MimeType>(mMimeTypeSet));
     }
 
     public void setMaxSelectable(int maxSelectable) {
@@ -69,6 +81,10 @@ public final class SelectionSpec implements Parcelable {
         mMaxPixels = maxPixels;
     }
 
+    public void setMimeTypeSet(Set<MimeType> set) {
+        mMimeTypeSet = set;
+    }
+
     public int getMinSelectable() {
         return mMinSelectable;
     }
@@ -83,5 +99,9 @@ public final class SelectionSpec implements Parcelable {
 
     public long getMaxPixels() {
         return mMaxPixels;
+    }
+
+    public Set<MimeType> getMimeTypeSet() {
+        return mMimeTypeSet;
     }
 }
