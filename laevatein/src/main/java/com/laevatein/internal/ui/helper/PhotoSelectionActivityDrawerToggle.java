@@ -19,9 +19,11 @@ import com.laevatein.R;
 
 import android.app.Activity;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 
 /**
  * @author KeithYokoma
@@ -30,6 +32,7 @@ import android.support.v7.app.ActionBar;
  * @hide
  */
 public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
+    private FragmentActivity mActivity;
     /**
      * Construct a new ActionBarDrawerToggle.
      *
@@ -46,11 +49,24 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
      */
     public PhotoSelectionActivityDrawerToggle(Activity activity, DrawerLayout drawerLayout) {
         super(activity, drawerLayout, R.drawable.ic_drawer, R.string.content_desc_open_drawer, R.string.content_desc_close_drawer);
+        mActivity = (FragmentActivity) activity;
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
     }
 
     public void setUpActionBar(ActionBar actionBar) {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+        super.onDrawerClosed(drawerView);
+        mActivity.supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+        super.onDrawerOpened(drawerView);
+        mActivity.supportInvalidateOptionsMenu();
     }
 }

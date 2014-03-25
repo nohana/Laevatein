@@ -3,11 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:compat="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_count_selection"
-        android:title="0"
-        compat:showAsAction="always"
-        android:enabled="false"/>
-    <item
         android:id="@+id/action_finish_select"
         android:title="@string/action_finish_select"
         compat:showAsAction="always"/>
@@ -15,4 +10,9 @@
         android:id="@+id/action_cancel_select"
         android:title="@string/action_cancel_select"
         compat:showAsAction="always"/>
+    <item
+        android:id="@+id/action_count_selection"
+        android:title="0"
+        compat:showAsAction="always"
+        android:enabled="false"/>
 </menu>

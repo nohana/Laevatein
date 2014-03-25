@@ -18,6 +18,7 @@ package com.laevatein.internal.ui;
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
@@ -28,6 +29,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -54,6 +56,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_photo);
         mCollection.onCreate(savedInstanceState);
+        mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mDrawer = (DrawerLayout) findViewById(R.id.container_drawer);
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer);
         mToggle.setUpActionBar(getSupportActionBar());
@@ -86,7 +89,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        PhotoSelectionViewHelper.refreshOptionsMenuState(mCollection, menu);
+        PhotoSelectionViewHelper.refreshOptionsMenuState(this, mCollection, menu);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -103,10 +106,15 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
                 .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
                 .commit();
         mDrawer.closeDrawers();
+        supportInvalidateOptionsMenu();
     }
 
     public SelectedUriCollection getCollection() {
         return mCollection;
+    }
+
+    public boolean isDrawerOpen() {
+        return mDrawer.isDrawerOpen(GravityCompat.START);
     }
 
     @Override

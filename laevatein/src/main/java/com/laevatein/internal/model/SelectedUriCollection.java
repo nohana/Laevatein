@@ -16,6 +16,7 @@
 package com.laevatein.internal.model;
 
 import com.amalgam.os.BundleUtils;
+import com.laevatein.internal.entity.SelectionSpec;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import java.util.Set;
 public class SelectedUriCollection {
     private static final String STATE_SELECTION = BundleUtils.buildKey(SelectedUriCollection.class, "STATE_SELECTION");
     private Set<Uri> mUris;
+    private SelectionSpec mSpec;
 
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -42,6 +44,10 @@ public class SelectedUriCollection {
             List<Uri> saved = savedInstanceState.getParcelableArrayList(STATE_SELECTION);
             mUris = new LinkedHashSet<Uri>(saved);
         }
+    }
+
+    public void prepareSelectionSpec(SelectionSpec spec) {
+        mSpec = spec;
     }
 
     public void onSaveInstanceState(Bundle outState) {
