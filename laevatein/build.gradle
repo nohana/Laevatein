@@ -27,3 +27,18 @@ dependencies {
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+def repos = new File(rootDir, "repository")
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${repos.absolutePath}"
+            pom.version = '0.9.0'
+            pom.groupId = 'com.laevatein'
+            pom.artifactId = 'Laevatein'
+        }
+    }
+}
