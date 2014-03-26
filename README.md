@@ -51,7 +51,7 @@ Via Gradle
 ```groovy
 repositories {
     mavenCentral()
-    maven { url 'https://raw.github.com/nohana/Laevatein/master/amalgam/repository/' }
+    maven { url 'https://raw.github.com/nohana/Laevatein/master/repository/' }
 }
 android {
     dependencies {
