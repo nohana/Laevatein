@@ -24,7 +24,7 @@ dependencies {
     compile 'com.amalgam:Amalgam:0.3.2'
     compile 'com.squareup.picasso:picasso:2.1.1'
     compile 'it.sephiroth.android.library.imagezoom:library:+'
-    compile 'jp.yokomark.widget:CompoundContainers:+'
+    compile 'jp.yokomark.widget:CompoundContainers:0.9.1'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
@@ -37,7 +37,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             repository url: "file://${repos.absolutePath}"
-            pom.version = '0.9.1'
+            pom.version = '0.9.2'
             pom.groupId = 'com.laevatein'
             pom.artifactId = 'Laevatein'
         }
