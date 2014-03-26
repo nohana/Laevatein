@@ -22,7 +22,10 @@ import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,6 +41,7 @@ public final class RequestBuilder {
     private final SelectionSpec mSelectionSpec;
     private ItemViewResources mItemViewResources;
     private AlbumViewResources mAlbumViewResources;
+    private List<Uri> mResumeList;
 
     /**
      *
@@ -48,6 +52,7 @@ public final class RequestBuilder {
         mLaevatein = laevatein;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
+        mResumeList = new ArrayList<Uri>();
     }
 
     /**
@@ -99,6 +104,19 @@ public final class RequestBuilder {
     }
 
     /**
+     *
+     * @param uriList
+     * @return
+     */
+    public RequestBuilder resume(List<Uri> uriList) {
+        if (uriList == null) { // nothing to do.
+            return this;
+        }
+        mResumeList.addAll(uriList);
+        return this;
+    }
+
+    /**
      * Start to select photo.
      * @param requestCode
      */
@@ -119,6 +137,8 @@ public final class RequestBuilder {
         intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mAlbumViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES, mItemViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
+        intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST,
+                (ArrayList<? extends android.os.Parcelable>) mResumeList);
         activity.startActivityForResult(intent, requestCode);
     }
 }

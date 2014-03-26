@@ -41,6 +41,7 @@ public class SampleActivity extends ActionBarActivity {
                 .choose(MimeType.of(MimeType.JPEG))
                 .count(0, 10)
                 .quality(300000, Integer.MAX_VALUE)
+                .resume(mSelected)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

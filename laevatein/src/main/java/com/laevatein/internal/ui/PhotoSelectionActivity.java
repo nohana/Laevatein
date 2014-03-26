@@ -27,6 +27,7 @@ import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -43,6 +44,7 @@ import android.view.MenuItem;
 public class PhotoSelectionActivity extends ActionBarActivity implements
         AlbumListFragment.OnDirectorySelectListener,
         ConfirmationDialogFragment.ConfirmationSelectionListener {
+    public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESUME_LIST");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
@@ -57,6 +59,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_select_photo);
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
+        mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
         mDrawer = (DrawerLayout) findViewById(R.id.container_drawer);
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer);
         mToggle.setUpActionBar(getSupportActionBar());

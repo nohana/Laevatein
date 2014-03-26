@@ -61,6 +61,10 @@ public class SelectedUriCollection {
         mSpec = spec;
     }
 
+    public void setDefaultSelection(List<Uri> uris) {
+        mUris.addAll(uris);
+    }
+
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<Uri>(mUris));
     }
