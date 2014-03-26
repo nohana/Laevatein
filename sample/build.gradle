@@ -11,8 +11,12 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            zipAlign true
+        }
         release {
             runProguard true
+            zipAlign true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
