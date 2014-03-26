@@ -1,15 +1,15 @@
 <resources>
-    <string name="content_desc_open_drawer">メニューを開く</string>
-    <string name="content_desc_close_drawer">メニューを閉じる</string>
+    <string name="l_content_desc_open_drawer">メニューを開く</string>
+    <string name="l_content_desc_close_drawer">メニューを閉じる</string>
 
-    <string name="action_finish_select">完了</string>
-    <string name="action_cancel_select">キャンセル</string>
+    <string name="l_action_finish_select">完了</string>
+    <string name="l_action_cancel_select">キャンセル</string>
 
-    <string name="confirm_dialog_title">確認</string>
-    <string name="confirm_dialog_message">写真の選択を破棄してもよろしいですか?</string>
+    <string name="l_confirm_dialog_title">確認</string>
+    <string name="l_confirm_dialog_message">写真の選択を破棄してもよろしいですか?</string>
 
-    <string name="error_invalid_format">選択できない形式の写真です</string>
-    <string name="error_quality">画質が不十分な写真です</string>
+    <string name="l_error_invalid_format">選択できない形式の写真です</string>
+    <string name="l_error_quality">画質が不十分な写真です</string>
 
-    <string name="format_selection_count">%1$d / %2$d</string>
+    <string name="l_format_selection_count">%1$d / %2$d</string>
 </resources>

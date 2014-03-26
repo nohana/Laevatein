@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/default_grid_image"
+        android:id="@+id/l_default_grid_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <CheckBox
-        android:id="@+id/default_check_box"
+        android:id="@+id/l_default_check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

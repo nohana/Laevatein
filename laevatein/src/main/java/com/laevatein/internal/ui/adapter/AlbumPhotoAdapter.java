@@ -77,7 +77,7 @@ public class AlbumPhotoAdapter extends CursorAdapter {
             }
         });
         Picasso.with(context).load(item.buildContentUri())
-                .resizeDimen(R.dimen.gridItemImageWidth, R.dimen.gridItemImageHeight)
+                .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
                 .centerCrop()
                 .into(thumbnail);
     }

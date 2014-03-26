@@ -24,8 +24,8 @@ import com.laevatein.R;
  * @hide
  */
 public enum UncapableCause {
-    QUALITY(R.string.error_quality),
-    FILE_TYPE(R.string.error_invalid_format);
+    QUALITY(R.string.l_error_quality),
+    FILE_TYPE(R.string.l_error_invalid_format);
 
     private final int mErrorMessageRes;
 

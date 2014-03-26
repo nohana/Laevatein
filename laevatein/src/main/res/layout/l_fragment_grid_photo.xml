@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <GridView
-        android:id="@+id/grid_photo"
+        android:id="@+id/l_grid_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:padding="@dimen/l_gridPadding"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
         android:numColumns="4"
-        android:columnWidth="@dimen/gridItemImageWidth"
-        android:verticalSpacing="@dimen/gridItemSpacing"
-        android:horizontalSpacing="@dimen/gridItemSpacing"/>
+        android:columnWidth="@dimen/l_gridItemImageWidth"
+        android:verticalSpacing="@dimen/l_gridItemSpacing"
+        android:horizontalSpacing="@dimen/l_gridItemSpacing"/>
 </RelativeLayout>

@@ -57,7 +57,7 @@ public final class ItemViewResources implements Parcelable {
 
     public static ItemViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new ItemViewResources(R.layout.grid_item_default_photo, R.id.default_grid_image, R.id.default_check_box);
+            sDefault = new ItemViewResources(R.layout.l_grid_item_default_photo, R.id.l_default_grid_image, R.id.l_default_check_box);
         }
         return sDefault;
     }

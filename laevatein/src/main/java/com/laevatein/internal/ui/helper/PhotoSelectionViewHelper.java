@@ -67,13 +67,13 @@ public final class PhotoSelectionViewHelper {
         if (item == null) {
             return;
         }
-        item.setTitle(activity.getString(R.string.format_selection_count, collection.count(), collection.maxCount()));
+        item.setTitle(activity.getString(R.string.l_format_selection_count, collection.count(), collection.maxCount()));
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
         FragmentManager manager = activity.getSupportFragmentManager();
         manager.beginTransaction()
-                .replace(R.id.container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
+                .replace(R.id.l_container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
                 .commit();
         drawer.closeDrawers();
     }

@@ -48,9 +48,9 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
      * @param drawerLayout              The DrawerLayout to link to the given Activity's ActionBar
      */
     public PhotoSelectionActivityDrawerToggle(Activity activity, DrawerLayout drawerLayout) {
-        super(activity, drawerLayout, R.drawable.ic_drawer, R.string.content_desc_open_drawer, R.string.content_desc_close_drawer);
+        super(activity, drawerLayout, R.drawable.l_ic_drawer, R.string.l_content_desc_open_drawer, R.string.l_content_desc_close_drawer);
         mActivity = (FragmentActivity) activity;
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerLayout.setDrawerShadow(R.drawable.l_drawer_shadow, GravityCompat.START);
     }
 
     public void setUpActionBar(ActionBar actionBar) {

@@ -57,7 +57,7 @@ public final class AlbumViewResources implements Parcelable {
 
     public static AlbumViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new AlbumViewResources(R.layout.list_item_default_album, R.id.default_list_image, R.id.default_directory_label);
+            sDefault = new AlbumViewResources(R.layout.l_list_item_default_album, R.id.l_default_list_image, R.id.l_default_directory_label);
         }
         return sDefault;
     }

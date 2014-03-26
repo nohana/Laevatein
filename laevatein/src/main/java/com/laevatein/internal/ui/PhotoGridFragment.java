@@ -55,7 +55,7 @@ public class PhotoGridFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_grid_photo, container, false);
+        return inflater.inflate(R.layout.l_fragment_grid_photo, container, false);
     }
 
     @Override

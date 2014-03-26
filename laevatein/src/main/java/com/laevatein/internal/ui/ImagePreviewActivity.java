@@ -36,7 +36,7 @@ public class ImagePreviewActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview);
+        setContentView(R.layout.l_activity_preview);
         PreviewHelper.setUpActionBar(this);
         PreviewHelper.assign(this, getIntent().<Item>getParcelableExtra(EXTRA_ITEM));
     }

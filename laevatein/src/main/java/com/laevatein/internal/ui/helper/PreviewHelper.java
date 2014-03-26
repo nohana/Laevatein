@@ -44,7 +44,7 @@ public final class PreviewHelper {
     }
 
     public static void assign(Activity activity, Item item) {
-        ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.image_zoom_view);
+        ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.l_image_zoom_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Picasso.with(activity).load(item.buildContentUri()).into(image);
     }

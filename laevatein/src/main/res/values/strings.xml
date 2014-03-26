@@ -1,15 +1,15 @@
 <resources>
-    <string name="content_desc_open_drawer">Open menu</string>
-    <string name="content_desc_close_drawer">Close menu</string>
+    <string name="l_content_desc_open_drawer">Open menu</string>
+    <string name="l_content_desc_close_drawer">Close menu</string>
 
-    <string name="action_finish_select">Done</string>
-    <string name="action_cancel_select">Cancel</string>
+    <string name="l_action_finish_select">Done</string>
+    <string name="l_action_cancel_select">Cancel</string>
 
-    <string name="confirm_dialog_title">Attention</string>
-    <string name="confirm_dialog_message">Are your sure you want to discard the selection?</string>
+    <string name="l_confirm_dialog_title">Attention</string>
+    <string name="l_confirm_dialog_message">Are your sure you want to discard the selection?</string>
 
-    <string name="format_selection_count">%1$d / %2$d</string>
+    <string name="l_format_selection_count">%1$d / %2$d</string>
 
-    <string name="error_invalid_format">Not allowed to select this photo due to invalid file format.</string>
-    <string name="error_quality">Not allowed to select this photo due to not enough quality.</string>
+    <string name="l_error_invalid_format">Not allowed to select this photo due to invalid file format.</string>
+    <string name="l_error_quality">Not allowed to select this photo due to not enough quality.</string>
 </resources>

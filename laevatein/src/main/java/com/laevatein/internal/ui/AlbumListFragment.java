@@ -55,7 +55,7 @@ public class AlbumListFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_album, container, false);
+        return inflater.inflate(R.layout.l_fragment_list_album, container, false);
     }
 
     @Override

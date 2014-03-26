@@ -42,13 +42,13 @@ public final class AlbumListViewHelper {
     }
 
     public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener, AlbumViewResources resources) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_directory);
+        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
         listView.setOnItemClickListener(listener);
         listView.setAdapter(new DevicePhotoAlbumAdapter(fragment.getActivity(), null, resources));
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_directory);
+        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
         CursorAdapter adapter = (CursorAdapter) listView.getAdapter();
         adapter.swapCursor(cursor);
     }
@@ -63,7 +63,7 @@ public final class AlbumListViewHelper {
             @Override
             public void run() {
                 FragmentManager manager = activity.getSupportFragmentManager();
-                Fragment f = manager.findFragmentById(R.id.container_grid_fragment);
+                Fragment f = manager.findFragmentById(R.id.l_container_grid_fragment);
                 if (f != null) {
                     return;
                 }
@@ -76,7 +76,7 @@ public final class AlbumListViewHelper {
     }
 
     public static void setCheckedState(Fragment fragment, int position) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_directory);
+        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
         listView.setItemChecked(position, true);
     }
 }

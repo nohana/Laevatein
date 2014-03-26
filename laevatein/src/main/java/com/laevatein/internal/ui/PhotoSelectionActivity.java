@@ -56,11 +56,11 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_photo);
+        setContentView(R.layout.l_activity_select_photo);
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
-        mDrawer = (DrawerLayout) findViewById(R.id.container_drawer);
+        mDrawer = (DrawerLayout) findViewById(R.id.l_container_drawer);
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer);
         mToggle.setUpActionBar(getSupportActionBar());
         mDrawer.setDrawerListener(mToggle);
@@ -86,7 +86,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_options_select_photo, menu);
+        getMenuInflater().inflate(R.menu.l_activity_options_select_photo, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jp.yokomark.widget.compound.CompoundRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/DrawerMenuItem"
+    style="@style/L_DrawerMenuItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_selector_drawer_menu">
+    android:background="@drawable/l_list_selector_drawer_menu">
     <ImageView
-        android:id="@+id/default_list_image"
+        android:id="@+id/l_default_list_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="12sp"
-        android:src="@drawable/ic_action_collection"
+        android:src="@drawable/l_ic_action_collection"
         android:duplicateParentState="true"/>
     <TextView
-        android:id="@+id/default_directory_label"
+        android:id="@+id/l_default_directory_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/default_list_image"
+        android:layout_toRightOf="@+id/l_default_list_image"
         android:layout_centerVertical="true"
         android:textColor="?android:textColorPrimaryInverse"
         android:textAppearance="?android:textAppearanceMedium"

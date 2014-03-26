@@ -34,7 +34,7 @@ public class CancelSelectMenuHandler implements PhotoSelectionOptionsMenuHandler
             return true;
         }
         ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-                R.string.confirm_dialog_title, R.string.confirm_dialog_message);
+                R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
         dialog.show(activity.getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
         return true;
     }

@@ -51,20 +51,20 @@ public final class PhotoGridViewHelper {
     }
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
+        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
         AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection);
         adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
     }
 
     public static void tearDownGridView(Fragment fragment) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
+        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
         AlbumPhotoAdapter adapter = (AlbumPhotoAdapter) gridView.getAdapter();
         adapter.unregisterCheckStateListener();
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.grid_photo);
+        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
         CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
         adapter.swapCursor(cursor);
     }
