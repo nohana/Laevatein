@@ -52,6 +52,10 @@ public enum MimeType {
         return EnumSet.of(type);
     }
 
+    public static Set<MimeType> of(MimeType type, MimeType... rest) {
+        return EnumSet.of(type, rest);
+    }
+
     @Override
     public String toString() {
         return mMimeTypeName;
