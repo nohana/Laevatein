@@ -4,4 +4,5 @@
     android:id="@+id/l_list_directory"
     android:layout_width="@dimen/drawerMenuWidth"
     android:layout_height="match_parent"
+    android:choiceMode="singleChoice"
     android:background="@color/background_default_drawer"/>

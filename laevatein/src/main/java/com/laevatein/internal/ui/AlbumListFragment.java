@@ -76,12 +76,13 @@ public class AlbumListFragment extends Fragment implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AlbumListViewHelper.callOnSelect(mListener, (Cursor) parent.getItemAtPosition(position));
+        AlbumListViewHelper.setCheckedState(this, position);
     }
 
     @Override
     public void onLoad(final Cursor cursor) {
         AlbumListViewHelper.setCursor(this, cursor);
-        AlbumListViewHelper.callOnDefaultSelect(getActivity(), mListener, cursor);
+        AlbumListViewHelper.callOnDefaultSelect(this, getActivity(), mListener, cursor);
 
     }
 

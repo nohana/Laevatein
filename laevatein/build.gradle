@@ -24,6 +24,7 @@ dependencies {
     compile 'com.amalgam:Amalgam:0.3.2'
     compile 'com.squareup.picasso:picasso:2.1.1'
     compile 'it.sephiroth.android.library.imagezoom:library:+'
+    compile 'jp.yokomark.widget:CompoundContainers:+'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

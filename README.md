@@ -67,6 +67,7 @@ This library depends on the following libraries.
 1. [Picasso](https://github.com/square/picasso) by Square Inc.
 2. [ImageViewZoom](https://github.com/sephiroth74/ImageViewZoom) by Alessandro Crugnola
 3. [Amalgam](https://github.com/nohana/Amalgam) by nohana, Inc.
+4. [CompoundContainers](https://github.com/KeithYokoma/CompoundContainers) by KeithYokoma
 
 ## License
 

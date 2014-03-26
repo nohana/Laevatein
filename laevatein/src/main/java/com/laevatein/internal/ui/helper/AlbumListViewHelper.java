@@ -58,7 +58,7 @@ public final class AlbumListViewHelper {
         listener.onSelect(album);
     }
 
-    public static void callOnDefaultSelect(final FragmentActivity activity, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
+    public static void callOnDefaultSelect(final Fragment fragment, final FragmentActivity activity, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
@@ -70,7 +70,13 @@ public final class AlbumListViewHelper {
 
                 cursor.moveToFirst();
                 callOnSelect(listener, cursor);
+                setCheckedState(fragment, 0);
             }
         });
+    }
+
+    public static void setCheckedState(Fragment fragment, int position) {
+        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_directory);
+        listView.setItemChecked(position, true);
     }
 }
