@@ -39,6 +39,11 @@ public class SomeActivity extends Activity {
 
 And you'll get the selection result on `Activity#onActivityResult(int, int, Intent)`.
 
+## Sample App
+
+Sample application is available [here](https://deploygate.com/distributions/b43dc74fc4025bbb8587f179f5b8464418cca559).
+[<img src="https://dply.me/orf0t9/button/large" alt="Try it on your device via DeployGate">](https://dply.me/orf0t9#install)
+
 ## Download
 
 Via Gradle
