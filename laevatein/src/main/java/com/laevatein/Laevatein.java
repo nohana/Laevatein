@@ -69,8 +69,8 @@ public final class Laevatein {
      * @param mimeType the mime type of the photo you would like to choose.
      * @return the specification builder context.
      */
-    public RequestBuilder choose(Set<MimeType> mimeType) {
-        return new RequestBuilder(this, mimeType);
+    public SelectionSpecBuilder choose(Set<MimeType> mimeType) {
+        return new SelectionSpecBuilder(this, mimeType);
     }
 
     /**

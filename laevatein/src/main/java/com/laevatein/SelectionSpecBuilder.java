@@ -36,13 +36,14 @@ import java.util.Set;
  * @version 1.0.0
  */
 @SuppressWarnings("unused") // public APIs
-public final class RequestBuilder {
-    public static final String TAG = RequestBuilder.class.getSimpleName();
+public final class SelectionSpecBuilder {
+    public static final String TAG = SelectionSpecBuilder.class.getSimpleName();
     private final Laevatein mLaevatein;
     private final Set<MimeType> mMimeType;
     private final SelectionSpec mSelectionSpec;
     private ItemViewResources mItemViewResources;
     private AlbumViewResources mAlbumViewResources;
+    private boolean mEnableCapture;
     private List<Uri> mResumeList;
 
     /**
@@ -50,7 +51,7 @@ public final class RequestBuilder {
      * @param laevatein a requester context wrapper.
      * @param mimeType MimeType set to select.
      */
-    /* package */ RequestBuilder(Laevatein laevatein, Set<MimeType> mimeType) {
+    /* package */ SelectionSpecBuilder(Laevatein laevatein, Set<MimeType> mimeType) {
         mLaevatein = laevatein;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
@@ -64,7 +65,7 @@ public final class RequestBuilder {
      * @param checkBoxId an id for the check box.
      * @return the specification builder context.
      */
-    public RequestBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
+    public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
         mItemViewResources = new ItemViewResources(layoutId,    imageViewId, checkBoxId);
         return this;
     }
@@ -76,7 +77,7 @@ public final class RequestBuilder {
      * @param directoryNameViewId an id for the text view of the album name
      * @return the specification builder context.
      */
-    public RequestBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
+    public SelectionSpecBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
         mAlbumViewResources = new AlbumViewResources(layoutId, imageViewId, directoryNameViewId);
         return this;
     }
@@ -87,7 +88,7 @@ public final class RequestBuilder {
      * @param max maximum value to select.
      * @return the specification builder context.
      */
-    public RequestBuilder count(int min, int max) {
+    public SelectionSpecBuilder count(int min, int max) {
         mSelectionSpec.setMinSelectable(min);
         mSelectionSpec.setMaxSelectable(max);
         return this;
@@ -99,7 +100,7 @@ public final class RequestBuilder {
      * @param maxPixel maximum value to select.
      * @return the specification builder context.
      */
-    public RequestBuilder quality(int minPixel, int maxPixel) {
+    public SelectionSpecBuilder quality(int minPixel, int maxPixel) {
         mSelectionSpec.setMinPixels(minPixel);
         mSelectionSpec.setMaxPixels(maxPixel);
         return this;
@@ -110,11 +111,22 @@ public final class RequestBuilder {
      * @param uriList to set selected as default.
      * @return the specification builder context.
      */
-    public RequestBuilder resume(List<Uri> uriList) {
+    public SelectionSpecBuilder resume(List<Uri> uriList) {
         if (uriList == null) { // nothing to do.
             return this;
         }
         mResumeList.addAll(uriList);
+        return this;
+    }
+
+    /**
+     * Determines whether the photo capturing is enabled or not on the camera photo grid view.
+     * This flag is false by default.
+     * @param enable whether to enable capturing or not.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder capture(boolean enable) {
+        mEnableCapture = enable;
         return this;
     }
 
@@ -141,6 +153,7 @@ public final class RequestBuilder {
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST,
                 (ArrayList<? extends android.os.Parcelable>) mResumeList);
+        intent.putExtra(PhotoSelectionActivity.EXTRA_ENABLE_CAPTURE, mEnableCapture);
         activity.startActivityForResult(intent, requestCode);
     }
 }

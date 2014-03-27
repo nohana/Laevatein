@@ -43,6 +43,8 @@ public class Item implements Parcelable {
             return new Item[size];
         }
     };
+    public static final long ITEM_ID_CAPTURE = -1;
+    public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
     private final long mId;
 
     /* package */ Item(long id) {
@@ -73,5 +75,9 @@ public class Item implements Parcelable {
 
     public Uri buildContentUri() {
         return ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mId);
+    }
+
+    public boolean isCapture() {
+        return mId == ITEM_ID_CAPTURE;
     }
 }

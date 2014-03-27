@@ -107,7 +107,7 @@ public class Album implements Parcelable {
         if (isChecked()) {
             return context.getString(R.string.l_album_name_selected);
         }
-        if (ALBUM_NAME_CAMERA.equals(mDisplayName)) {
+        if (isCamera()) {
             return context.getString(R.string.l_album_name_camera);
         }
         if (ALBUM_NAME_DOWNLOAD.equals(mDisplayName)) {
@@ -125,5 +125,9 @@ public class Album implements Parcelable {
 
     public boolean isChecked() {
         return ALBUM_ID_CHECKED.equals(mId);
+    }
+
+    public boolean isCamera() {
+        return ALBUM_NAME_CAMERA.equals(mDisplayName);
     }
 }

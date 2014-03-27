@@ -63,21 +63,26 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoGridViewHelper.callPreview(context, item);
+                if (item.isCapture()) {
+                    PhotoGridViewHelper.callCamera(context);
+                } else {
+                    PhotoGridViewHelper.callPreview(context, item);
+                }
             }
         });
         final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        check.setVisibility(item.isCapture() ? View.GONE : View.VISIBLE);
         check.setChecked(mCollection.isSelected(item.buildContentUri()));
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PhotoGridViewHelper.syncCheckState(context, mCollection, item, check);
                 PhotoGridViewHelper.callCheckStateListener(mListener);
-
             }
         });
         Picasso.with(context).load(item.buildContentUri())
                 .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
+                .placeholder(R.drawable.l_ic_action_new_picture)
                 .centerCrop()
                 .into(thumbnail);
     }

@@ -16,6 +16,7 @@
 package com.laevatein.internal.ui;
 
 import com.amalgam.os.BundleUtils;
+import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.SelectionSpec;
@@ -35,6 +36,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import jp.mixi.compatibility.android.provider.MediaStoreCompat;
+
 /**
  * @author KeithYokoma
  * @since 2014/03/20
@@ -49,7 +52,10 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESULT_SELECTION");
+    public static final String EXTRA_ENABLE_CAPTURE = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ENABLE_CAPTURE");
+    public static final int REQUEST_CODE_CAPTURE = 1;
     private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
+    private MediaStoreCompat mMediaStoreCompat;
     private PhotoSelectionActivityDrawerToggle mToggle;
     private DrawerLayout mDrawer;
 
@@ -57,6 +63,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_select_photo);
+        mMediaStoreCompat = new MediaStoreCompat(this, HandlerUtils.getMainHandler());
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
@@ -110,6 +117,8 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public SelectedUriCollection getCollection() {
         return mCollection;
     }
+
+    public MediaStoreCompat getMediaStoreCompat() { return mMediaStoreCompat; }
 
     public boolean isDrawerOpen() {
         return mDrawer.isDrawerOpen(GravityCompat.START);

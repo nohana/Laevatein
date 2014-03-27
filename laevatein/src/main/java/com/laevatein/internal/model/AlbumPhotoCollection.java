@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_ID = 2;
     private static final String ARGS_ALBUM = BundleUtils.buildKey(AlbumPhotoCollection.class, "ARGS_ALBUM");
-
+    private static final String ARGS_ENABLE_CAPTURE = BundleUtils.buildKey(AlbumPhotoCollection.class, "ARGS_ENABLE_CAPTURE");
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
     private AlbumPhotoCallbacks mCallbacks;
@@ -57,6 +57,10 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
             return null;
         }
 
+        if (album.isCamera()) {
+            boolean capture = args.getBoolean(ARGS_ENABLE_CAPTURE, false);
+            return AlbumPhotoLoader.newInstance(context, album, capture);
+        }
         return AlbumPhotoLoader.newInstance(context, album);
     }
 
@@ -92,8 +96,13 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
     }
 
     public void load(@Nullable Album target) {
+        load(target, false);
+    }
+
+    public void load(@Nullable Album target, boolean enableCapture) {
         Bundle args = new Bundle();
         args.putParcelable(ARGS_ALBUM, target);
+        args.putBoolean(ARGS_ENABLE_CAPTURE, enableCapture);
         mLoaderManager.initLoader(LOADER_ID, args, this);
     }
 

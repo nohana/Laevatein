@@ -63,7 +63,7 @@ public class PhotoGridFragment extends Fragment implements
         Album album = getArguments().getParcelable(ARGS_ALBUM);
         PhotoGridViewHelper.setUpGridView(this, resources, PhotoGridViewHelper.getSelectedPhotoSet(this));
         mPhotoCollection.onCreate(getActivity(), this);
-        mPhotoCollection.load(album);
+        mPhotoCollection.load(album, FragmentUtils.getIntentBooleanExtra(this, PhotoSelectionActivity.EXTRA_ENABLE_CAPTURE, false));
         getActivity().setTitle(album.getDisplayName(getActivity()));
     }
 

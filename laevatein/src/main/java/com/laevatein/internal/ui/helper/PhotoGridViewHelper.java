@@ -35,6 +35,8 @@ import android.support.v4.widget.CursorAdapter;
 import android.widget.CheckBox;
 import android.widget.GridView;
 
+import jp.mixi.compatibility.android.provider.MediaStoreCompat;
+
 /**
  * @author KeithYokoma
  * @since 2014/03/24
@@ -73,6 +75,12 @@ public final class PhotoGridViewHelper {
         Intent intent = new Intent(context, ImagePreviewActivity.class);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
         context.startActivity(intent);
+    }
+
+    public static void callCamera(Context context) {
+        PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
+        MediaStoreCompat compat = activity.getMediaStoreCompat();
+        compat.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
     }
 
     public static void syncCheckState(Context context, SelectedUriCollection collection, Item item, CheckBox checkBox) {
