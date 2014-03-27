@@ -80,7 +80,8 @@ public final class PhotoGridViewHelper {
     public static void callCamera(Context context) {
         PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
         MediaStoreCompat compat = activity.getMediaStoreCompat();
-        compat.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
+        String preparedUri = compat.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
+        activity.prepareCapture(preparedUri);
     }
 
     public static void syncCheckState(Context context, SelectedUriCollection collection, Item item, CheckBox checkBox) {
