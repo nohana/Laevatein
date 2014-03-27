@@ -33,14 +33,18 @@ public class Album implements Parcelable {
         @Nullable
         @Override
         public Album createFromParcel(Parcel source) {
-            return null;
+            return new Album(source);
         }
 
         @Override
         public Album[] newArray(int size) {
-            return new Album[0];
+            return new Album[size];
         }
     };
+    public static final String ALBUM_ID_ALL = String.valueOf(-1);
+    public static final String ALBUM_ID_CHECKED = String.valueOf(-2);
+    public static final String ALBUM_NAME_ALL = "All";
+    public static final String ALBUM_NAME_CHECKED = "Selected";
     private final String mId;
     private final long mCoverId;
     private final String mDisplayName;

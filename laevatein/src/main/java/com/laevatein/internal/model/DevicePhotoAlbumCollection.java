@@ -15,13 +15,13 @@
  */
 package com.laevatein.internal.model;
 
+import com.laevatein.internal.loader.AlbumLoader;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
 import java.lang.ref.WeakReference;
@@ -34,9 +34,6 @@ import java.lang.ref.WeakReference;
  */
 public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_ID = 1;
-    private static final String[] PROJECTION = { MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID };
-    private static final String BUCKET_GROUP_BY = "1) GROUP BY 1,(2";
-    private static final String BUCKET_ORDER_BY = "MAX(datetaken) DESC";
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
     private DevicePhotoAlbumCallbacks mCallbacks;
@@ -47,7 +44,7 @@ public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks
         if (context == null) {
             return null;
         }
-        return new CursorLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, BUCKET_GROUP_BY, null, BUCKET_ORDER_BY);
+        return new AlbumLoader(context);
     }
 
     @Override
