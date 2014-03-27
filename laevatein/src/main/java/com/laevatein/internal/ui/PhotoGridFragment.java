@@ -21,7 +21,6 @@ import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.AlbumPhotoCollection;
-import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 
@@ -43,7 +42,6 @@ public class PhotoGridFragment extends Fragment implements
     public static final String TAG = PhotoGridFragment.class.getSimpleName();
     private static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
     private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
-    private SelectedUriCollection mSelectedCollection;
 
     public static PhotoGridFragment newInstance(Album album) {
         PhotoGridFragment fragment = new PhotoGridFragment();
@@ -63,8 +61,7 @@ public class PhotoGridFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
         ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
         Album album = getArguments().getParcelable(ARGS_ALBUM);
-        mSelectedCollection = PhotoGridViewHelper.getSelectedPhotoSet(this);
-        PhotoGridViewHelper.setUpGridView(this, resources, mSelectedCollection);
+        PhotoGridViewHelper.setUpGridView(this, resources, PhotoGridViewHelper.getSelectedPhotoSet(this));
         mPhotoCollection.onCreate(getActivity(), this);
         mPhotoCollection.load(album);
         getActivity().setTitle(album.getDisplayName());

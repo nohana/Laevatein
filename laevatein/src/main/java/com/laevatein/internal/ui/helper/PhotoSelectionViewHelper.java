@@ -20,8 +20,10 @@ import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.internal.ui.SelectedPhotoGridFragment;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -71,9 +73,12 @@ public final class PhotoSelectionViewHelper {
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
+        Fragment fragment = album.isChecked() ?
+                SelectedPhotoGridFragment.newInstance() :
+                PhotoGridFragment.newInstance(album);
         FragmentManager manager = activity.getSupportFragmentManager();
         manager.beginTransaction()
-                .replace(R.id.l_container_grid_fragment, PhotoGridFragment.newInstance(album), PhotoGridFragment.TAG)
+                .replace(R.id.l_container_grid_fragment, fragment, PhotoGridFragment.TAG)
                 .commit();
         drawer.closeDrawers();
     }
