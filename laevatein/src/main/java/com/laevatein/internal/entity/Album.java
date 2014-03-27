@@ -15,6 +15,9 @@
  */
 package com.laevatein.internal.entity;
 
+import com.laevatein.R;
+
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -45,6 +48,9 @@ public class Album implements Parcelable {
     public static final String ALBUM_ID_CHECKED = String.valueOf(-2);
     public static final String ALBUM_NAME_ALL = "All";
     public static final String ALBUM_NAME_CHECKED = "Selected";
+    public static final String ALBUM_NAME_CAMERA = "Camera";
+    public static final String ALBUM_NAME_DOWNLOAD = "Download";
+    public static final String ALBUM_NAME_SCREEN_SHOT = "Screenshots";
     private final String mId;
     private final long mCoverId;
     private final String mDisplayName;
@@ -94,7 +100,22 @@ public class Album implements Parcelable {
         return mCoverId;
     }
 
-    public String getDisplayName() {
+    public String getDisplayName(Context context) {
+        if (isAll()) {
+            return context.getString(R.string.l_album_name_all);
+        }
+        if (isChecked()) {
+            return context.getString(R.string.l_album_name_selected);
+        }
+        if (ALBUM_NAME_CAMERA.equals(mDisplayName)) {
+            return context.getString(R.string.l_album_name_camera);
+        }
+        if (ALBUM_NAME_DOWNLOAD.equals(mDisplayName)) {
+            return context.getString(R.string.l_album_name_download);
+        }
+        if (ALBUM_NAME_SCREEN_SHOT.equals(mDisplayName)) {
+            return context.getString(R.string.l_album_name_screen_shot);
+        }
         return mDisplayName;
     }
 

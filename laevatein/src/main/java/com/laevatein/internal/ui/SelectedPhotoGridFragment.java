@@ -49,6 +49,7 @@ public class SelectedPhotoGridFragment extends Fragment implements SelectedPhoto
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
+        getActivity().setTitle(R.string.l_album_name_selected);
         SelectedGridViewHelper.setUpGridView(this, resources, SelectedGridViewHelper.getSelectedPhotoSet(this));
     }
 

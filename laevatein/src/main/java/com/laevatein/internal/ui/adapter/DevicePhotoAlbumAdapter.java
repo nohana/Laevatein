@@ -51,6 +51,6 @@ public class DevicePhotoAlbumAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         Album album = Album.valueOf(cursor);
         TextView textView = (TextView) view.findViewById(mResources.getLabelViewId());
-        textView.setText(album.getDisplayName());
+        textView.setText(album.getDisplayName(context));
     }
 }
