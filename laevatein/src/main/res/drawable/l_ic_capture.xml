@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list
+<selector
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#333"/>
-        </shape>
-    </item>
-    <item>
-        <inset
-            android:drawable="@drawable/l_ic_action_camera"
-            android:insetBottom="8dp"
-            android:insetLeft="8dp"
-            android:insetRight="8dp"
-            android:insetTop="8dp"/>
-    </item>
-</layer-list>
+    <item android:state_pressed="true" android:drawable="@drawable/l_ic_capture_pressed"/>
+    <item                              android:drawable="@drawable/l_ic_capture_normal"/>
+</selector>
