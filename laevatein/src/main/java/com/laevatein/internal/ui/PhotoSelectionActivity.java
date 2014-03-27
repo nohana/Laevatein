@@ -16,6 +16,7 @@
 package com.laevatein.internal.ui;
 
 import com.amalgam.os.BundleUtils;
+import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.SelectionSpec;
@@ -26,6 +27,7 @@ import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
@@ -49,14 +53,21 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public static final String EXTRA_DIR_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_DIR_VIEW_RES");
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESULT_SELECTION");
+    public static final String EXTRA_ENABLE_CAPTURE = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ENABLE_CAPTURE");
+    public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(PhotoSelectionActivity.class, "STATE_CAPTURE_PHOTO_URI");
+    public static final int REQUEST_CODE_CAPTURE = 1;
     private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
+    private MediaStoreCompat mMediaStoreCompat;
     private PhotoSelectionActivityDrawerToggle mToggle;
     private DrawerLayout mDrawer;
+    private String mCapturePhotoUriHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_select_photo);
+        mMediaStoreCompat = new MediaStoreCompat(this, HandlerUtils.getMainHandler());
+        mCapturePhotoUriHolder = savedInstanceState != null ? savedInstanceState.getString(STATE_CAPTURE_PHOTO_URI) : "";
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
@@ -75,6 +86,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         mCollection.onSaveInstanceState(outState);
+        outState.putString(STATE_CAPTURE_PHOTO_URI, mCapturePhotoUriHolder);
         super.onSaveInstanceState(outState);
     }
 
@@ -82,6 +94,18 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Uri captured = mMediaStoreCompat.getCapturedPhotoUri(data, mCapturePhotoUriHolder);
+            if (captured != null) {
+                mCollection.add(captured);
+            }
+        }
     }
 
     @Override
@@ -109,6 +133,12 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
 
     public SelectedUriCollection getCollection() {
         return mCollection;
+    }
+
+    public MediaStoreCompat getMediaStoreCompat() { return mMediaStoreCompat; }
+
+    public void prepareCapture(String uri) {
+        mCapturePhotoUriHolder = uri;
     }
 
     public boolean isDrawerOpen() {

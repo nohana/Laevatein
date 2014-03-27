@@ -15,14 +15,6 @@
  */
 package com.laevatein.internal.ui.adapter;
 
-import com.amalgam.content.ContextUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -31,6 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+
+import com.amalgam.content.ContextUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author KeithYokoma
@@ -63,23 +63,31 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoGridViewHelper.callPreview(context, item);
+                if (item.isCapture()) {
+                    PhotoGridViewHelper.callCamera(context);
+                } else {
+                    PhotoGridViewHelper.callPreview(context, item);
+                }
             }
         });
         final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        check.setVisibility(item.isCapture() ? View.GONE : View.VISIBLE);
         check.setChecked(mCollection.isSelected(item.buildContentUri()));
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PhotoGridViewHelper.syncCheckState(context, mCollection, item, check);
                 PhotoGridViewHelper.callCheckStateListener(mListener);
-
             }
         });
-        Picasso.with(context).load(item.buildContentUri())
-                .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
-                .centerCrop()
-                .into(thumbnail);
+        if (item.isCapture()) {
+            thumbnail.setImageResource(R.drawable.l_ic_capture);
+        } else {
+            Picasso.with(context).load(item.buildContentUri())
+                    .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
+                    .centerCrop()
+                    .into(thumbnail);
+        }
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {

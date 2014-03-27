@@ -34,4 +34,10 @@ public final class FragmentUtils {
         Intent intent = activity.getIntent();
         return intent.getParcelableExtra(key);
     }
+
+    public static boolean getIntentBooleanExtra(Fragment fragment, String key, boolean fallback) {
+        Activity activity = fragment.getActivity();
+        Intent intent = activity.getIntent();
+        return intent.getBooleanExtra(key, fallback);
+    }
 }

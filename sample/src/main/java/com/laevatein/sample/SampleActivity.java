@@ -42,6 +42,7 @@ public class SampleActivity extends ActionBarActivity {
                 .count(0, 10)
                 .quality(300000, Integer.MAX_VALUE)
                 .resume(mSelected)
+                .capture(true)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

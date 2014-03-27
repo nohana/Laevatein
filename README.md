@@ -120,6 +120,7 @@ This library depends on the following libraries.
 2. [ImageViewZoom](https://github.com/sephiroth74/ImageViewZoom) by Alessandro Crugnola
 3. [Amalgam](https://github.com/nohana/Amalgam) by nohana, Inc.
 4. [CompoundContainers](https://github.com/KeithYokoma/CompoundContainers) by KeithYokoma
+5. [AndroidDeviceCompatibility](https://github.com/mixi-inc/Android-Device-Compatibility) by mixi, Inc.
 
 ## License
 
