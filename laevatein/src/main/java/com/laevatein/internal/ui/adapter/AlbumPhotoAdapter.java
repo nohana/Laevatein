@@ -15,14 +15,6 @@
  */
 package com.laevatein.internal.ui.adapter;
 
-import com.amalgam.content.ContextUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -31,6 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+
+import com.amalgam.content.ContextUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author KeithYokoma
@@ -80,11 +80,14 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                 PhotoGridViewHelper.callCheckStateListener(mListener);
             }
         });
-        Picasso.with(context).load(item.buildContentUri())
-                .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
-                .placeholder(R.drawable.l_ic_action_new_picture)
-                .centerCrop()
-                .into(thumbnail);
+        if (item.isCapture()) {
+            thumbnail.setImageResource(R.drawable.l_ic_capture);
+        } else {
+            Picasso.with(context).load(item.buildContentUri())
+                    .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
+                    .centerCrop()
+                    .into(thumbnail);
+        }
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {
