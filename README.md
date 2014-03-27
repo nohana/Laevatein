@@ -39,6 +39,58 @@ public class SomeActivity extends Activity {
 
 And you'll get the selection result on `Activity#onActivityResult(int, int, Intent)`.
 
+## Features
+
+Laevatein provides some APIs to customize selector behaviour for your spec.
+
+### Selectable count limitation
+
+Set selectable count with `count(int, int)`.
+Default is `0 <= count <= 1`.
+
+```java
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .count(0, 10)  // minimum = 0, max = 10, so 0 <= count <= 10;
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
+### Selectable photo quality limitation
+
+Set selectable photo quality by pixel count with `quality(int, int)`.
+Default is `0 <= pixels <= Integer.MAX_VALUE`.
+
+```java
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .quality(30000, Integer.MAX_VALUE)  // minimum = 30000px, max = Integer.MAX_VALUEpx, so 30000px <= count <= Integer.MAX_VALUEpx;
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
+### Use custom cell layout
+
+Set your layout and ids for the image cell with `bindEachImageWith(int, int, int)`.
+
+```java
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .bindEachImageWith(R.layout.my_cell, R.id.my_cell_image_view, R.id.my_cell_check_box)
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
+### Resume selection with previously selected photos
+
+Set defaultly selected URIs with `resume(List<Uri>)`.
+
+```java
+List<Uri> mSelectedList;
+
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .resume(mSelectedList)
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
 ## Sample App
 
 Sample application is available [here](https://deploygate.com/distributions/b43dc74fc4025bbb8587f179f5b8464418cca559).
