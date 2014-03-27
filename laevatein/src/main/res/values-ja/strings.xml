@@ -12,4 +12,10 @@
     <string name="l_error_quality">画質が不十分な写真です</string>
 
     <string name="l_format_selection_count">%1$d / %2$d</string>
+
+    <string name="l_album_name_all">全ての写真</string>
+    <string name="l_album_name_selected">選択した写真</string>
+    <string name="l_album_name_camera">カメラ</string>
+    <string name="l_album_name_download">ダウンロード</string>
+    <string name="l_album_name_screen_shot">スクリーンショット</string>
 </resources>
