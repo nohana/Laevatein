@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Laevatein by nohana</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Laevatein</h1>
+        <p class="header">The library enables you to select photos over albums on the device, restrict selectable photo quality(by pixel count), and so on.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/nohana/Laevatein/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/nohana/Laevatein/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/nohana/Laevatein">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/nohana">nohana</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="laevatein" class="anchor" href="#laevatein"><span class="octicon octicon-link"></span></a>Laevatein</h1>
+
+<p>Photo image selection activity set library.</p>
+
+<p>The library enables you to select photos over albums on the device, restrict selectable photo quality(by pixel count), and so on.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Call photo image selection activity by the following code snipet.</p>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SomeActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">REQUEST_CODE_CHOOSE</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="nd">@Override</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_some</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resultcode</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">requestCode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nl">REQUEST_CODE_CHOOSE:</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_OK</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Get result and proceed your work from here...</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">selected</span> <span class="o">=</span> <span class="n">Laevatein</span><span class="o">.</span><span class="na">obtainResult</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="k">break</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClickButton</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// call chooser on click button like this</span>
+    <span class="n">Laevatein</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">choose</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">JPEG</span><span class="o">)).</span><span class="na">forResult</span><span class="o">(</span><span class="n">REQUEST_CODE_CHOOSE</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>And you'll get the selection result on <code>Activity#onActivityResult(int, int, Intent)</code>.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>Laevatein provides some APIs to customize selector behaviour for your spec.</p>
+
+<h3>
+<a name="selectable-count-limitation" class="anchor" href="#selectable-count-limitation"><span class="octicon octicon-link"></span></a>Selectable count limitation</h3>
+
+<p>Set selectable count with <code>count(int, int)</code>.
+Default is <code>0 &lt;= count &lt;= 1</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="n">Laevatein</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">choose</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">JPEG</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">count</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>  <span class="c1">// minimum = 0, max = 10, so 0 &lt;= count &lt;= 10;</span>
+        <span class="o">.</span><span class="na">forResult</span><span class="o">(</span><span class="n">REQUEST_CODE_CHOOSE</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="selectable-photo-quality-limitation" class="anchor" href="#selectable-photo-quality-limitation"><span class="octicon octicon-link"></span></a>Selectable photo quality limitation</h3>
+
+<p>Set selectable photo quality by pixel count with <code>quality(int, int)</code>.
+Default is <code>0 &lt;= pixels &lt;= Integer.MAX_VALUE</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="n">Laevatein</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">choose</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">JPEG</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">quality</span><span class="o">(</span><span class="mi">30000</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">)</span>  <span class="c1">// minimum = 30000px, max = Integer.MAX_VALUEpx, so 30000px &lt;= count &lt;= Integer.MAX_VALUEpx;</span>
+        <span class="o">.</span><span class="na">forResult</span><span class="o">(</span><span class="n">REQUEST_CODE_CHOOSE</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="use-custom-cell-layout" class="anchor" href="#use-custom-cell-layout"><span class="octicon octicon-link"></span></a>Use custom cell layout</h3>
+
+<p>Set your layout and ids for the image cell with <code>bindEachImageWith(int, int, int)</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="n">Laevatein</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">choose</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">JPEG</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">bindEachImageWith</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">my_cell</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_cell_image_view</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_cell_check_box</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">forResult</span><span class="o">(</span><span class="n">REQUEST_CODE_CHOOSE</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="resume-selection-with-previously-selected-photos" class="anchor" href="#resume-selection-with-previously-selected-photos"><span class="octicon octicon-link"></span></a>Resume selection with previously selected photos</h3>
+
+<p>Set defaultly selected URIs with <code>resume(List&lt;Uri&gt;)</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">mSelectedList</span><span class="o">;</span>
+
+<span class="n">Laevatein</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">choose</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">MimeType</span><span class="o">.</span><span class="na">JPEG</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">resume</span><span class="o">(</span><span class="n">mSelectedList</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">forResult</span><span class="o">(</span><span class="n">REQUEST_CODE_CHOOSE</span><span class="o">);</span>
+</pre></div>
+
+<h2>
+<a name="sample-app" class="anchor" href="#sample-app"><span class="octicon octicon-link"></span></a>Sample App</h2>
+
+<p>Sample application is available <a href="https://deploygate.com/distributions/b43dc74fc4025bbb8587f179f5b8464418cca559">here</a>.
+<a href="https://dply.me/orf0t9#install"><img src="https://dply.me/orf0t9/button/large" alt="Try it on your device via DeployGate"></a></p>
+
+<h2>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<p>Via Gradle</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">'https://raw.github.com/nohana/Laevatein/master/repository/'</span> <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">android</span> <span class="o">{</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">compile</span> <span class="s1">'com.laevatein:Laevatein:1.0.0'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="acknowledgement" class="anchor" href="#acknowledgement"><span class="octicon octicon-link"></span></a>Acknowledgement</h2>
+
+<p>This library depends on the following libraries.</p>
+
+<ol>
+<li>
+<a href="https://github.com/square/picasso">Picasso</a> by Square Inc.</li>
+<li>
+<a href="https://github.com/sephiroth74/ImageViewZoom">ImageViewZoom</a> by Alessandro Crugnola</li>
+<li>
+<a href="https://github.com/nohana/Amalgam">Amalgam</a> by nohana, Inc.</li>
+<li>
+<a href="https://github.com/KeithYokoma/CompoundContainers">CompoundContainers</a> by KeithYokoma</li>
+</ol><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This library is licensed under Apache License v2.</p>
+
+<pre><code>Copyright (C) 2014 nohana, Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+</code></pre>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
