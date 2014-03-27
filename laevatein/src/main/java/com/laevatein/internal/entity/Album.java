@@ -97,4 +97,12 @@ public class Album implements Parcelable {
     public String getDisplayName() {
         return mDisplayName;
     }
+
+    public boolean isAll() {
+        return ALBUM_ID_ALL.equals(mId);
+    }
+
+    public boolean isChecked() {
+        return ALBUM_ID_CHECKED.equals(mId);
+    }
 }
