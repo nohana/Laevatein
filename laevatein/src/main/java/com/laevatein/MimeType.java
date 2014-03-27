@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * MIME Type enumeration to restrict selectable photo on the selection activity.
  * @author KeithYokoma
  * @since 2014/03/19
  * @version 1.0.0

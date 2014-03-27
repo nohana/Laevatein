@@ -28,6 +28,10 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
+ * Photo selection activity set provider.
+ * Use {@link #from(android.app.Activity)} to start selection activity with the specification you'd like.
+ * And the result will be delivered to {@link Activity#onActivityResult(int, int, android.content.Intent)},
+ * and use {@link #obtainResult(android.content.Intent)} for the convenience of receiving the selection result.
  *
  * @author KeithYokoma
  * @since 2014/03/19
@@ -43,35 +47,34 @@ public final class Laevatein {
     }
 
     /**
-     *
-     * @param activity
-     * @return
+     * Starts selection from the specified {@link android.app.Activity}.
+     * @param activity to start.
+     * @return the requester context wrapper.
      */
     public static Laevatein from(Activity activity) {
         return new Laevatein(activity);
     }
 
     /**
-     *
-     * @param data
-     * @return
+     * Obtains the selection result passed to your {@link Activity#onActivityResult(int, int, android.content.Intent)}.
+     * @param data the data.
+     * @return the selected {@link android.net.Uri}s.
      */
     public static List<Uri> obtainResult(Intent data) {
         return data.getParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESULT_SELECTION);
     }
 
     /**
-     *
-     * @param mimeType
-     * @return
+     * Specifies the MIME Type to select.
+     * @param mimeType the mime type of the photo you would like to choose.
+     * @return the specification builder context.
      */
     public RequestBuilder choose(Set<MimeType> mimeType) {
         return new RequestBuilder(this, mimeType);
     }
 
     /**
-     *
-     * @return
+     * @return the actual requester context.
      */
     /* package */ @Nullable Activity getActivity() {
         return mContext.get();
