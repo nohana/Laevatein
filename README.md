@@ -91,6 +91,17 @@ Laevatein.from(this)
         .forResult(REQUEST_CODE_CHOOSE);
 ```
 
+### Call camera from the selection activity
+
+Set flag to enable camera capture from the selection activity with `capture(boolean)`.
+
+```java
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .capture(true)
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
 ## Sample App
 
 Sample application is available [here](https://deploygate.com/distributions/b43dc74fc4025bbb8587f179f5b8464418cca559).
