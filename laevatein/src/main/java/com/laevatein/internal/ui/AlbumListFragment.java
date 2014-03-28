@@ -64,7 +64,15 @@ public class AlbumListFragment extends Fragment implements
         AlbumViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_DIR_VIEW_RES);
         AlbumListViewHelper.setUpListView(this, this, resources);
         mCollection.onCreate(getActivity(), this);
+        mCollection.onRestoreInstanceState(savedInstanceState);
+        AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());
         mCollection.loadAlbums();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mCollection.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -77,13 +85,14 @@ public class AlbumListFragment extends Fragment implements
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AlbumListViewHelper.callOnSelect(mListener, (Cursor) parent.getItemAtPosition(position));
         AlbumListViewHelper.setCheckedState(this, position);
+        mCollection.setStateCurrentSelection(position);
     }
 
     @Override
     public void onLoad(final Cursor cursor) {
         AlbumListViewHelper.setCursor(this, cursor);
-        AlbumListViewHelper.callOnDefaultSelect(this, getActivity(), mListener, cursor);
-
+        AlbumListViewHelper.callOnDefaultSelect(this, mListener, cursor);
+        AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());
     }
 
     @Override

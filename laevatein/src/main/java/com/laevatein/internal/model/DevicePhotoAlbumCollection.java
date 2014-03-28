@@ -15,6 +15,7 @@
  */
 package com.laevatein.internal.model;
 
+import com.amalgam.os.BundleUtils;
 import com.laevatein.internal.loader.AlbumLoader;
 
 import android.content.Context;
@@ -34,9 +35,11 @@ import java.lang.ref.WeakReference;
  */
 public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_ID = 1;
+    private static final String STATE_CURRENT_SELECTION = BundleUtils.buildKey(DevicePhotoAlbumCollection.class, "STATE_CURRENT_SELECTION");
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
     private DevicePhotoAlbumCallbacks mCallbacks;
+    private int mCurrentSelection;
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -73,6 +76,18 @@ public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks
         mCallbacks = callbacks;
     }
 
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            return;
+        }
+
+        mCurrentSelection = savedInstanceState.getInt(STATE_CURRENT_SELECTION);
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(STATE_CURRENT_SELECTION, mCurrentSelection);
+    }
+
     public void onDestroy() {
         mLoaderManager.destroyLoader(LOADER_ID);
         mCallbacks = null;
@@ -80,6 +95,14 @@ public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks
 
     public void loadAlbums() {
         mLoaderManager.initLoader(LOADER_ID, null, this);
+    }
+
+    public int getCurrentSelection() {
+        return mCurrentSelection;
+    }
+
+    public void setStateCurrentSelection(int currentSelection) {
+        mCurrentSelection = currentSelection;
     }
 
     public static interface DevicePhotoAlbumCallbacks {

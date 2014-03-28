@@ -24,7 +24,6 @@ import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
 
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.CursorAdapter;
 import android.widget.AdapterView;
@@ -58,11 +57,11 @@ public final class AlbumListViewHelper {
         listener.onSelect(album);
     }
 
-    public static void callOnDefaultSelect(final Fragment fragment, final FragmentActivity activity, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
+    public static void callOnDefaultSelect(final Fragment fragment, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
-                FragmentManager manager = activity.getSupportFragmentManager();
+                FragmentManager manager = fragment.getActivity().getSupportFragmentManager();
                 Fragment f = manager.findFragmentById(R.id.l_container_grid_fragment);
                 if (f != null) {
                     return;
@@ -70,7 +69,6 @@ public final class AlbumListViewHelper {
 
                 cursor.moveToFirst();
                 callOnSelect(listener, cursor);
-                setCheckedState(fragment, 0);
             }
         });
     }
