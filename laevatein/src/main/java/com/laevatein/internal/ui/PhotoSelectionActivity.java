@@ -97,6 +97,12 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     }
 
     @Override
+    protected void onDestroy() {
+        mMediaStoreCompat.destroy();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -104,6 +110,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
             Uri captured = mMediaStoreCompat.getCapturedPhotoUri(data, mCapturePhotoUriHolder);
             if (captured != null) {
                 mCollection.add(captured);
+                mMediaStoreCompat.cleanUp(mCapturePhotoUriHolder);
             }
         }
     }
