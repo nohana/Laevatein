@@ -127,6 +127,15 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     }
 
     @Override
+    public void onBackPressed() {
+        if (mCollection.isEmpty()) {
+            super.onBackPressed();
+            return;
+        }
+        PhotoSelectionOptionsMenu.CANCEL.getHandler().handle(this, null);
+    }
+
+    @Override
     public void onSelect(Album album) {
         PhotoSelectionViewHelper.setPhotoGridFragment(this, mDrawer, album);
     }
