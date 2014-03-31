@@ -34,6 +34,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.CursorAdapter;
 import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
@@ -57,6 +58,10 @@ public final class PhotoGridViewHelper {
         AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection);
         adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
+
+        TextView emptyMessage = (TextView) fragment.getView().findViewById(R.id.l_label_empty);
+        emptyMessage.setText(R.string.l_empty_photo);
+        gridView.setEmptyView(emptyMessage);
     }
 
     public static void tearDownGridView(Fragment fragment) {

@@ -14,4 +14,9 @@
         android:columnWidth="@dimen/l_gridItemImageWidth"
         android:verticalSpacing="@dimen/l_gridItemSpacing"
         android:horizontalSpacing="@dimen/l_gridItemSpacing"/>
+    <TextView
+        android:id="@+id/l_label_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

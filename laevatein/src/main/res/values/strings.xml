@@ -18,4 +18,7 @@
     <string name="l_album_name_camera">Camera</string>
     <string name="l_album_name_download">Download</string>
     <string name="l_album_name_screen_shot">Screenshot</string>
+
+    <string name="l_empty_photo">No photo.</string>
+    <string name="l_empty_selection">Nothing selected.</string>
 </resources>

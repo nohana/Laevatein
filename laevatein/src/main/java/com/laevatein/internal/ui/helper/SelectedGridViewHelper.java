@@ -24,6 +24,7 @@ import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.widget.GridView;
+import android.widget.TextView;
 
 /**
  * @author keishin.yokomaku
@@ -45,6 +46,10 @@ public final class SelectedGridViewHelper {
         SelectedPhotoAdapter adapter = new SelectedPhotoAdapter(fragment.getActivity(), resources, collection);
         adapter.registerCheckStateListener((SelectedPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
+
+        TextView emptyMessage = (TextView) fragment.getView().findViewById(R.id.l_label_empty);
+        emptyMessage.setText(R.string.l_empty_selection);
+        gridView.setEmptyView(emptyMessage);
     }
 
     public static void tearDownGridView(Fragment fragment) {
