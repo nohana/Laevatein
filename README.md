@@ -2,6 +2,12 @@
 
 Photo image selection activity set library.
 
+## Screen Shot
+
+![Selection Activity](https://raw.githubusercontent.com/nohana/Laevatein/master/documents/ss-1.png)
+![Album List on DrawerMenu](https://raw.githubusercontent.com/nohana/Laevatein/master/documents/ss-2.png)
+![Selected List](https://raw.githubusercontent.com/nohana/Laevatein/master/documents/ss-3.png)
+
 ## Usage
 
 Call photo image selection activity by the following code snipet.
