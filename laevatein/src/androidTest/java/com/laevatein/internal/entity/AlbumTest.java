@@ -49,5 +49,29 @@ public class AlbumTest extends AndroidTestCase {
         assertEquals(-2L, checked.getCoverId());
         assertEquals(Album.ALBUM_ID_CHECKED, checked.getId());
         assertEquals(getContext().getString(R.string.l_album_name_selected), checked.getDisplayName(getContext()));
+
+        MatrixCursor downloadRow = new MatrixCursor(MOCK_PROJECTION);
+        downloadRow.addRow(new String[]{ "2", "2", "Download" });
+        assertTrue(downloadRow.moveToFirst());
+        Album download = Album.valueOf(downloadRow);
+        assertNotNull(download);
+        assertFalse(download.isAll());
+        assertFalse(download.isCamera());
+        assertFalse(download.isChecked());
+        assertEquals(2L, download.getCoverId());
+        assertEquals("2", download.getId());
+        assertEquals(getContext().getString(R.string.l_album_name_download), download.getDisplayName(getContext()));
+
+        MatrixCursor screenShotRow = new MatrixCursor(MOCK_PROJECTION);
+        screenShotRow.addRow(new String[]{ "3", "3", "Screenshots"});
+        assertTrue(screenShotRow.moveToFirst());
+        Album screenShot = Album.valueOf(screenShotRow);
+        assertNotNull(screenShot);
+        assertFalse(screenShot.isAll());
+        assertFalse(screenShot.isCamera());
+        assertFalse(screenShot.isChecked());
+        assertEquals(3L, screenShot.getCoverId());
+        assertEquals("3", screenShot.getId());
+        assertEquals(getContext().getString(R.string.l_album_name_screen_shot), screenShot.getDisplayName(getContext()));
     }
 }
