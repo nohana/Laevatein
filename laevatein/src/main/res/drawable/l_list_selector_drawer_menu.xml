@@ -21,9 +21,6 @@
         <color android:color="@android:color/background_dark" />
     </item>
     <item android:state_checked="true">
-        <color android:state_pressed="true" android:color="@android:color/background_dark" />
-    </item>
-    <item android:state_checked="true">
-        <color android:color="@android:color/background_dark"/>
+        <color android:color="@android:color/background_dark" />
     </item>
 </selector>

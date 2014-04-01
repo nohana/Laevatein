@@ -23,6 +23,7 @@ import android.webkit.MimeTypeMap;
 
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -75,7 +76,7 @@ public enum MimeType {
                 return false;
             }
             String path = PhotoMetadataUtils.getPath(resolver, uri);
-            if (path != null && path.toLowerCase().endsWith(extension)) {
+            if (path != null && path.toLowerCase(Locale.US).endsWith(extension)) {
                 return true;
             }
         }

@@ -12,7 +12,7 @@
         compat:showAsAction="always"/>
     <item
         android:id="@+id/action_count_selection"
-        android:title="0"
+        android:title="@string/l_action_counter"
         compat:showAsAction="always"
         android:enabled="false"/>
 </menu>
