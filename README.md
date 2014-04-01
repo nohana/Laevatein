@@ -1,5 +1,7 @@
 # Laevatein
 
+[![Build Status](https://travis-ci.org/nohana/Laevatein.svg?branch=master)](https://travis-ci.org/nohana/Laevatein)
+
 Photo image selection activity set library.
 
 ## Screen Shot
