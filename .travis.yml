@@ -21,6 +21,7 @@ install:
 
 script:
   - TERM=dumb ./gradlew -i build
+  - cat /home/travis/build/nohana/Laevatein/laevatein/build/lint-results.xml
 
 notifications:
   email: false
