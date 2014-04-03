@@ -22,7 +22,6 @@ import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.SelectedPhotoGridFragment;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -43,11 +42,7 @@ public final class PhotoSelectionViewHelper {
 
     public static void refreshOptionsMenuState(PhotoSelectionActivity activity, SelectedUriCollection collection, Menu menu) {
         MenuItem select = menu.findItem(R.id.action_finish_select);
-        MenuItem cancel = menu.findItem(R.id.action_cancel_select);
-        MenuItem count = menu.findItem(R.id.action_count_selection);
         updateSelectMenuState(select, collection, activity.isDrawerOpen());
-        updateCancelMenuState(cancel, activity.isDrawerOpen());
-        updateSelectionCount(activity, count, collection);
     }
 
     public static void updateSelectMenuState(MenuItem item, SelectedUriCollection collection, boolean drawerOpen) {
@@ -56,20 +51,6 @@ public final class PhotoSelectionViewHelper {
         }
         item.setVisible(!drawerOpen);
         item.setEnabled(!collection.isEmpty() && collection.isCountInRange());
-    }
-
-    public static void updateCancelMenuState(MenuItem item, boolean drawerOpen) {
-        if (item == null) {
-            return;
-        }
-        item.setVisible(!drawerOpen);
-    }
-
-    public static void updateSelectionCount(Activity activity, MenuItem item, SelectedUriCollection collection) {
-        if (item == null) {
-            return;
-        }
-        item.setTitle(activity.getString(R.string.l_format_selection_count, collection.count(), collection.maxCount()));
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
@@ -81,5 +62,13 @@ public final class PhotoSelectionViewHelper {
                 .replace(R.id.l_container_grid_fragment, fragment, PhotoGridFragment.TAG)
                 .commit();
         drawer.closeDrawers();
+    }
+
+    public static void refreshGridView(FragmentActivity activity) {
+        FragmentManager manager = activity.getSupportFragmentManager();
+        Fragment fragment = manager.findFragmentByTag(PhotoGridFragment.TAG);
+        if (fragment instanceof PhotoGridFragment) {
+            ((PhotoGridFragment) fragment).refreshGrid();
+        }
     }
 }

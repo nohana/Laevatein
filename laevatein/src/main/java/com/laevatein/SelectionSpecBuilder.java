@@ -15,6 +15,7 @@
  */
 package com.laevatein;
 
+import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
@@ -43,6 +44,7 @@ public final class SelectionSpecBuilder {
     private final SelectionSpec mSelectionSpec;
     private ItemViewResources mItemViewResources;
     private AlbumViewResources mAlbumViewResources;
+    private ActionViewResources mActionViewResources;
     private boolean mEnableCapture;
     private List<Uri> mResumeList;
 
@@ -79,6 +81,17 @@ public final class SelectionSpecBuilder {
      */
     public SelectionSpecBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
         mAlbumViewResources = new AlbumViewResources(layoutId, imageViewId, directoryNameViewId);
+        return this;
+    }
+
+    /**
+     * Sets the layout resources for use as action view on the preview activity.
+     * @param layoutId a layout resource id.
+     * @param checkBoxId an id for the check box.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder useActionLayout(int layoutId, int checkBoxId) {
+        mActionViewResources = new ActionViewResources(layoutId, checkBoxId);
         return this;
     }
 
@@ -145,11 +158,15 @@ public final class SelectionSpecBuilder {
         if (mItemViewResources == null) {
             mItemViewResources = ItemViewResources.getDefault();
         }
+        if (mActionViewResources == null) {
+            mActionViewResources = ActionViewResources.getDefault();
+        }
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
         Intent intent = new Intent(activity, PhotoSelectionActivity.class);
         intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mAlbumViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES, mItemViewResources);
+        intent.putExtra(PhotoSelectionActivity.EXTRA_ACTION_VIEW_RES, mActionViewResources);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST,
                 (ArrayList<? extends android.os.Parcelable>) mResumeList);

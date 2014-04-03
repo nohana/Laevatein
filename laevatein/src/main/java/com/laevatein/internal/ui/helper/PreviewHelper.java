@@ -16,12 +16,19 @@
 package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
+import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
@@ -43,9 +50,40 @@ public final class PreviewHelper {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    public static void setUpActionItem(final ImagePreviewActivity activity, Menu menu) {
+        MenuItem item = menu.findItem(R.id.l_action_selection_state);
+        if (item == null) {
+            return;
+        }
+        ActionViewResources resources = activity.getIntent().getParcelableExtra(
+                ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
+        if (resources == null) {
+            item.setActionView(R.layout.l_action_layout_checkbox); // fallback
+        } else {
+            item.setActionView(resources.getLayoutId());
+        }
+        CheckBox checkBox = (CheckBox) item.getActionView().findViewById(resources.getCheckBoxId());
+        checkBox.setChecked(activity.getStateHolder().isChecked());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                activity.getStateHolder().setChecked(isChecked);
+            }
+        });
+    }
+
     public static void assign(Activity activity, Item item) {
         ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.l_image_zoom_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Picasso.with(activity).load(item.buildContentUri()).into(image);
+    }
+
+    public static void sendBackResult(ImagePreviewActivity activity) {
+        Intent intent = new Intent();
+        Item item = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
+        boolean checked = activity.getStateHolder().isChecked();
+        intent.putExtra(ImagePreviewActivity.EXTRA_RESULT_ITEM, item);
+        intent.putExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, checked);
+        activity.setResult(Activity.RESULT_OK, intent);
     }
 }

@@ -15,6 +15,14 @@
  */
 package com.laevatein.internal.ui.adapter;
 
+import com.amalgam.content.ContextUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
+import com.squareup.picasso.Picasso;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -23,14 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-
-import com.amalgam.content.ContextUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
-import com.squareup.picasso.Picasso;
 
 /**
  * @author KeithYokoma
@@ -60,17 +60,17 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         final Item item = Item.valueOf(cursor);
 
         ImageView thumbnail = (ImageView) view.findViewById(mResources.getImageViewId());
+        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
         thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (item.isCapture()) {
                     PhotoGridViewHelper.callCamera(context);
                 } else {
-                    PhotoGridViewHelper.callPreview(context, item);
+                    PhotoGridViewHelper.callPreview(context, item, check.isChecked());
                 }
             }
         });
-        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
         check.setVisibility(item.isCapture() ? View.GONE : View.VISIBLE);
         check.setChecked(mCollection.isSelected(item.buildContentUri()));
         check.setOnClickListener(new View.OnClickListener() {

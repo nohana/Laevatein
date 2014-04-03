@@ -29,7 +29,6 @@ import android.view.MenuItem;
  */
 public enum PhotoSelectionOptionsMenu implements OptionsMenu<PhotoSelectionActivity, PhotoSelectionOptionsMenuHandler> {
     SELECT(R.id.action_finish_select, new FinishSelectMenuHandler()),
-    CANCEL(R.id.action_cancel_select, new CancelSelectMenuHandler()),
     UNKNOWN(-1, new UnknownMenuHandler()); // null object pattern
 
     private final int mMenuId;

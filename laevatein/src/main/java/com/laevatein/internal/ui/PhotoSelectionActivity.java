@@ -19,6 +19,7 @@ import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
@@ -54,8 +55,10 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public static final String EXTRA_ITEM_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ITEM_VIEW_RES");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESULT_SELECTION");
     public static final String EXTRA_ENABLE_CAPTURE = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ENABLE_CAPTURE");
+    public static final String EXTRA_ACTION_VIEW_RES = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ACTION_VIEW_RES");
     public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(PhotoSelectionActivity.class, "STATE_CAPTURE_PHOTO_URI");
     public static final int REQUEST_CODE_CAPTURE = 1;
+    public static final int REQUEST_CODE_PREVIEW = 2;
     private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
     private MediaStoreCompat mMediaStoreCompat;
     private PhotoSelectionActivityDrawerToggle mToggle;
@@ -112,6 +115,16 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
                 mCollection.add(captured);
                 mMediaStoreCompat.cleanUp(mCapturePhotoUriHolder);
             }
+        } else if (requestCode == REQUEST_CODE_PREVIEW && resultCode == Activity.RESULT_OK) {
+            boolean checked = data.getBooleanExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, false);
+            Item item = data.getParcelableExtra(ImagePreviewActivity.EXTRA_RESULT_ITEM);
+            if (checked) {
+                mCollection.add(item.buildContentUri());
+            } else {
+                mCollection.remove(item.buildContentUri());
+            }
+            PhotoSelectionViewHelper.refreshGridView(this);
+            supportInvalidateOptionsMenu();
         }
     }
 
@@ -139,7 +152,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
             super.onBackPressed();
             return;
         }
-        PhotoSelectionOptionsMenu.CANCEL.getHandler().handle(this, null);
+//        PhotoSelectionOptionsMenu.CANCEL.getHandler().handle(this, null);
     }
 
     @Override

@@ -88,4 +88,8 @@ public class PhotoGridFragment extends Fragment implements
     public void onUpdate() {
         getActivity().supportInvalidateOptionsMenu();
     }
+
+    public void refreshGrid() {
+        PhotoGridViewHelper.refreshView(this);
+    }
 }

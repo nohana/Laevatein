@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:compat="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_finish_select"
-        android:title="@string/l_action_finish_select"
+        android:id="@+id/l_action_selection_state"
+        android:title=""
         compat:showAsAction="always"/>
 </menu>

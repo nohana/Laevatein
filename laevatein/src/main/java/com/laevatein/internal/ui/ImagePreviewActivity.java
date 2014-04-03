@@ -18,10 +18,12 @@ package com.laevatein.internal.ui;
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.model.PreviewStateHolder;
 import com.laevatein.internal.ui.helper.PreviewHelper;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 /**
@@ -32,13 +34,33 @@ import android.view.MenuItem;
  */
 public class ImagePreviewActivity extends ActionBarActivity {
     public static final String EXTRA_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ITEM");
+    public static final String EXTRA_CHECK_VIEW_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CHECK_VIEW_RES");
+    public static final String EXTRA_DEFAULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_DEFAULT_CHECKED");
+    public static final String EXTRA_RESULT_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_ITEM");
+    public static final String EXTRA_RESULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_CHECKED");
+    private final PreviewStateHolder mStateHolder = new PreviewStateHolder(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_preview);
+        mStateHolder.onCreate();
+        mStateHolder.onRestoreInstanceState(savedInstanceState);
         PreviewHelper.setUpActionBar(this);
         PreviewHelper.assign(this, getIntent().<Item>getParcelableExtra(EXTRA_ITEM));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        mStateHolder.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.l_activity_image_preview, menu);
+        PreviewHelper.setUpActionItem(this, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -48,5 +70,15 @@ public class ImagePreviewActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        PreviewHelper.sendBackResult(this);
+        super.onBackPressed();
+    }
+
+    public PreviewStateHolder getStateHolder() {
+        return mStateHolder;
     }
 }

@@ -17,6 +17,7 @@ package com.laevatein.internal.ui.helper;
 
 import com.amalgam.app.SupportSimpleAlertDialogFragment;
 import com.laevatein.R;
+import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
@@ -25,6 +26,7 @@ import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -76,10 +78,20 @@ public final class PhotoGridViewHelper {
         adapter.swapCursor(cursor);
     }
 
-    public static void callPreview(Context context, Item item) {
+    public static void refreshView(Fragment fragment) {
+        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
+        adapter.notifyDataSetChanged();
+    }
+
+    public static void callPreview(Context context, Item item, boolean checked) {
+        Activity activity = (Activity) context;
+        ActionViewResources resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ACTION_VIEW_RES);
         Intent intent = new Intent(context, ImagePreviewActivity.class);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
-        context.startActivity(intent);
+        intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources);
+        intent.putExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, checked);
+        activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }
 
     public static void callCamera(Context context) {
