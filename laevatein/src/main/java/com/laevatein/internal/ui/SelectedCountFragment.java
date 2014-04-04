@@ -29,12 +29,14 @@ public class SelectedCountFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        onUpdateSelection(); // bit hacky
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        SelectedCountViewHelper.updateCountView((PhotoSelectionActivity) getActivity(), this);
     }
 
-    public void onUpdateSelection() {
-        SelectedCountViewHelper.updateCountView((PhotoSelectionActivity) getActivity(), this);
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        SelectedCountViewHelper.updateCountView((PhotoSelectionActivity) getActivity(), this); // bit hacky
     }
 }

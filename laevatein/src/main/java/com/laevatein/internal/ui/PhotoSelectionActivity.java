@@ -173,6 +173,9 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     }
 
     public boolean isDrawerOpen() {
+        if (mDrawer == null) {
+            return false;
+        }
         return mDrawer.isDrawerOpen(GravityCompat.START);
     }
 
