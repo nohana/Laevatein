@@ -6,10 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.laevatein.internal.ui.PhotoSelectionActivity">
-    <FrameLayout
-        android:id="@+id/l_container_grid_fragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/l_container_grid_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/l_fragment_selected_count"/>
+        <fragment
+            android:id="@+id/l_fragment_selected_count"
+            android:name="com.laevatein.internal.ui.SelectedCountFragment"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
     <fragment
         android:id="@+id/l_fragment_list_directory"
         android:layout_width="@dimen/l_drawerMenuWidth"

@@ -149,10 +149,12 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     @Override
     public void onBackPressed() {
         if (mCollection.isEmpty()) {
+            setResult(Activity.RESULT_CANCELED);
             super.onBackPressed();
             return;
         }
-//        PhotoSelectionOptionsMenu.CANCEL.getHandler().handle(this, null);
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
+        dialog.show(getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
     }
 
     @Override
