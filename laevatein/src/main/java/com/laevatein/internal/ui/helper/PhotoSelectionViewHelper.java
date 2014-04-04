@@ -41,6 +41,9 @@ public final class PhotoSelectionViewHelper {
     }
 
     public static void refreshOptionsMenuState(PhotoSelectionActivity activity, SelectedUriCollection collection, Menu menu) {
+        if (collection == null) {
+            return;
+        }
         MenuItem select = menu.findItem(R.id.action_finish_select);
         updateSelectMenuState(select, collection, activity.isDrawerOpen());
     }
