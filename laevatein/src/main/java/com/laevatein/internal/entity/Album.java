@@ -45,9 +45,7 @@ public class Album implements Parcelable {
         }
     };
     public static final String ALBUM_ID_ALL = String.valueOf(-1);
-    public static final String ALBUM_ID_CHECKED = String.valueOf(-2);
     public static final String ALBUM_NAME_ALL = "All";
-    public static final String ALBUM_NAME_CHECKED = "Selected";
     public static final String ALBUM_NAME_CAMERA = "Camera";
     public static final String ALBUM_NAME_DOWNLOAD = "Download";
     public static final String ALBUM_NAME_SCREEN_SHOT = "Screenshots";
@@ -104,9 +102,6 @@ public class Album implements Parcelable {
         if (isAll()) {
             return context.getString(R.string.l_album_name_all);
         }
-        if (isChecked()) {
-            return context.getString(R.string.l_album_name_selected);
-        }
         if (isCamera()) {
             return context.getString(R.string.l_album_name_camera);
         }
@@ -121,10 +116,6 @@ public class Album implements Parcelable {
 
     public boolean isAll() {
         return ALBUM_ID_ALL.equals(mId);
-    }
-
-    public boolean isChecked() {
-        return ALBUM_ID_CHECKED.equals(mId);
     }
 
     public boolean isCamera() {

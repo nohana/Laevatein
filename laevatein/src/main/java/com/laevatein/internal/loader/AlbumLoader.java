@@ -47,9 +47,7 @@ public class AlbumLoader extends CursorLoader {
         Cursor albums = super.loadInBackground();
         MatrixCursor allAlbum = new MatrixCursor(PROJECTION);
         allAlbum.addRow(new String[] {Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, MEDIA_ID_DUMMY});
-        MatrixCursor selected = new MatrixCursor(PROJECTION);
-        selected.addRow(new String[] {Album.ALBUM_ID_CHECKED, Album.ALBUM_NAME_CHECKED, MEDIA_ID_DUMMY});
 
-        return new MergeCursor(new Cursor[]{ allAlbum, albums, selected });
+        return new MergeCursor(new Cursor[]{ allAlbum, albums });
     }
 }

@@ -48,7 +48,8 @@ import jp.mixi.compatibility.android.provider.MediaStoreCompat;
  */
 public class PhotoSelectionActivity extends ActionBarActivity implements
         AlbumListFragment.OnDirectorySelectListener,
-        ConfirmationDialogFragment.ConfirmationSelectionListener {
+        ConfirmationDialogFragment.ConfirmationSelectionListener,
+        SelectedCountFragment.OnShowSelectedClickListener {
     public static final String EXTRA_VIEW_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_VIEW_SPEC");
     public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESUME_LIST");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
@@ -157,6 +158,11 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     @Override
     public void onSelect(Album album) {
         PhotoSelectionViewHelper.setPhotoGridFragment(this, mDrawer, album);
+    }
+
+    @Override
+    public void onClickSelectedView() {
+        PhotoSelectionViewHelper.setSelectedGridFragment(this);
     }
 
     public SelectedUriCollection getCollection() {

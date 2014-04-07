@@ -20,12 +20,18 @@ public final class SelectedCountViewHelper {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
     }
 
-    public static void setUpCountView(SelectedCountFragment fragment) {
+    public static void setUpCountView(final SelectedCountFragment fragment) {
         View view = fragment.getView().findViewById(R.id.l_container_count_view);
         TextView label = (TextView) fragment.getView().findViewById(R.id.l_label_selected_count);
         ViewResourceSpec spec = FragmentUtils.getIntentParcelableExtra(fragment, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         view.setBackgroundResource(spec.getCountViewResources().getBackgroundColorResource());
         label.setTextColor(fragment.getResources().getColor(spec.getCountViewResources().getTextColorResource()));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.getListener().onClickSelectedView();
+            }
+        });
     }
 
     public static void updateCountView(PhotoSelectionActivity activity, SelectedCountFragment fragment) {

@@ -57,14 +57,20 @@ public final class PhotoSelectionViewHelper {
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {
-        Fragment fragment = album.isChecked() ?
-                SelectedPhotoGridFragment.newInstance() :
-                PhotoGridFragment.newInstance(album);
+        Fragment fragment = PhotoGridFragment.newInstance(album);
         FragmentManager manager = activity.getSupportFragmentManager();
         manager.beginTransaction()
                 .replace(R.id.l_container_grid_fragment, fragment, PhotoGridFragment.TAG)
                 .commit();
         drawer.closeDrawers();
+    }
+
+    public static void setSelectedGridFragment(FragmentActivity activity) {
+        Fragment fragment = SelectedPhotoGridFragment.newInstance();
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.l_container_grid_fragment, fragment, PhotoGridFragment.TAG)
+                .commit();
     }
 
     public static void refreshGridView(FragmentActivity activity) {

@@ -3,6 +3,7 @@ package com.laevatein.internal.ui;
 import com.laevatein.R;
 import com.laevatein.internal.ui.helper.SelectedCountViewHelper;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,20 @@ import android.view.ViewGroup;
  * @hide
  */
 public class SelectedCountFragment extends Fragment {
+    private OnShowSelectedClickListener mListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mListener = (OnShowSelectedClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("the host activity should implement OnShowSelectedClickListener.");
+        }
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,5 +54,13 @@ public class SelectedCountFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         SelectedCountViewHelper.updateCountView((PhotoSelectionActivity) getActivity(), this); // bit hacky
+    }
+
+    public OnShowSelectedClickListener getListener() {
+        return mListener;
+    }
+
+    public static interface OnShowSelectedClickListener {
+        public void onClickSelectedView();
     }
 }
