@@ -17,8 +17,12 @@ package com.laevatein.internal.utils;
 
 import com.amalgam.database.CursorUtils;
 import com.amalgam.io.CloseableUtils;
+import com.laevatein.MimeType;
+import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.UncapableCause;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -77,4 +81,50 @@ public final class PhotoMetadataUtils {
         }
         return uri.getPath();
     }
+
+    public static UncapableCause isAcceptable(Context context, SelectionSpec spec, Uri uri) {
+        if (!isSelectableType(context, spec, uri)) {
+            return UncapableCause.FILE_TYPE;
+        }
+        if (!hasUnderAtMostQuality(context, spec, uri)) {
+            return UncapableCause.OVER_COUNT;
+        }
+        if (!hasOverAtLeastQuality(context, spec, uri)) {
+            return UncapableCause.UNDER_QUALITY;
+        }
+        return null;
+    }
+
+    public static boolean hasOverAtLeastQuality(Context context, SelectionSpec spec, Uri uri) {
+        if (context == null) {
+            return false;
+        }
+
+        int pixels = PhotoMetadataUtils.getPixelsCount(context.getContentResolver(), uri);
+        return spec.getMinPixels() <= pixels;
+    }
+
+    public static boolean hasUnderAtMostQuality(Context context, SelectionSpec spec, Uri uri) {
+        if (context == null) {
+            return false;
+        }
+
+        int pixels = PhotoMetadataUtils.getPixelsCount(context.getContentResolver(), uri);
+        return pixels <= spec.getMaxPixels();
+    }
+
+    public static boolean isSelectableType(Context context, SelectionSpec spec, Uri uri) {
+        if (context == null) {
+            return false;
+        }
+
+        ContentResolver resolver = context.getContentResolver();
+        for (MimeType type : spec.getMimeTypeSet()) {
+            if (type.checkType(resolver, uri)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

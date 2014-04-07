@@ -18,6 +18,8 @@ package com.laevatein;
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.CountViewResources;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
@@ -48,6 +50,10 @@ public final class SelectionSpecBuilder {
     private AlbumViewResources mAlbumViewResources;
     private ActionViewResources mActionViewResources;
     private CountViewResources mCountViewResources;
+    private ErrorViewResources mCountErrorSpec;
+    private ErrorViewResources mUnderQualityErrorSpec;
+    private ErrorViewResources mOverQualityErrorSpec;
+    private ErrorViewResources mTypeErrorSpec;
     private boolean mEnableCapture;
     private List<Uri> mResumeList;
 
@@ -121,6 +127,50 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the error view specification for the error of count over.
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder countOver(ErrorViewResources.ViewType type, int errorMessageId) {
+        mCountErrorSpec = type.createSpec(errorMessageId);
+        return this;
+    }
+
+    /**
+     * Sets the error view specification for the error of quality un-satisfaction.
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder underQuality(ErrorViewResources.ViewType type, int errorMessageId) {
+        mUnderQualityErrorSpec = type.createSpec(errorMessageId);
+        return this;
+    }
+
+    /**
+     * Sets the error view specification for the error of quality un-satisfaction..
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder overQuality(ErrorViewResources.ViewType type, int errorMessageId) {
+        mOverQualityErrorSpec = type.createSpec(errorMessageId);
+        return this;
+    }
+
+    /**
+     * Sets the error view specification for the error of type validation.
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder invalidType(ErrorViewResources.ViewType type, int errorMessageId) {
+        mTypeErrorSpec = type.createSpec(errorMessageId);
+        return this;
+    }
+
+    /**
      * Sets the limitation of a selectable image quality by pixel count within the specified range.
      * @param minPixel minimum value to select.
      * @param maxPixel maximum value to select.
@@ -180,9 +230,16 @@ public final class SelectionSpecBuilder {
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
         ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture);
+        ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
+                .setCountSpec(mCountErrorSpec)
+                .setOverQualitySpec(mOverQualityErrorSpec)
+                .setUnderQualitySpec(mUnderQualityErrorSpec)
+                .setTypeSpec(mTypeErrorSpec)
+                .create();
 
         Intent intent = new Intent(activity, PhotoSelectionActivity.class);
         intent.putExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC, viewSpec);
+        intent.putExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC, errorSpec);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
         activity.startActivityForResult(intent, requestCode);

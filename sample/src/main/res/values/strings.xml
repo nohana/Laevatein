@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Laevatein</string>
+    <string name="error_count_over">Over</string>
 </resources>

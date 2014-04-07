@@ -13,7 +13,7 @@ import android.view.View;
 import java.util.List;
 
 /**
- * @author keishin.yokomaku
+ * @author KeithYokoma
  * @since 2014/03/20
  */
 public class SampleActivity extends ActionBarActivity {
@@ -43,6 +43,7 @@ public class SampleActivity extends ActionBarActivity {
                 .quality(300000, Integer.MAX_VALUE)
                 .resume(mSelected)
                 .capture(true)
+//                .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

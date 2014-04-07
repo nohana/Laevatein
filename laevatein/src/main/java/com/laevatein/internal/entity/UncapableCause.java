@@ -15,8 +15,6 @@
  */
 package com.laevatein.internal.entity;
 
-import com.laevatein.R;
-
 /**
  * @author KeithYokoma
  * @since 2014/03/25
@@ -24,16 +22,30 @@ import com.laevatein.R;
  * @hide
  */
 public enum UncapableCause {
-    QUALITY(R.string.l_error_quality),
-    FILE_TYPE(R.string.l_error_invalid_format);
+    OVER_COUNT {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getCountErrorSpec();
+        }
+    },
+    UNDER_QUALITY {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getUnderQualitySpec();
+        }
+    },
+    OVER_QUALITY {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getOverQualitySpec();
+        }
+    },
+    FILE_TYPE {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getTypeErrorSpec();
+        }
+    };
 
-    private final int mErrorMessageRes;
-
-    private UncapableCause(int errorMessageRes) {
-        mErrorMessageRes = errorMessageRes;
-    }
-
-    public int getErrorMessageRes() {
-        return mErrorMessageRes;
-    }
+    public abstract ErrorViewResources getErrorResources(ErrorViewSpec spec);
 }

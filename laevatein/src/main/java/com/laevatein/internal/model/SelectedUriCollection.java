@@ -16,12 +16,10 @@
 package com.laevatein.internal.model;
 
 import com.amalgam.os.BundleUtils;
-import com.laevatein.MimeType;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -90,42 +88,15 @@ public class SelectedUriCollection {
     }
 
     public UncapableCause isAcceptable(Uri uri) {
-        if (!isSelectableType(uri)) {
-            return UncapableCause.FILE_TYPE;
-        }
-        if (!hasEnoughQuality(uri)) {
-            return UncapableCause.QUALITY;
-        }
-        return null;
-    }
-
-    public boolean hasEnoughQuality(Uri uri) {
-        Context context = mContext.get();
-        if (context == null) {
-            return false;
-        }
-
-        int pixels = PhotoMetadataUtils.getPixelsCount(context.getContentResolver(), uri);
-        return mSpec.getMinPixels() <= pixels && pixels <= mSpec.getMaxPixels();
-    }
-
-    public boolean isSelectableType(Uri uri) {
-        Context context = mContext.get();
-        if (context == null) {
-            return false;
-        }
-
-        ContentResolver resolver = context.getContentResolver();
-        for (MimeType type : mSpec.getMimeTypeSet()) {
-            if (type.checkType(resolver, uri)) {
-                return true;
-            }
-        }
-        return false;
+        return PhotoMetadataUtils.isAcceptable(mContext.get(), mSpec, uri);
     }
 
     public boolean isCountInRange() {
-        return mSpec.getMinSelectable() <= mUris.size() && mUris.size() <= mSpec.getMaxSelectable();
+        return mSpec.getMinSelectable() <= mUris.size() && !isCountOver();
+    }
+
+    public boolean isCountOver() {
+        return mUris.size() > mSpec.getMaxSelectable();
     }
 
     public int count() {

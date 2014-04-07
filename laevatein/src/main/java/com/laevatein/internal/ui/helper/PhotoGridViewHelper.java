@@ -15,8 +15,9 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.amalgam.app.SupportSimpleAlertDialogFragment;
 import com.laevatein.R;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
@@ -25,6 +26,7 @@ import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
+import com.laevatein.internal.utils.ErrorViewUtils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -117,14 +119,22 @@ public final class PhotoGridViewHelper {
 
     public static void addSelection(Context context, SelectedUriCollection collection, Uri uri, CheckBox checkBox) {
         UncapableCause cause = collection.isAcceptable(uri);
+        FragmentActivity activity = (FragmentActivity) context;
+        ErrorViewSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC);
+
         if (cause == null) {
+            ErrorViewResources countSpec = spec.getCountErrorSpec();
             collection.add(uri);
+            if (collection.isCountOver() && !countSpec.isNoView()) {
+                ErrorViewUtils.showErrorView(activity, countSpec);
+                collection.remove(uri);
+                checkBox.setChecked(false);
+                return;
+            }
             checkBox.setChecked(true);
         } else {
             checkBox.setChecked(false);
-            FragmentActivity activity = (FragmentActivity) context;
-            SupportSimpleAlertDialogFragment.newInstance(cause.getErrorMessageRes())
-                    .show(activity.getSupportFragmentManager(), SupportSimpleAlertDialogFragment.TAG);
+            ErrorViewUtils.showErrorView(activity, cause.getErrorResources(spec));
         }
     }
 

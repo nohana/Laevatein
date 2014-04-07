@@ -54,6 +54,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESUME_LIST");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESULT_SELECTION");
+    public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_ERROR_SPEC");
     public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(PhotoSelectionActivity.class, "STATE_CAPTURE_PHOTO_URI");
     public static final int REQUEST_CODE_CAPTURE = 1;
     public static final int REQUEST_CODE_PREVIEW = 2;
