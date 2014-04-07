@@ -34,6 +34,8 @@ import android.view.MenuItem;
  */
 public class ImagePreviewActivity extends ActionBarActivity {
     public static final String EXTRA_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ITEM");
+    public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ERROR_SPEC");
+    public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_CHECK_VIEW_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CHECK_VIEW_RES");
     public static final String EXTRA_DEFAULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_DEFAULT_CHECKED");
     public static final String EXTRA_RESULT_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_ITEM");

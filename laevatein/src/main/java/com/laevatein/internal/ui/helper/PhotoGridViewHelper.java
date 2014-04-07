@@ -91,6 +91,8 @@ public final class PhotoGridViewHelper {
         ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Intent intent = new Intent(context, ImagePreviewActivity.class);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
+        intent.putExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC));
+        intent.putExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
         intent.putExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);

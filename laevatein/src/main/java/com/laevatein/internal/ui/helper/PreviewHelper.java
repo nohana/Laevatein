@@ -17,12 +17,19 @@ package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
 import com.laevatein.internal.entity.ActionViewResources;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.internal.utils.PhotoMetadataUtils;
 import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -51,23 +58,37 @@ public final class PreviewHelper {
     }
 
     public static void setUpActionItem(final ImagePreviewActivity activity, Menu menu) {
-        MenuItem item = menu.findItem(R.id.l_action_selection_state);
+        final MenuItem item = menu.findItem(R.id.l_action_selection_state);
         if (item == null) {
             return;
         }
-        ActionViewResources resources = activity.getIntent().getParcelableExtra(
-                ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
+        final Item photo = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
+        ActionViewResources resources = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
+        final SelectionSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC);
+        final ErrorViewSpec errorSpec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC);
         if (resources == null) {
-            item.setActionView(R.layout.l_action_layout_checkbox); // fallback
+            MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
         } else {
-            item.setActionView(resources.getLayoutId());
+            MenuItemCompat.setActionView(item, resources.getLayoutId());
         }
-        CheckBox checkBox = (CheckBox) item.getActionView().findViewById(resources.getCheckBoxId());
+        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
         checkBox.setChecked(activity.getStateHolder().isChecked());
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                activity.getStateHolder().setChecked(isChecked);
+                if (!isChecked) {
+                    return;
+                }
+                UncapableCause cause = PhotoMetadataUtils
+                        .isAcceptable(activity, spec, photo.buildContentUri());
+                if (cause == null) {
+                    activity.getStateHolder().setChecked(isChecked);
+                    return;
+                }
+
+                ErrorViewResources error = cause.getErrorResources(errorSpec);
+                ErrorViewUtils.showErrorView(activity, error);
+                checkBox.setChecked(false);
             }
         });
     }
