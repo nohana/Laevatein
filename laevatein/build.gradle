@@ -42,7 +42,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             repository url: "file://${repos.absolutePath}"
-            pom.version = '0.9.13'
+            pom.version = '0.9.14'
             pom.groupId = 'com.laevatein'
             pom.artifactId = 'Laevatein'
         }
