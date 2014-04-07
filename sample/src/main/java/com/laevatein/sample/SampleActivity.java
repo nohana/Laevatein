@@ -2,6 +2,7 @@ package com.laevatein.sample;
 
 import com.laevatein.Laevatein;
 import com.laevatein.MimeType;
+import com.laevatein.internal.entity.ErrorViewResources;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -43,7 +44,8 @@ public class SampleActivity extends ActionBarActivity {
                 .quality(300000, Integer.MAX_VALUE)
                 .resume(mSelected)
                 .capture(true)
-//                .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
+                .bindCountViewWith(android.R.color.white, R.color.l_background_count)
+                .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

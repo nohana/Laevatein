@@ -100,6 +100,7 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder bindCountViewWith(int textColorRes, int backgroundColorRes) {
+        mCountViewResources = new CountViewResources(textColorRes, backgroundColorRes);
         return this;
     }
 
