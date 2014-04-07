@@ -17,10 +17,10 @@ package com.laevatein.internal.ui.helper;
 
 import com.amalgam.app.SupportSimpleAlertDialogFragment;
 import com.laevatein.R;
-import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
@@ -86,10 +86,10 @@ public final class PhotoGridViewHelper {
 
     public static void callPreview(Context context, Item item, boolean checked) {
         Activity activity = (Activity) context;
-        ActionViewResources resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ACTION_VIEW_RES);
+        ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Intent intent = new Intent(context, ImagePreviewActivity.class);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
-        intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources);
+        intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
         intent.putExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }

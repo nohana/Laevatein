@@ -31,6 +31,7 @@ public class SelectedCountFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        SelectedCountViewHelper.setUpCountView(this);
         SelectedCountViewHelper.updateCountView((PhotoSelectionActivity) getActivity(), this);
     }
 

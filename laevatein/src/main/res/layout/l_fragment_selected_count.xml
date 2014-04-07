@@ -2,15 +2,16 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/l_container_count_view"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#222222">
+    android:background="@color/l_background_count">
     <TextView
         android:id="@+id/l_label_selected_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/l_format_selection_count"
-        android:textAppearance="?android:textAppearanceSmallInverse"/>
+        android:textSize="14sp"
+        android:textColor="@color/l_text_color_count"/>
 </RelativeLayout>

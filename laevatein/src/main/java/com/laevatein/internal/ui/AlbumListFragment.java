@@ -17,7 +17,7 @@ package com.laevatein.internal.ui;
 
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.AlbumViewResources;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.DevicePhotoAlbumCollection;
 import com.laevatein.internal.ui.helper.AlbumListViewHelper;
@@ -61,8 +61,8 @@ public class AlbumListFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        AlbumViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_DIR_VIEW_RES);
-        AlbumListViewHelper.setUpListView(this, this, resources);
+        ViewResourceSpec resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
+        AlbumListViewHelper.setUpListView(this, this, resources.getAlbumViewResources());
         mCollection.onCreate(getActivity(), this);
         mCollection.onRestoreInstanceState(savedInstanceState);
         AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());

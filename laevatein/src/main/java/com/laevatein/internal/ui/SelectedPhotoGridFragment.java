@@ -16,7 +16,7 @@
 package com.laevatein.internal.ui;
 
 import com.laevatein.R;
-import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
@@ -48,9 +48,9 @@ public class SelectedPhotoGridFragment extends Fragment implements SelectedPhoto
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
+        ViewResourceSpec resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         getActivity().setTitle(R.string.l_album_name_selected);
-        SelectedGridViewHelper.setUpGridView(this, resources, SelectedGridViewHelper.getSelectedPhotoSet(this));
+        SelectedGridViewHelper.setUpGridView(this, resources.getItemViewResources(), SelectedGridViewHelper.getSelectedPhotoSet(this));
     }
 
     @Override

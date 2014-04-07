@@ -18,7 +18,7 @@ package com.laevatein.internal.ui;
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
@@ -59,11 +59,11 @@ public class PhotoGridFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ItemViewResources resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES);
+        ViewResourceSpec resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Album album = getArguments().getParcelable(ARGS_ALBUM);
-        PhotoGridViewHelper.setUpGridView(this, resources, PhotoGridViewHelper.getSelectedPhotoSet(this));
+        PhotoGridViewHelper.setUpGridView(this, resources.getItemViewResources(), PhotoGridViewHelper.getSelectedPhotoSet(this));
         mPhotoCollection.onCreate(getActivity(), this);
-        mPhotoCollection.load(album, FragmentUtils.getIntentBooleanExtra(this, PhotoSelectionActivity.EXTRA_ENABLE_CAPTURE, false));
+        mPhotoCollection.load(album, resources.isEnableCapture());
         getActivity().setTitle(album.getDisplayName(getActivity()));
     }
 

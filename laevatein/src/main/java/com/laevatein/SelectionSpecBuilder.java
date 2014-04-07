@@ -17,8 +17,10 @@ package com.laevatein;
 
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
+import com.laevatein.internal.entity.CountViewResources;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
@@ -45,6 +47,7 @@ public final class SelectionSpecBuilder {
     private ItemViewResources mItemViewResources;
     private AlbumViewResources mAlbumViewResources;
     private ActionViewResources mActionViewResources;
+    private CountViewResources mCountViewResources;
     private boolean mEnableCapture;
     private List<Uri> mResumeList;
 
@@ -81,6 +84,16 @@ public final class SelectionSpecBuilder {
      */
     public SelectionSpecBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
         mAlbumViewResources = new AlbumViewResources(layoutId, imageViewId, directoryNameViewId);
+        return this;
+    }
+
+    /**
+     * Sets the binding appearance resources of the count view.
+     * @param textColorRes a text color resource for the count label.
+     * @param backgroundColorRes a background resource for the count label.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder bindCountViewWith(int textColorRes, int backgroundColorRes) {
         return this;
     }
 
@@ -161,16 +174,17 @@ public final class SelectionSpecBuilder {
         if (mActionViewResources == null) {
             mActionViewResources = ActionViewResources.getDefault();
         }
+        if (mCountViewResources == null) {
+            mCountViewResources = CountViewResources.getDefault();
+        }
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
+        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture);
+
         Intent intent = new Intent(activity, PhotoSelectionActivity.class);
-        intent.putExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES, mAlbumViewResources);
-        intent.putExtra(PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES, mItemViewResources);
-        intent.putExtra(PhotoSelectionActivity.EXTRA_ACTION_VIEW_RES, mActionViewResources);
+        intent.putExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC, viewSpec);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
-        intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST,
-                (ArrayList<? extends android.os.Parcelable>) mResumeList);
-        intent.putExtra(PhotoSelectionActivity.EXTRA_ENABLE_CAPTURE, mEnableCapture);
+        intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
         activity.startActivityForResult(intent, requestCode);
     }
 }
