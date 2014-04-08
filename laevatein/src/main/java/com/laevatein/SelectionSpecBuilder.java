@@ -55,6 +55,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mOverQualityErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
     private boolean mEnableCapture;
+    private boolean mEnableSelectedView;
     private List<Uri> mResumeList;
 
     /**
@@ -135,6 +136,17 @@ public final class SelectionSpecBuilder {
      */
     public SelectionSpecBuilder countOver(ErrorViewResources.ViewType type, int errorMessageId) {
         mCountErrorSpec = type.createSpec(errorMessageId);
+        return this;
+    }
+
+    /**
+     * Sets the flag to determine whether the list of which image has been selected should be shown or not.
+     * The flag is set as false by default.
+     * @param enableSelectedView the flag of visibility.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder enableSelectedView(boolean enableSelectedView) {
+        mEnableSelectedView = enableSelectedView;
         return this;
     }
 
@@ -230,7 +242,7 @@ public final class SelectionSpecBuilder {
         }
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
-        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture);
+        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture, mEnableSelectedView);
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
                 .setCountSpec(mCountErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)

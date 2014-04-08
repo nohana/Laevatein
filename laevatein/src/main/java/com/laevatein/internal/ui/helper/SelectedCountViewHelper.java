@@ -26,6 +26,7 @@ public final class SelectedCountViewHelper {
         ViewResourceSpec spec = FragmentUtils.getIntentParcelableExtra(fragment, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         view.setBackgroundResource(spec.getCountViewResources().getBackgroundColorResource());
         label.setTextColor(fragment.getResources().getColor(spec.getCountViewResources().getTextColorResource()));
+        view.setEnabled(spec.isEnableSelectedView());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

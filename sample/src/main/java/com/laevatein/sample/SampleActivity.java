@@ -46,6 +46,7 @@ public class SampleActivity extends ActionBarActivity {
                 .capture(true)
                 .bindCountViewWith(android.R.color.white, R.color.l_background_count)
                 .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
+                .enableSelectedView(true)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

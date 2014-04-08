@@ -29,6 +29,7 @@ public class ViewResourceSpec implements Parcelable {
     private final CountViewResources mCountViewResources;
     private final ItemViewResources mItemViewResources;
     private final boolean mEnableCapture;
+    private final boolean mEnableSelectedView;
 
     /* package */ ViewResourceSpec(Parcel source) {
         mActionViewResources = source.readParcelable(ActionViewResources.class.getClassLoader());
@@ -36,14 +37,16 @@ public class ViewResourceSpec implements Parcelable {
         mCountViewResources = source.readParcelable(CountViewResources.class.getClassLoader());
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
         mEnableCapture = ParcelUtils.readBoolean(source);
+        mEnableSelectedView = ParcelUtils.readBoolean(source);
     }
 
-    public ViewResourceSpec(ActionViewResources actionViewResources, AlbumViewResources albumViewResources, CountViewResources countViewResources, ItemViewResources itemViewResources, boolean enableCapture) {
+    public ViewResourceSpec(ActionViewResources actionViewResources, AlbumViewResources albumViewResources, CountViewResources countViewResources, ItemViewResources itemViewResources, boolean enableCapture, boolean enableSelectedView) {
         mActionViewResources = actionViewResources;
         mAlbumViewResources = albumViewResources;
         mCountViewResources = countViewResources;
         mItemViewResources = itemViewResources;
         mEnableCapture = enableCapture;
+        mEnableSelectedView = enableSelectedView;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class ViewResourceSpec implements Parcelable {
         dest.writeParcelable(mCountViewResources, flags);
         dest.writeParcelable(mItemViewResources, flags);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
+        ParcelUtils.writeBoolean(dest, mEnableSelectedView);
     }
 
     public ActionViewResources getActionViewResources() {
@@ -78,5 +82,9 @@ public class ViewResourceSpec implements Parcelable {
 
     public boolean isEnableCapture() {
         return mEnableCapture;
+    }
+
+    public boolean isEnableSelectedView() {
+        return mEnableSelectedView;
     }
 }
