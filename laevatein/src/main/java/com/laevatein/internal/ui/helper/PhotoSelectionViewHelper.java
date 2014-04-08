@@ -25,6 +25,7 @@ import com.laevatein.internal.ui.SelectedPhotoGridFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +63,11 @@ public final class PhotoSelectionViewHelper {
         manager.beginTransaction()
                 .replace(R.id.l_container_grid_fragment, fragment, PhotoGridFragment.TAG)
                 .commit();
-        drawer.closeDrawers();
+        if (((PhotoSelectionActivity) activity).isDrawerOpen()) {
+            drawer.closeDrawers();
+        } else {
+            drawer.openDrawer(GravityCompat.START);
+        }
     }
 
     public static void setSelectedGridFragment(FragmentActivity activity) {
