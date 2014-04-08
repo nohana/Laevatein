@@ -84,6 +84,10 @@ public final class PreviewHelper {
                 }
                 UncapableCause cause = PhotoMetadataUtils
                         .isAcceptable(activity, spec, photo.buildContentUri());
+                int currentCount = activity.getIntent().getIntExtra(ImagePreviewActivity.EXTRA_CURRENT_COUNT, 0);
+                if (currentCount + 1 > spec.getMaxSelectable()) {
+                    cause = UncapableCause.OVER_COUNT;
+                }
                 if (cause == null) {
                     activity.getStateHolder().setChecked(true);
                     return;
