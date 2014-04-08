@@ -68,6 +68,7 @@ public class ImagePreviewActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (R.id.home == item.getItemId() || android.R.id.home == item.getItemId()) {
+            PreviewHelper.sendBackResult(this);
             finish();
             return true;
         }
