@@ -79,18 +79,20 @@ public final class PreviewHelper {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
+                    activity.getStateHolder().setChecked(false);
                     return;
                 }
                 UncapableCause cause = PhotoMetadataUtils
                         .isAcceptable(activity, spec, photo.buildContentUri());
                 if (cause == null) {
-                    activity.getStateHolder().setChecked(isChecked);
+                    activity.getStateHolder().setChecked(true);
                     return;
                 }
 
                 ErrorViewResources error = cause.getErrorResources(errorSpec);
                 ErrorViewUtils.showErrorView(activity, error);
                 checkBox.setChecked(false);
+                activity.getStateHolder().setChecked(false);
             }
         });
     }
