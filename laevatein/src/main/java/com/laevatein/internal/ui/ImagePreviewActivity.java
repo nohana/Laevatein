@@ -50,6 +50,7 @@ public class ImagePreviewActivity extends ActionBarActivity {
         setContentView(R.layout.l_activity_preview);
         mStateHolder.onCreate();
         mStateHolder.onRestoreInstanceState(savedInstanceState);
+        PreviewHelper.setUpActivity(this);
         PreviewHelper.setUpActionBar(this);
         PreviewHelper.assign(this, getIntent().<Item>getParcelableExtra(EXTRA_ITEM));
     }
