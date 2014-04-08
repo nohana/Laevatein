@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -96,7 +98,9 @@ public final class PreviewHelper {
     public static void assign(Activity activity, Item item) {
         ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.l_image_zoom_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
-        Picasso.with(activity).load(item.buildContentUri()).into(image);
+        Uri uri = item.buildContentUri();
+        Point size = PhotoMetadataUtils.getBitmapSize(activity.getContentResolver(), uri);
+        Picasso.with(activity).load(item.buildContentUri()).resize(size.x, size.y).centerInside().into(image);
     }
 
     public static void sendBackResult(ImagePreviewActivity activity) {

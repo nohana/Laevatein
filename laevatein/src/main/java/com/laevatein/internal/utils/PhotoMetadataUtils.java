@@ -25,12 +25,17 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+
+import jp.mixi.compatibility.android.media.ExifInterfaceCompat;
 
 /**
  * @author KeithYokoma
@@ -40,6 +45,7 @@ import java.io.InputStream;
  */
 public final class PhotoMetadataUtils {
     public static final String TAG = PhotoMetadataUtils.class.getSimpleName();
+    private static final int MAX_WIDTH = 1600;
     private static final String SCHEME_CONTENT = "content";
 
     private PhotoMetadataUtils() {
@@ -47,18 +53,37 @@ public final class PhotoMetadataUtils {
     }
 
     public static int getPixelsCount(ContentResolver resolver, Uri uri) {
-        InputStream in = null;
+        Point size = getBitmapBound(resolver, uri);
+        return size.x * size.y;
+    }
+
+    public static Point getBitmapSize(ContentResolver resolver, Uri uri) {
+        Point imageSize = getBitmapBound(resolver, uri);
+        int w = imageSize.x;
+        int h = imageSize.y;
+        if (PhotoMetadataUtils.shouldRotate(resolver, uri)) {
+            w = imageSize.y;
+            h = imageSize.x;
+        }
+        int width = w > MAX_WIDTH ? MAX_WIDTH : w;
+        int height = (int) Math.floor(h * width / width);
+        return new Point(width, height);
+    }
+
+    public static Point getBitmapBound(ContentResolver resolver, Uri uri) {
+        InputStream is = null;
         try {
-            BitmapFactory.Options op = new BitmapFactory.Options();
-            op.inJustDecodeBounds = true;
-            in = resolver.openInputStream(uri);
-            BitmapFactory.decodeStream(in, null, op);
-            return op.outHeight * op.outWidth;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            is = resolver.openInputStream(uri);
+            BitmapFactory.decodeStream(is, null, options);
+            int width = options.outWidth;
+            int height = options.outHeight;
+            return new Point(width, height);
         } catch (FileNotFoundException e) {
-            Log.e(TAG, "file not found for the uri: " + uri.toString(), e);
-            return -1;
+            return new Point(0, 0);
         } finally {
-            CloseableUtils.close(in);
+            CloseableUtils.close(is);
         }
     }
 
@@ -127,4 +152,16 @@ public final class PhotoMetadataUtils {
         return false;
     }
 
+    public static boolean shouldRotate(ContentResolver resolver, Uri uri) {
+        ExifInterface exif;
+        try {
+            exif = ExifInterfaceCompat.newInstance(getPath(resolver, uri));
+        } catch (IOException e) {
+            Log.e(TAG, "could not read exif info of the image: " + uri);
+            return false;
+        }
+        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1);
+        return orientation == ExifInterface.ORIENTATION_ROTATE_90
+                || orientation == ExifInterface.ORIENTATION_ROTATE_270;
+    }
 }
