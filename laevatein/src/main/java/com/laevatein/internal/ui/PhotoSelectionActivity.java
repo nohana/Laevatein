@@ -115,6 +115,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
                 mCollection.add(captured);
                 mMediaStoreCompat.cleanUp(mCapturePhotoUriHolder);
             }
+            supportInvalidateOptionsMenu();
         } else if (requestCode == REQUEST_CODE_PREVIEW && resultCode == Activity.RESULT_OK) {
             boolean checked = data.getBooleanExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, false);
             Item item = data.getParcelableExtra(ImagePreviewActivity.EXTRA_RESULT_ITEM);
