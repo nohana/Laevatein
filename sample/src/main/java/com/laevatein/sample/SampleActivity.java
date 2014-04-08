@@ -5,6 +5,7 @@ import com.laevatein.MimeType;
 import com.laevatein.internal.entity.ErrorViewResources;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -47,6 +48,7 @@ public class SampleActivity extends ActionBarActivity {
                 .bindCountViewWith(android.R.color.white, R.color.l_background_count)
                 .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .enableSelectedView(true)
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 }

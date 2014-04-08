@@ -56,6 +56,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mTypeErrorSpec;
     private boolean mEnableCapture;
     private boolean mEnableSelectedView;
+    private int mActivityOrientation;
     private List<Uri> mResumeList;
 
     /**
@@ -68,6 +69,7 @@ public final class SelectionSpecBuilder {
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
         mResumeList = new ArrayList<Uri>();
+        mActivityOrientation = -1;
     }
 
     /**
@@ -219,6 +221,11 @@ public final class SelectionSpecBuilder {
         return this;
     }
 
+    public SelectionSpecBuilder restrictOrientation(int activityOrientation) {
+        mActivityOrientation = activityOrientation;
+        return this;
+    }
+
     /**
      * Start to select photo.
      * @param requestCode identity of the requester activity.
@@ -242,7 +249,8 @@ public final class SelectionSpecBuilder {
         }
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
-        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture, mEnableSelectedView);
+        // XXX need refactoring using builder pattern
+        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
                 .setCountSpec(mCountErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)

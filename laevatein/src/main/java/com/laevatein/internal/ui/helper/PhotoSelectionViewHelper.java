@@ -17,6 +17,7 @@ package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
@@ -39,6 +40,13 @@ import android.view.MenuItem;
 public final class PhotoSelectionViewHelper {
     private PhotoSelectionViewHelper() {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
+    }
+
+    public static void setUpActivity(PhotoSelectionActivity activity) {
+        ViewResourceSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
+        if (spec != null && spec.needActivityOrientationRestriction()) {
+            activity.setRequestedOrientation(spec.getActivityOrientation());
+        }
     }
 
     public static void refreshOptionsMenuState(PhotoSelectionActivity activity, SelectedUriCollection collection, Menu menu) {

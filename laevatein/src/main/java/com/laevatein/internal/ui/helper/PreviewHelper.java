@@ -22,6 +22,7 @@ import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.UncapableCause;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
@@ -51,6 +52,13 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 public final class PreviewHelper {
     private PreviewHelper() {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
+    }
+
+    public static void setUpActivity(ImagePreviewActivity activity) {
+        ViewResourceSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_VIEW_SPEC);
+        if (spec != null && spec.needActivityOrientationRestriction()) {
+            activity.setRequestedOrientation(spec.getActivityOrientation());
+        }
     }
 
     public static void setUpActionBar(ActionBarActivity activity) {

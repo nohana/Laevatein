@@ -2,6 +2,7 @@ package com.laevatein.internal.entity;
 
 import com.amalgam.os.ParcelUtils;
 
+import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -24,12 +25,14 @@ public class ViewResourceSpec implements Parcelable {
             return new ViewResourceSpec[size];
         }
     };
+    public static final int DEFAULT_SCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED; // no restriction
     private final ActionViewResources mActionViewResources;
     private final AlbumViewResources mAlbumViewResources;
     private final CountViewResources mCountViewResources;
     private final ItemViewResources mItemViewResources;
     private final boolean mEnableCapture;
     private final boolean mEnableSelectedView;
+    private final int mActivityOrientation;
 
     /* package */ ViewResourceSpec(Parcel source) {
         mActionViewResources = source.readParcelable(ActionViewResources.class.getClassLoader());
@@ -38,15 +41,24 @@ public class ViewResourceSpec implements Parcelable {
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
         mEnableCapture = ParcelUtils.readBoolean(source);
         mEnableSelectedView = ParcelUtils.readBoolean(source);
+        mActivityOrientation = source.readInt();
     }
 
-    public ViewResourceSpec(ActionViewResources actionViewResources, AlbumViewResources albumViewResources, CountViewResources countViewResources, ItemViewResources itemViewResources, boolean enableCapture, boolean enableSelectedView) {
+    public ViewResourceSpec(
+            ActionViewResources actionViewResources,
+            AlbumViewResources albumViewResources,
+            CountViewResources countViewResources,
+            ItemViewResources itemViewResources,
+            boolean enableCapture,
+            boolean enableSelectedView,
+            int activityOrientation) {
         mActionViewResources = actionViewResources;
         mAlbumViewResources = albumViewResources;
         mCountViewResources = countViewResources;
         mItemViewResources = itemViewResources;
         mEnableCapture = enableCapture;
         mEnableSelectedView = enableSelectedView;
+        mActivityOrientation = activityOrientation;
     }
 
     @Override
@@ -62,6 +74,7 @@ public class ViewResourceSpec implements Parcelable {
         dest.writeParcelable(mItemViewResources, flags);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
         ParcelUtils.writeBoolean(dest, mEnableSelectedView);
+        dest.writeInt(mActivityOrientation);
     }
 
     public ActionViewResources getActionViewResources() {
@@ -86,5 +99,13 @@ public class ViewResourceSpec implements Parcelable {
 
     public boolean isEnableSelectedView() {
         return mEnableSelectedView;
+    }
+
+    public boolean needActivityOrientationRestriction() {
+        return mActivityOrientation != DEFAULT_SCREEN_ORIENTATION;
+    }
+
+    public int getActivityOrientation() {
+        return mActivityOrientation;
     }
 }

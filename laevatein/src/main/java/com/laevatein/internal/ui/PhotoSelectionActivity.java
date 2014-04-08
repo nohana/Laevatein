@@ -68,6 +68,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_select_photo);
+        PhotoSelectionViewHelper.setUpActivity(this);
         mMediaStoreCompat = new MediaStoreCompat(this, HandlerUtils.getMainHandler());
         mCapturePhotoUriHolder = savedInstanceState != null ? savedInstanceState.getString(STATE_CAPTURE_PHOTO_URI) : "";
         mCollection.onCreate(savedInstanceState);
