@@ -123,9 +123,7 @@ Via Gradle
 repositories {
     mavenCentral()
     maven { url 'https://raw.github.com/nohana/Laevatein/master/repository/' }
-    maven { url 'https://raw.github.com/nohana/Amalgam/master/amalgam/repository/' }
     maven { url 'https://raw.github.com/KeithYokoma/CompoundContainers/master/repository/' }
-    maven { url 'https://raw.github.com/mixi-inc/Android-Device-Compatibility/master/repository/' }
 }
 android {
     dependencies {
