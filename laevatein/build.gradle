@@ -23,28 +23,30 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.1'
-    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.squareup.picasso:picasso:2.1.1'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     compile 'it.sephiroth.android.library.imagezoom:library:+'
-    compile 'jp.yokomark.widget:CompoundContainers:0.9.1'
+    compile 'com.github.keithyokoma:CompoundContainers:1.0.0@aar'
     compile 'jp.co.nohana:Amalgam:0.3.2@aar'
     compile 'jp.mixi:AndroidDeviceCompatibility:1.0.0@aar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-def repos = new File(rootDir, "repository")
-
-apply plugin: 'maven'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository url: "file://${repos.absolutePath}"
-            pom.version = '0.10.5'
-            pom.groupId = 'com.laevatein'
-            pom.artifactId = 'Laevatein'
-        }
+android.libraryVariants.all { variant -> def name = variant.buildType.name
+    // Only attach a jar for non-debug build types.
+    if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+        def task = project.tasks.create "jar${name.capitalize()}", Jar
+        task.dependsOn variant.javaCompile
+        task.from variant.javaCompile.destinationDir
+        artifacts.add('archives', task);
     }
 }
+
+apply from: 'https://raw.githubusercontent.com/googolmo/gradle-mvn-push/new_javadoc_source_task/gradle-mvn-push.gradle'
+//
+//afterEvaluate {
+//    androidJavadocs.classpath += project.files(android.plugin.getRuntimeJarList().join(File.pathSeparator))
+//    androidJavadocs.classpath += project.files(android.libraryVariants.javaCompile.classpath.files);
+//}

@@ -13,6 +13,5 @@ buildscript {
 allprojects {
     repositories {
         mavenCentral()
-        maven { url 'https://raw.github.com/KeithYokoma/CompoundContainers/master/repository/' }
     }
 }
