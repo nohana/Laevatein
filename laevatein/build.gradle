@@ -3,7 +3,7 @@ apply plugin: 'android-library'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 9
@@ -34,7 +34,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-android.libraryVariants.all { variant -> def name = variant.buildType.name
+android.libraryVariants.findAll { variant -> def name = variant.buildType.name
     // Only attach a jar for non-debug build types.
     if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
         def task = project.tasks.create "jar${name.capitalize()}", Jar
