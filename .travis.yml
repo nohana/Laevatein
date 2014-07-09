@@ -8,7 +8,7 @@ before_install:
   - android-update-sdk --components='android-19' --accept-licenses='.+'
   - android-update-sdk --components='extra-android-m2repository,extra-google-m2repository' --accept-licenses='.+'
   - android list sdk --no-ui --all --extended
-script: ./gradlew clean assemble test -PdisablePreDex
+script: ./gradlew clean build -PdisablePreDex
 notifications:
   email: false
   on_success: always
