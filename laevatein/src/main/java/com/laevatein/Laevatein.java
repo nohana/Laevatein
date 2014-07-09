@@ -18,6 +18,7 @@ package com.laevatein;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -41,9 +42,16 @@ import javax.annotation.Nullable;
 public final class Laevatein {
     public static final String TAG = Laevatein.class.getSimpleName();
     private final WeakReference<Activity> mContext;
+    private final WeakReference<Fragment> mFragment;
 
     protected Laevatein(Activity context) {
         mContext = new WeakReference<Activity>(context);
+        mFragment = null;
+    }
+
+    protected Laevatein(Activity activity, Fragment fragment) {
+        mContext = new WeakReference<Activity>(activity);
+        mFragment = new WeakReference<Fragment>(fragment);
     }
 
     /**
@@ -53,6 +61,10 @@ public final class Laevatein {
      */
     public static Laevatein from(Activity activity) {
         return new Laevatein(activity);
+    }
+
+    public static Laevatein from(Activity activity, Fragment fragment) {
+        return new Laevatein(activity, fragment);
     }
 
     /**
@@ -78,5 +90,12 @@ public final class Laevatein {
      */
     /* package */ @Nullable Activity getActivity() {
         return mContext.get();
+    }
+
+    /**
+     * @return the fragment that is responsible for result handling.
+     */
+    /* package */ @Nullable Fragment getFragment() {
+        return mFragment.get();
     }
 }
