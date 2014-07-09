@@ -1,28 +1,14 @@
-nguage: java
-
-jdk:
-  - oraclejdk7
-
+language: android
+jdk: oraclejdk7
 before_install:
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
-  - wget http://dl.google.com/android/android-sdk_r22.0.5-linux.tgz
-  - tar -zxf android-sdk_r22.0.5-linux.tgz
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
-  # install android build tools
-  - wget https://dl-ssl.google.com/android/repository/build-tools_r19.0.1-linux.zip
-  - unzip build-tools_r19.0.1-linux.zip -d $ANDROID_HOME
-  - mkdir -p $ANDROID_HOME/build-tools/
-  - mv $ANDROID_HOME/android-4.4.2 $ANDROID_HOME/build-tools/19.0.1
-
-install:
-  - true
-
-script:
-  - TERM=dumb ./gradlew -i build
-  - cat /home/travis/build/nohana/Laevatein/laevatein/build/lint-results.xml
-
+  # This is a workaround for the issue that comes up from SDK rev.23
+  - sudo mv /usr/local/android-sdk/tools/android-* /usr/local/bin
+  - android-update-sdk --components='platform-tools,tools' --accept-licenses='.+'
+  - android-update-sdk --components='build-tools-20.0.0' --accept-licenses='.+'
+  - android-update-sdk --components='android-19' --accept-licenses='.+'
+  - android-update-sdk --components='extra-android-m2repository,extra-google-m2repository' --accept-licenses='.+'
+  - android list sdk --no-ui --all --extended
+script: ./gradlew clean assemble test -PdisablePreDex
 notifications:
   email: false
   on_success: always
