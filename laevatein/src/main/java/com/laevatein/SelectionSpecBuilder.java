@@ -26,7 +26,7 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 
