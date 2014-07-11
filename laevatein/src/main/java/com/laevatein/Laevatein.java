@@ -63,8 +63,8 @@ public final class Laevatein {
         return new Laevatein(activity);
     }
 
-    public static Laevatein from(Activity activity, Fragment fragment) {
-        return new Laevatein(activity, fragment);
+    public static Laevatein from(Fragment fragment) {
+        return new Laevatein(fragment.getActivity(), fragment);
     }
 
     /**
