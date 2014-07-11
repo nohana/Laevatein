@@ -26,6 +26,7 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -263,6 +264,12 @@ public final class SelectionSpecBuilder {
         intent.putExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC, errorSpec);
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
-        activity.startActivityForResult(intent, requestCode);
+
+        Fragment fragment = mLaevatein.getFragment();
+        if (fragment != null) {
+            fragment.startActivityForResult(intent, requestCode);
+        } else {
+            activity.startActivityForResult(intent, requestCode);
+        }
     }
 }
