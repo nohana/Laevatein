@@ -15,12 +15,12 @@
  */
 package com.laevatein;
 
-import com.laevatein.internal.ui.PhotoSelectionActivity;
-
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+
+import com.laevatein.internal.ui.PhotoSelectionActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -35,8 +35,8 @@ import javax.annotation.Nullable;
  * and use {@link #obtainResult(android.content.Intent)} for the convenience of receiving the selection result.
  *
  * @author KeithYokoma
- * @since 2014/03/19
  * @version 1.0.0
+ * @since 2014/03/19
  */
 @SuppressWarnings("unused") // public APIs
 public final class Laevatein {
@@ -56,6 +56,7 @@ public final class Laevatein {
 
     /**
      * Starts selection from the specified {@link android.app.Activity}.
+     *
      * @param activity to start.
      * @return the requester context wrapper.
      */
@@ -69,6 +70,7 @@ public final class Laevatein {
 
     /**
      * Obtains the selection result passed to your {@link Activity#onActivityResult(int, int, android.content.Intent)}.
+     *
      * @param data the data.
      * @return the selected {@link android.net.Uri}s.
      */
@@ -78,6 +80,7 @@ public final class Laevatein {
 
     /**
      * Specifies the MIME Type to select.
+     *
      * @param mimeType the mime type of the photo you would like to choose.
      * @return the specification builder context.
      */
@@ -88,14 +91,18 @@ public final class Laevatein {
     /**
      * @return the actual requester context.
      */
-    /* package */ @Nullable Activity getActivity() {
+    /* package */
+    @Nullable
+    Activity getActivity() {
         return mContext.get();
     }
 
     /**
      * @return the fragment that is responsible for result handling.
      */
-    /* package */ @Nullable Fragment getFragment() {
-        return mFragment.get();
+    /* package */
+    @Nullable
+    Fragment getFragment() {
+        return mFragment != null ? mFragment.get() : null;
     }
 }
