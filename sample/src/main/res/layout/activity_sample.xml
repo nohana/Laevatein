@@ -8,6 +8,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose"
+        android:text="@string/label_button"
         android:onClick="onClickButton"/>
 </LinearLayout>
