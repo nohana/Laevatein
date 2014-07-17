@@ -45,6 +45,7 @@ dependencies {
 // }
 
 // apply from: 'https://raw.githubusercontent.com/googolmo/gradle-mvn-push/new_javadoc_source_task/gradle-mvn-push.gradle'
+apply from: 'https://raw.githubusercontent.com/jpardogo/gradle-mvn-push/master/gradle-mvn-push.gradle'
 //
 // afterEvaluate {
 //     androidJavadocs.classpath += project.files(android.plugin.getRuntimeJarList().join(File.pathSeparator))
