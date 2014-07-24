@@ -125,7 +125,7 @@ repositories {
 }
 android {
     dependencies {
-        compile 'com.laevatein:Laevatein:1.0.1'
+        compile 'jp.co.nohana:Laevatein:1.0.1'
     }
 }
 ```
