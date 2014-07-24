@@ -122,12 +122,10 @@ Via Gradle
 ```groovy
 repositories {
     mavenCentral()
-    maven { url 'https://raw.github.com/nohana/Laevatein/master/repository/' }
-    maven { url 'https://raw.github.com/KeithYokoma/CompoundContainers/master/repository/' }
 }
 android {
     dependencies {
-        compile 'com.laevatein:Laevatein:1.0.0'
+        compile 'com.laevatein:Laevatein:1.0.1'
     }
 }
 ```
