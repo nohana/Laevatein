@@ -1,14 +1,13 @@
 language: android
-jdk: oraclejdk7
-before_install:
-  # This is a workaround for the issue that comes up from SDK rev.23
-  - sudo mv /usr/local/android-sdk/tools/android-* /usr/local/bin
-  - android-update-sdk --components='platform-tools,tools' --accept-licenses='.+'
-  - android-update-sdk --components='build-tools-20.0.0' --accept-licenses='.+'
-  - android-update-sdk --components='android-19' --accept-licenses='.+'
-  - android-update-sdk --components='extra-android-m2repository,extra-google-m2repository' --accept-licenses='.+'
-  - android list sdk --no-ui --all --extended
+
+jdk: oraclejdk8
+
+android:
+  components:
+  - build-tools-20.0.0
+
 script: ./gradlew clean build -PdisablePreDex
+
 notifications:
   email: false
   on_success: always
