@@ -2,7 +2,6 @@ language: android
 jdk: oraclejdk7
 before_install:
   # This is a workaround for the issue that comes up from SDK rev.23
-  - sudo mv /usr/local/android-sdk/tools/android-* /usr/local/bin
   - android-update-sdk --components='platform-tools,tools' --accept-licenses='.+'
   - android-update-sdk --components='build-tools-20.0.0' --accept-licenses='.+'
   - android-update-sdk --components='android-19' --accept-licenses='.+'
