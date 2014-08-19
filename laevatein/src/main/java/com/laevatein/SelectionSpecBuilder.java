@@ -15,6 +15,11 @@
  */
 package com.laevatein;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.CountViewResources;
@@ -25,11 +30,6 @@ import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.content.Intent;
-import android.net.Uri;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,8 +38,8 @@ import java.util.Set;
  * Fluent API for building photo select specification.
  *
  * @author KeithYokoma
- * @since 2014/03/19
  * @version 1.0.0
+ * @since 2014/03/19
  */
 @SuppressWarnings("unused") // public APIs
 public final class SelectionSpecBuilder {
@@ -62,8 +62,9 @@ public final class SelectionSpecBuilder {
 
     /**
      * Constructs a new specification builder on the context.
+     *
      * @param laevatein a requester context wrapper.
-     * @param mimeType MimeType set to select.
+     * @param mimeType  MimeType set to select.
      */
     /* package */ SelectionSpecBuilder(Laevatein laevatein, Set<MimeType> mimeType) {
         mLaevatein = laevatein;
@@ -75,20 +76,22 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the binding cell of the grid view with the specified layout resource for photo list.
-     * @param layoutId a layout resource id.
+     *
+     * @param layoutId    a layout resource id.
      * @param imageViewId an id for the image view.
-     * @param checkBoxId an id for the check box.
+     * @param checkBoxId  an id for the check box.
      * @return the specification builder context.
      */
     public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
-        mItemViewResources = new ItemViewResources(layoutId,    imageViewId, checkBoxId);
+        mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId);
         return this;
     }
 
     /**
      * Sets the binding cell of the list view with the specified layout resource for album list.
-     * @param layoutId a layout resource id.
-     * @param imageViewId an id for the image view.
+     *
+     * @param layoutId            a layout resource id.
+     * @param imageViewId         an id for the image view.
      * @param directoryNameViewId an id for the text view of the album name
      * @return the specification builder context.
      */
@@ -99,7 +102,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the binding appearance resources of the count view.
-     * @param textColorRes a text color resource for the count label.
+     *
+     * @param textColorRes       a text color resource for the count label.
      * @param backgroundColorRes a background resource for the count label.
      * @return the specification builder context.
      */
@@ -110,7 +114,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the layout resources for use as action view on the preview activity.
-     * @param layoutId a layout resource id.
+     *
+     * @param layoutId   a layout resource id.
      * @param checkBoxId an id for the check box.
      * @return the specification builder context.
      */
@@ -121,6 +126,7 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the limitation of a selectable count within the specified range.
+     *
      * @param min minimum value to select.
      * @param max maximum value to select.
      * @return the specification builder context.
@@ -133,7 +139,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the error view specification for the error of count over.
-     * @param type error view type.
+     *
+     * @param type           error view type.
      * @param errorMessageId an error message resource id.
      * @return the specification builder context.
      */
@@ -145,6 +152,7 @@ public final class SelectionSpecBuilder {
     /**
      * Sets the flag to determine whether the list of which image has been selected should be shown or not.
      * The flag is set as false by default.
+     *
      * @param enableSelectedView the flag of visibility.
      * @return the specification builder context.
      */
@@ -155,7 +163,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the error view specification for the error of quality un-satisfaction.
-     * @param type error view type.
+     *
+     * @param type           error view type.
      * @param errorMessageId an error message resource id.
      * @return the specification builder context.
      */
@@ -166,7 +175,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the error view specification for the error of quality un-satisfaction..
-     * @param type error view type.
+     *
+     * @param type           error view type.
      * @param errorMessageId an error message resource id.
      * @return the specification builder context.
      */
@@ -177,7 +187,8 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the error view specification for the error of type validation.
-     * @param type error view type.
+     *
+     * @param type           error view type.
      * @param errorMessageId an error message resource id.
      * @return the specification builder context.
      */
@@ -188,6 +199,7 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the limitation of a selectable image quality by pixel count within the specified range.
+     *
      * @param minPixel minimum value to select.
      * @param maxPixel maximum value to select.
      * @return the specification builder context.
@@ -200,6 +212,7 @@ public final class SelectionSpecBuilder {
 
     /**
      * Sets the default selection to resume photo picking activity.
+     *
      * @param uriList to set selected as default.
      * @return the specification builder context.
      */
@@ -214,6 +227,7 @@ public final class SelectionSpecBuilder {
     /**
      * Determines whether the photo capturing is enabled or not on the camera photo grid view.
      * This flag is false by default.
+     *
      * @param enable whether to enable capturing or not.
      * @return the specification builder context.
      */
@@ -229,6 +243,7 @@ public final class SelectionSpecBuilder {
 
     /**
      * Start to select photo.
+     *
      * @param requestCode identity of the requester activity.
      */
     public void forResult(int requestCode) {
@@ -265,8 +280,8 @@ public final class SelectionSpecBuilder {
         intent.putExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
         intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
 
-        Fragment fragment = mLaevatein.getFragment();
-        if (fragment != null) {
+        if (null != mLaevatein.getFragment()) {
+            Fragment fragment = mLaevatein.getFragment();
             fragment.startActivityForResult(intent, requestCode);
         } else {
             activity.startActivityForResult(intent, requestCode);
