@@ -46,10 +46,10 @@ public class SelectionSpecBuilderTest extends AndroidTestCase {
     }
 
     private void ensureAllExtrasExist(Intent intent) {
-        assertNotNull(intent.getParcelableExtra(PhotoSelectionActivity.EXTRA_DIR_VIEW_RES));
-        assertNotNull(intent.getParcelableExtra(PhotoSelectionActivity.EXTRA_ITEM_VIEW_RES));
         assertNotNull(intent.getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         assertNotNull(intent.getParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESUME_LIST));
+        assertNotNull(intent.getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC));
+        assertNotNull(intent.getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC));
     }
 
     public void testCountSpec() throws Exception {
