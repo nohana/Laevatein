@@ -1,15 +1,25 @@
 language: android
-jdk: oraclejdk7
-before_install:
-  # This is a workaround for the issue that comes up from SDK rev.23
-  - sudo mv /usr/local/android-sdk/tools/android-* /usr/local/bin
-  - android-update-sdk --components='platform-tools,tools' --accept-licenses='.+'
-  - android-update-sdk --components='build-tools-20.0.0' --accept-licenses='.+'
-  - android-update-sdk --components='android-19' --accept-licenses='.+'
-  - android-update-sdk --components='extra-android-m2repository,extra-google-m2repository' --accept-licenses='.+'
-  - android list sdk --no-ui --all --extended
-script: ./gradlew clean build -PdisablePreDex
+android:
+  components:
+    - tools
+
+    # The BuildTools version
+    - build-tools-20.0.0
+
+    # The SDK version
+    - android-19
+
+    # Additional components
+    - extra-android-m2repository
+
+    # emulator image
+    - sys-img-armeabi-v7a-android-19
+
+before_script:
+  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 notifications:
   email: false
-  on_success: always
-  on_failure: always
