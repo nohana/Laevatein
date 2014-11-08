@@ -18,7 +18,7 @@ android {
         }
     }
     lintOptions {
-        abortOnError false
+       abortOnError false
     }
 }
 
@@ -34,26 +34,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-tasks.withType(Javadoc) {
-    // workaround javadoc build error
-    // can't resolve dependencies
-    failOnError=false
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+
+afterEvaluate {
+    androidJavadocs.classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
 }
-
-// android.libraryVariants.findAll { variant -> def name = variant.buildType.name
-//     // Only attach a jar for non-debug build types.
-//     if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
-//         def task = project.tasks.create "jar${name.capitalize()}", Jar
-//         task.dependsOn variant.javaCompile
-//         task.from variant.javaCompile.destinationDir
-//         artifacts.add('archives', task);
-//     }
-// }
-
-// apply from: 'https://raw.githubusercontent.com/googolmo/gradle-mvn-push/new_javadoc_source_task/gradle-mvn-push.gradle'
-apply from: 'https://raw.githubusercontent.com/jpardogo/gradle-mvn-push/master/gradle-mvn-push.gradle'
-//
-// afterEvaluate {
-//     androidJavadocs.classpath += project.files(android.plugin.getRuntimeJarList().join(File.pathSeparator))
-//     androidJavadocs.classpath += project.files(android.libraryVariants.javaCompile.classpath.files);
-// }
