@@ -72,8 +72,6 @@ public enum MimeType {
         for (String extension : mExtensions) {
             if (extension.equals(type)) {
                 return true;
-            } else if (type != null) {
-                return false;
             }
             String path = PhotoMetadataUtils.getPath(resolver, uri);
             if (path != null && path.toLowerCase(Locale.US).endsWith(extension)) {
