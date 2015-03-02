@@ -36,5 +36,6 @@ dependencies {
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
 
 afterEvaluate {
+    androidJavadocs.failOnError false
     androidJavadocs.classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
 }
