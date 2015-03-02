@@ -6,7 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 /**
  * @author keishin.yokomaku

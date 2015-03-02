@@ -30,7 +30,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 /**
  * @author KeithYokoma

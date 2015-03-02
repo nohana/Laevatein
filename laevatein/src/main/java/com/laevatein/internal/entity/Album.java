@@ -23,7 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 /**
  * @author KeithYokoma

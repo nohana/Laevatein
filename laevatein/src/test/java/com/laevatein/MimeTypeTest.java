@@ -1,17 +1,23 @@
 package com.laevatein;
 
 import android.net.Uri;
-import android.test.AndroidTestCase;
 import android.test.mock.MockContentResolver;
 
+import org.junit.Test;
+
 import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author keishin.yokomaku
  * @since 2014/03/31
  */
-public class MimeTypeTest extends AndroidTestCase {
-    public void testOneOf() throws Exception {
+public class MimeTypeTest {
+    @Test
+    public void oneOf() throws Exception {
         {
             Set<MimeType> set = MimeType.of(MimeType.JPEG);
             assertEquals(1, set.size());
@@ -37,7 +43,8 @@ public class MimeTypeTest extends AndroidTestCase {
         }
     }
 
-    public void testSomeOf() throws Exception {
+    @Test
+    public void someOf() throws Exception {
         {
             Set<MimeType> set = MimeType.of(MimeType.JPEG, MimeType.PNG);
             assertEquals(2, set.size());
@@ -71,7 +78,8 @@ public class MimeTypeTest extends AndroidTestCase {
         }
     }
 
-    public void testAllOf() throws Exception {
+    @Test
+    public void allOf() throws Exception {
         Set<MimeType> set = MimeType.allOf();
         assertEquals(3, set.size());
         assertTrue(set.contains(MimeType.JPEG));
@@ -79,13 +87,15 @@ public class MimeTypeTest extends AndroidTestCase {
         assertTrue(set.contains(MimeType.GIF));
     }
 
-    public void testToString() throws Exception {
+    @Test
+    public void stringify() throws Exception {
         assertEquals("image/jpeg", MimeType.JPEG.toString());
         assertEquals("image/png", MimeType.PNG.toString());
         assertEquals("image/gif", MimeType.GIF.toString());
     }
 
-    public void testCheckType() throws Exception {
+    @Test
+    public void typeCheck() throws Exception {
         MockContentResolver resolver = new MockContentResolver();
 
         {
