@@ -1,19 +1,15 @@
 language: android
+jdk: oraclejdk8
 android:
   components:
-    - tools
-
-    # The BuildTools version
-    - build-tools-22.0.1
-
-    # The SDK version
     - android-22
-    # Additional components
+    - build-tools-22.0.1
+    - extra-google-google_play_services
+    - extra-google-m2repository 
     - extra-android-m2repository
-    # emulator image
-    - sys-img-armeabi-v7a-android-19
+    - addon-google_apis-google-21- tools
 
--script: ./gradlew clean build -PdisablePreDex
+script: ./gradlew clean build -PdisablePreDex
 
 notifications:
   email: false
