@@ -1,19 +1,31 @@
 package com.laevatein.internal.entity;
 
+import android.app.Activity;
+import android.content.ContextWrapper;
 import android.database.MatrixCursor;
 import android.provider.MediaStore;
-import android.test.AndroidTestCase;
 
-import com.laevatein.R;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author KeithYokoma
  * @since 2014/04/01
  */
-public class AlbumTest extends AndroidTestCase {
+@RunWith(RobolectricTestRunner.class)
+@Config(emulateSdk = 18)
+public class AlbumTest {
     private static final String[] MOCK_PROJECTION = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
 
-    public void testCamera() throws Exception {
+    @Test
+    public void camera() throws Exception {
         MatrixCursor cameraRow = new MatrixCursor(MOCK_PROJECTION);
         cameraRow.addRow(new String[]{"1", "1", "Camera"});
         assertTrue(cameraRow.moveToFirst());
@@ -23,10 +35,11 @@ public class AlbumTest extends AndroidTestCase {
         assertTrue(camera.isCamera());
         assertEquals(1L, camera.getCoverId());
         assertEquals("1", camera.getId());
-        assertEquals(getContext().getString(R.string.l_album_name_camera), camera.getDisplayName(getContext()));
+        assertEquals("Camera", camera.getDisplayName(new ContextWrapper(new Activity())));
     }
 
-    public void testAllSelect() throws Exception {
+    @Test
+    public void all() throws Exception {
         MatrixCursor allRow = new MatrixCursor(MOCK_PROJECTION);
         allRow.addRow(new String[]{Album.ALBUM_ID_ALL, "-1", "All"});
         assertTrue(allRow.moveToFirst());
@@ -36,10 +49,11 @@ public class AlbumTest extends AndroidTestCase {
         assertFalse(all.isCamera());
         assertEquals(-1L, all.getCoverId());
         assertEquals(Album.ALBUM_ID_ALL, all.getId());
-        assertEquals(getContext().getString(R.string.l_album_name_all), all.getDisplayName(getContext()));
+        assertEquals("All Photos", all.getDisplayName(new ContextWrapper(new Activity())));
     }
 
-    public void testDownload() throws Exception {
+    @Test
+    public void download() throws Exception {
         MatrixCursor downloadRow = new MatrixCursor(MOCK_PROJECTION);
         downloadRow.addRow(new String[]{"2", "2", "Download"});
         assertTrue(downloadRow.moveToFirst());
@@ -49,10 +63,11 @@ public class AlbumTest extends AndroidTestCase {
         assertFalse(download.isCamera());
         assertEquals(2L, download.getCoverId());
         assertEquals("2", download.getId());
-        assertEquals(getContext().getString(R.string.l_album_name_download), download.getDisplayName(getContext()));
+        assertEquals("Download", download.getDisplayName(new ContextWrapper(new Activity())));
     }
 
-    public void testScreenShot() throws Exception {
+    @Test
+    public void screenshot() throws Exception {
         MatrixCursor screenShotRow = new MatrixCursor(MOCK_PROJECTION);
         screenShotRow.addRow(new String[]{"3", "3", "Screenshots"});
         assertTrue(screenShotRow.moveToFirst());
@@ -62,6 +77,6 @@ public class AlbumTest extends AndroidTestCase {
         assertFalse(screenShot.isCamera());
         assertEquals(3L, screenShot.getCoverId());
         assertEquals("3", screenShot.getId());
-        assertEquals(getContext().getString(R.string.l_album_name_screen_shot), screenShot.getDisplayName(getContext()));
+        assertEquals("Screenshot", screenShot.getDisplayName(new ContextWrapper(new Activity())));
     }
 }

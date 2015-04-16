@@ -15,21 +15,20 @@
  */
 package com.laevatein.internal.model;
 
-import com.amalgam.os.BundleUtils;
-import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.loader.AlbumPhotoLoader;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
-import java.lang.ref.WeakReference;
+import com.amalgam.os.BundleUtils;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.loader.AlbumPhotoLoader;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
 
 /**
  * @author KeithYokoma
@@ -84,7 +83,7 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
         mCallbacks.onReset();
     }
 
-    public void onCreate(@Nonnull FragmentActivity context, @Nonnull AlbumPhotoCallbacks callbacks) {
+    public void onCreate(@NonNull FragmentActivity context, @NonNull AlbumPhotoCallbacks callbacks) {
         mContext = new WeakReference<Context>(context);
         mLoaderManager = context.getSupportLoaderManager();
         mCallbacks = callbacks;

@@ -1,22 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile project(':laevatein')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -5,7 +5,7 @@ import com.laevatein.R;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 /**
  * @author Keithyokoma

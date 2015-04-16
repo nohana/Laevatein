@@ -15,15 +15,15 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.laevatein.R;
-
 import android.app.Activity;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
+
+import com.laevatein.R;
 
 /**
  * @author KeithYokoma
@@ -48,12 +48,15 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
      * @param drawerLayout              The DrawerLayout to link to the given Activity's ActionBar
      */
     public PhotoSelectionActivityDrawerToggle(Activity activity, DrawerLayout drawerLayout) {
-        super(activity, drawerLayout, R.drawable.l_ic_drawer, R.string.l_content_desc_open_drawer, R.string.l_content_desc_close_drawer);
+        super(activity, drawerLayout, R.string.l_content_desc_open_drawer, R.string.l_content_desc_close_drawer);
         mActivity = (FragmentActivity) activity;
         drawerLayout.setDrawerShadow(R.drawable.l_drawer_shadow, GravityCompat.START);
     }
 
     public void setUpActionBar(ActionBar actionBar) {
+        if (actionBar == null) {
+            return; // FIXME for now just check null or not to avoid NPE, consider compatibility layer to deal with tool bar later on.
+        }
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
     }
