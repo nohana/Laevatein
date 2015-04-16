@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.0'
         classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.0'
     }
 }
 
