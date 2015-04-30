@@ -113,7 +113,7 @@ public final class PreviewHelper {
         ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.l_image_zoom_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = item.buildContentUri();
-        Point size = PhotoMetadataUtils.getBitmapSize(activity.getContentResolver(), uri);
+        Point size = PhotoMetadataUtils.getBitmapSize(activity.getContentResolver(), uri, activity);
         Picasso.with(activity).load(item.buildContentUri()).resize(size.x, size.y).centerInside().into(image);
     }
 

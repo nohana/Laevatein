@@ -15,12 +15,7 @@
  */
 package com.laevatein.internal.utils;
 
-import com.amalgam.database.CursorUtils;
-import com.amalgam.io.CloseableUtils;
-import com.laevatein.MimeType;
-import com.laevatein.internal.entity.SelectionSpec;
-import com.laevatein.internal.entity.UncapableCause;
-
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -29,7 +24,14 @@ import android.graphics.Point;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
+
+import com.amalgam.database.CursorUtils;
+import com.amalgam.io.CloseableUtils;
+import com.laevatein.MimeType;
+import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.UncapableCause;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,7 +47,6 @@ import jp.mixi.compatibility.android.media.ExifInterfaceCompat;
  */
 public final class PhotoMetadataUtils {
     public static final String TAG = PhotoMetadataUtils.class.getSimpleName();
-    private static final int MAX_WIDTH = 1600;
     private static final String SCHEME_CONTENT = "content";
 
     private PhotoMetadataUtils() {
@@ -57,7 +58,7 @@ public final class PhotoMetadataUtils {
         return size.x * size.y;
     }
 
-    public static Point getBitmapSize(ContentResolver resolver, Uri uri) {
+    public static Point getBitmapSize(ContentResolver resolver, Uri uri, Activity activity) {
         Point imageSize = getBitmapBound(resolver, uri);
         int w = imageSize.x;
         int h = imageSize.y;
@@ -65,9 +66,16 @@ public final class PhotoMetadataUtils {
             w = imageSize.y;
             h = imageSize.x;
         }
-        int width = w > MAX_WIDTH ? MAX_WIDTH : w;
-        int height = (int) Math.floor(h * width / width);
-        return new Point(width, height);
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float screenWidth = (float) metrics.widthPixels;
+        float screenHeight = (float) metrics.heightPixels;
+        float widthScale = screenWidth / w;
+        float heightScale = screenHeight / h;
+        if (widthScale > heightScale) {
+            return new Point((int) (w * widthScale), (int)(h * heightScale));
+        }
+        return new Point((int) (w * widthScale), (int) (h * heightScale));
     }
 
     public static Point getBitmapBound(ContentResolver resolver, Uri uri) {
