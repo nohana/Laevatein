@@ -18,8 +18,8 @@ import java.util.List;
  * @author KeithYokoma
  * @since 2014/03/20
  */
-public class SampleActivity extends ActionBarActivity {
-    public static final String TAG = SampleActivity.class.getSimpleName();
+public class LActionBarActivity extends ActionBarActivity {
+    public static final String TAG = LActionBarActivity.class.getSimpleName();
     public static final int REQUEST_CODE_CHOOSE = 1;
     private List<Uri> mSelected;
 

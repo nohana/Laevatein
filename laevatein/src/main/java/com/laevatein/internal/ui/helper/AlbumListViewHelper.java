@@ -41,13 +41,13 @@ public final class AlbumListViewHelper {
     }
 
     public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener, AlbumViewResources resources) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
+        ListView listView = (ListView) fragment.getView();
         listView.setOnItemClickListener(listener);
         listView.setAdapter(new DevicePhotoAlbumAdapter(fragment.getActivity(), null, resources));
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
+        ListView listView = (ListView) fragment.getView();
         CursorAdapter adapter = (CursorAdapter) listView.getAdapter();
         adapter.swapCursor(cursor);
     }
@@ -74,7 +74,7 @@ public final class AlbumListViewHelper {
     }
 
     public static void setCheckedState(Fragment fragment, int position) {
-        ListView listView = (ListView) fragment.getView().findViewById(R.id.l_list_album);
+        ListView listView = (ListView) fragment.getView();
         listView.setItemChecked(position, true);
     }
 }
