@@ -7,7 +7,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_material_dark"
+        android:background="@color/kurenai"
         android:minHeight="50dp" />
 
     <Button
