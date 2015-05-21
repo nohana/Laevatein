@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 /**
  * @author KeithYokoma
@@ -39,5 +40,13 @@ public final class FragmentUtils {
         Activity activity = fragment.getActivity();
         Intent intent = activity.getIntent();
         return intent.getBooleanExtra(key, fallback);
+    }
+
+    public static View findViewById(Fragment fragment, int id) {
+        View view = fragment.getView().findViewById(id);
+        if(view == null){
+            view = fragment.getView();
+        }
+        return view;
     }
 }
