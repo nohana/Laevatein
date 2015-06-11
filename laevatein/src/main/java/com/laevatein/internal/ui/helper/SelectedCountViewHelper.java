@@ -1,20 +1,19 @@
 package com.laevatein.internal.ui.helper;
 
+import android.view.View;
+import android.widget.TextView;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.SelectedCountFragment;
 
-import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.TextView;
-
 /**
  * @author KeithYokoma
- * @since 2014/04/04
  * @version 1.0.0
  * @hide
+ * @since 2014/04/04
  */
 public final class SelectedCountViewHelper {
     private SelectedCountViewHelper() {
@@ -22,8 +21,7 @@ public final class SelectedCountViewHelper {
     }
 
     public static void setUpCountView(final SelectedCountFragment fragment) {
-
-        View view = fragment.getView();//R.id.l_container_count_view
+        View view = FragmentUtils.findViewById(fragment, R.id.l_container_count_view);
         TextView label = (TextView) fragment.getView().findViewById(R.id.l_label_selected_count);
         ViewResourceSpec spec = FragmentUtils.getIntentParcelableExtra(fragment, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         view.setBackgroundResource(spec.getCountViewResources().getBackgroundColorResource());

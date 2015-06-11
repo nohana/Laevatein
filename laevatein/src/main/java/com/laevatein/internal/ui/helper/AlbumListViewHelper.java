@@ -15,13 +15,6 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.amalgam.os.HandlerUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.AlbumViewResources;
-import com.laevatein.internal.ui.AlbumListFragment;
-import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
-
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,11 +22,19 @@ import android.support.v4.widget.CursorAdapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.amalgam.os.HandlerUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.AlbumViewResources;
+import com.laevatein.internal.misc.ui.FragmentUtils;
+import com.laevatein.internal.ui.AlbumListFragment;
+import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
+
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public final class AlbumListViewHelper {
     private AlbumListViewHelper() {
@@ -41,13 +42,13 @@ public final class AlbumListViewHelper {
     }
 
     public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener, AlbumViewResources resources) {
-        ListView listView = (ListView) fragment.getView();
+        ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
         listView.setOnItemClickListener(listener);
         listView.setAdapter(new DevicePhotoAlbumAdapter(fragment.getActivity(), null, resources));
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        ListView listView = (ListView) fragment.getView();
+        ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
         CursorAdapter adapter = (CursorAdapter) listView.getAdapter();
         adapter.swapCursor(cursor);
     }
@@ -74,7 +75,7 @@ public final class AlbumListViewHelper {
     }
 
     public static void setCheckedState(Fragment fragment, int position) {
-        ListView listView = (ListView) fragment.getView();
+        ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
         listView.setItemChecked(position, true);
     }
 }
