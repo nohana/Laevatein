@@ -33,6 +33,7 @@ import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
@@ -76,7 +77,9 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
         mDrawer = (DrawerLayout) findViewById(R.id.l_container_drawer);
+        ViewResourceSpec resources = getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
+        toolbar.setBackgroundResource(resources.getToolbarBackgroundResources().getDrawableId());
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer ,toolbar);
         setSupportActionBar(toolbar);
         mToggle.setUpActionBar(getSupportActionBar());

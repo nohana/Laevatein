@@ -34,9 +34,11 @@ import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.ToolbarBackgroundResources;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 import com.squareup.picasso.Picasso;
@@ -63,8 +65,13 @@ public final class PreviewHelper {
     }
 
     public static void setUpActionBar(ActionBarActivity activity) {
+        ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
         toolbar.setTitle("写真詳細");
+        ToolbarBackgroundResources res = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_TOOLBAR_DRAWABLE_RES);
+        if (res != null) {
+            toolbar.setBackgroundResource(res.getDrawableId());
+        }
         activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
