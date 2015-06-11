@@ -32,9 +32,9 @@ import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public final class AlbumListViewHelper {
     private AlbumListViewHelper() {

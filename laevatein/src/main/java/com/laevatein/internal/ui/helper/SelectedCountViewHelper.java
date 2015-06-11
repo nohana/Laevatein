@@ -11,9 +11,9 @@ import com.laevatein.internal.ui.SelectedCountFragment;
 
 /**
  * @author KeithYokoma
- * @since 2014/04/04
  * @version 1.0.0
  * @hide
+ * @since 2014/04/04
  */
 public final class SelectedCountViewHelper {
     private SelectedCountViewHelper() {
