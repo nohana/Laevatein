@@ -15,6 +15,18 @@
  */
 package com.laevatein.internal.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
@@ -26,17 +38,6 @@ import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
@@ -75,7 +76,9 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
         mDrawer = (DrawerLayout) findViewById(R.id.l_container_drawer);
-        mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
+        mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer ,toolbar);
+        setSupportActionBar(toolbar);
         mToggle.setUpActionBar(getSupportActionBar());
         mDrawer.setDrawerListener(mToggle);
     }
