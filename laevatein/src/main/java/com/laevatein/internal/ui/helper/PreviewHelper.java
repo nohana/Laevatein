@@ -15,19 +15,6 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.laevatein.R;
-import com.laevatein.internal.entity.ActionViewResources;
-import com.laevatein.internal.entity.ErrorViewResources;
-import com.laevatein.internal.entity.ErrorViewSpec;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.SelectionSpec;
-import com.laevatein.internal.entity.UncapableCause;
-import com.laevatein.internal.entity.ViewResourceSpec;
-import com.laevatein.internal.ui.ImagePreviewActivity;
-import com.laevatein.internal.utils.ErrorViewUtils;
-import com.laevatein.internal.utils.PhotoMetadataUtils;
-import com.squareup.picasso.Picasso;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
@@ -35,19 +22,35 @@ import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+
+import com.laevatein.R;
+import com.laevatein.internal.entity.ActionViewResources;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.ToolbarBackgroundResources;
+import com.laevatein.internal.entity.UncapableCause;
+import com.laevatein.internal.entity.ViewResourceSpec;
+import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.internal.utils.PhotoMetadataUtils;
+import com.squareup.picasso.Picasso;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public final class PreviewHelper {
     private PreviewHelper() {
@@ -62,6 +65,14 @@ public final class PreviewHelper {
     }
 
     public static void setUpActionBar(ActionBarActivity activity) {
+        ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
+        toolbar.setTitle("写真詳細");
+        ToolbarBackgroundResources res = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_TOOLBAR_DRAWABLE_RES);
+        if (res != null) {
+            toolbar.setBackgroundResource(res.getDrawableId());
+        }
+        activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

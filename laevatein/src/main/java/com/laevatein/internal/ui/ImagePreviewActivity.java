@@ -15,16 +15,16 @@
  */
 package com.laevatein.internal.ui;
 
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.model.PreviewStateHolder;
 import com.laevatein.internal.ui.helper.PreviewHelper;
-
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * @author KeithYokoma
@@ -39,6 +39,7 @@ public class ImagePreviewActivity extends ActionBarActivity {
     public static final String EXTRA_VIEW_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_VIEW_SPEC");
     public static final String EXTRA_CURRENT_COUNT = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CURRENT_COUNT");
     public static final String EXTRA_CHECK_VIEW_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CHECK_VIEW_RES");
+    public static final String EXTRA_TOOLBAR_DRAWABLE_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_TOOLBAR_DRAWABLE_RES");
     public static final String EXTRA_DEFAULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_DEFAULT_CHECKED");
     public static final String EXTRA_RESULT_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_ITEM");
     public static final String EXTRA_RESULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_CHECKED");

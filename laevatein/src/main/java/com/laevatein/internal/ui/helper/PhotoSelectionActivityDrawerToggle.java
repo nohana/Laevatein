@@ -21,6 +21,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.laevatein.R;
@@ -49,6 +50,12 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
      */
     public PhotoSelectionActivityDrawerToggle(Activity activity, DrawerLayout drawerLayout) {
         super(activity, drawerLayout, R.string.l_content_desc_open_drawer, R.string.l_content_desc_close_drawer);
+        mActivity = (FragmentActivity) activity;
+        drawerLayout.setDrawerShadow(R.drawable.l_drawer_shadow, GravityCompat.START);
+    }
+
+    public PhotoSelectionActivityDrawerToggle(Activity activity, DrawerLayout drawerLayout,Toolbar toolbar) {
+        super(activity, drawerLayout, toolbar, R.string.l_content_desc_open_drawer, R.string.l_content_desc_close_drawer);
         mActivity = (FragmentActivity) activity;
         drawerLayout.setDrawerShadow(R.drawable.l_drawer_shadow, GravityCompat.START);
     }

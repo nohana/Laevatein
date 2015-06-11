@@ -1,12 +1,11 @@
 package com.laevatein.internal.entity;
 
-import com.amalgam.os.ParcelUtils;
-
 import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import android.support.annotation.Nullable;
+
+import com.amalgam.os.ParcelUtils;
 
 /**
  * @author keishin.yokomaku
@@ -27,6 +26,7 @@ public class ViewResourceSpec implements Parcelable {
     };
     public static final int DEFAULT_SCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED; // no restriction
     private final ActionViewResources mActionViewResources;
+    private final ToolbarBackgroundResources mToolbarBackgroundResources;
     private final AlbumViewResources mAlbumViewResources;
     private final CountViewResources mCountViewResources;
     private final ItemViewResources mItemViewResources;
@@ -36,6 +36,7 @@ public class ViewResourceSpec implements Parcelable {
 
     /* package */ ViewResourceSpec(Parcel source) {
         mActionViewResources = source.readParcelable(ActionViewResources.class.getClassLoader());
+        mToolbarBackgroundResources = source.readParcelable(ToolbarBackgroundResources.class.getClassLoader());
         mAlbumViewResources = source.readParcelable(AlbumViewResources.class.getClassLoader());
         mCountViewResources = source.readParcelable(CountViewResources.class.getClassLoader());
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
@@ -46,6 +47,7 @@ public class ViewResourceSpec implements Parcelable {
 
     public ViewResourceSpec(
             ActionViewResources actionViewResources,
+            ToolbarBackgroundResources toolbarBackgroundResources,
             AlbumViewResources albumViewResources,
             CountViewResources countViewResources,
             ItemViewResources itemViewResources,
@@ -53,6 +55,7 @@ public class ViewResourceSpec implements Parcelable {
             boolean enableSelectedView,
             int activityOrientation) {
         mActionViewResources = actionViewResources;
+        mToolbarBackgroundResources = toolbarBackgroundResources;
         mAlbumViewResources = albumViewResources;
         mCountViewResources = countViewResources;
         mItemViewResources = itemViewResources;
@@ -69,6 +72,7 @@ public class ViewResourceSpec implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(mActionViewResources, flags);
+        dest.writeParcelable(mToolbarBackgroundResources, flags);
         dest.writeParcelable(mAlbumViewResources, flags);
         dest.writeParcelable(mCountViewResources, flags);
         dest.writeParcelable(mItemViewResources, flags);
@@ -79,6 +83,10 @@ public class ViewResourceSpec implements Parcelable {
 
     public ActionViewResources getActionViewResources() {
         return mActionViewResources;
+    }
+
+    public ToolbarBackgroundResources getToolbarBackgroundResources() {
+        return mToolbarBackgroundResources;
     }
 
     public AlbumViewResources getAlbumViewResources() {

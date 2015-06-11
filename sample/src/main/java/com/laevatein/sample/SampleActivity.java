@@ -1,16 +1,17 @@
 package com.laevatein.sample;
 
-import com.laevatein.Laevatein;
-import com.laevatein.MimeType;
-import com.laevatein.internal.entity.ErrorViewResources;
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+
+import com.laevatein.Laevatein;
+import com.laevatein.MimeType;
+import com.laevatein.internal.entity.ErrorViewResources;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class SampleActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override

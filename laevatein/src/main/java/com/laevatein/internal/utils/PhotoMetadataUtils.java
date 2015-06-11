@@ -47,6 +47,7 @@ import jp.mixi.compatibility.android.media.ExifInterfaceCompat;
  */
 public final class PhotoMetadataUtils {
     public static final String TAG = PhotoMetadataUtils.class.getSimpleName();
+    private static final int MAX_WIDTH = 1600;
     private static final String SCHEME_CONTENT = "content";
 
     private PhotoMetadataUtils() {
@@ -66,6 +67,7 @@ public final class PhotoMetadataUtils {
             w = imageSize.y;
             h = imageSize.x;
         }
+        if (h == 0) return new Point(MAX_WIDTH, MAX_WIDTH);
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float screenWidth = (float) metrics.widthPixels;

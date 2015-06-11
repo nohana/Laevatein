@@ -15,6 +15,17 @@
  */
 package com.laevatein.internal.ui.helper;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.CursorAdapter;
+import android.widget.CheckBox;
+import android.widget.GridView;
+import android.widget.TextView;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
@@ -28,24 +39,13 @@ import com.laevatein.internal.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.utils.ErrorViewUtils;
 
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.CursorAdapter;
-import android.widget.CheckBox;
-import android.widget.GridView;
-import android.widget.TextView;
-
 import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public final class PhotoGridViewHelper {
     private PhotoGridViewHelper() {
@@ -94,6 +94,7 @@ public final class PhotoGridViewHelper {
         intent.putExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_VIEW_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
+        intent.putExtra(ImagePreviewActivity.EXTRA_TOOLBAR_DRAWABLE_RES, resources.getToolbarBackgroundResources());
         intent.putExtra(ImagePreviewActivity.EXTRA_CURRENT_COUNT, activity.getCollection().count());
         intent.putExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
