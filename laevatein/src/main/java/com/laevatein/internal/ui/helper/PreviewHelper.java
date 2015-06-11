@@ -15,6 +15,19 @@
  */
 package com.laevatein.internal.ui.helper;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.ErrorViewResources;
@@ -28,26 +41,14 @@ import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 import com.squareup.picasso.Picasso;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Point;
-import android.net.Uri;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public final class PreviewHelper {
     private PreviewHelper() {
@@ -62,6 +63,9 @@ public final class PreviewHelper {
     }
 
     public static void setUpActionBar(ActionBarActivity activity) {
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
+        toolbar.setTitle("写真詳細");
+        activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
