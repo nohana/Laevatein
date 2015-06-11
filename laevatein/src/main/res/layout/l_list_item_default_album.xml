@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="12sp"
+        android:layout_marginEnd="12sp"
         android:src="@drawable/l_ic_action_collection"
         android:duplicateParentState="true"/>
     <TextView
@@ -18,8 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/l_default_list_image"
+        android:layout_toEndOf="@+id/l_default_list_image"
         android:layout_centerVertical="true"
-        android:textColor="?android:textColorPrimaryInverse"
+        android:textColor="@color/primary_text_default_material_dark"
         android:textAppearance="?android:textAppearanceMedium"
         android:duplicateParentState="true"/>
 </jp.yokomark.widget.compound.CompoundRelativeLayout>

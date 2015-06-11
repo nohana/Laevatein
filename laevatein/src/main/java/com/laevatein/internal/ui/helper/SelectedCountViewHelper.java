@@ -36,7 +36,7 @@ public final class SelectedCountViewHelper {
     }
 
     public static void updateCountView(PhotoSelectionActivity activity, SelectedCountFragment fragment) {
-        if (activity.getCollection() == null || fragment.getView() == null) {
+        if (activity == null || fragment == null || activity.getCollection() == null || fragment.getView() == null) {
             return;
         }
         TextView label = (TextView) fragment.getView().findViewById(R.id.l_label_selected_count);
