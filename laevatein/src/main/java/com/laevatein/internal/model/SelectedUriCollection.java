@@ -15,14 +15,14 @@
  */
 package com.laevatein.internal.model;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+
 import com.amalgam.os.BundleUtils;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
-
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ import java.util.Set;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public class SelectedUriCollection {
     private static final String STATE_SELECTION = BundleUtils.buildKey(SelectedUriCollection.class, "STATE_SELECTION");
@@ -73,6 +73,11 @@ public class SelectedUriCollection {
 
     public boolean remove(Uri uri) {
         return mUris.remove(uri);
+    }
+
+    public void overwrite(ArrayList<Uri> uriLists) {
+        mUris.clear();
+        mUris.addAll(uriLists);
     }
 
     public List<Uri> asList() {

@@ -15,34 +15,53 @@
  */
 package com.laevatein.internal.ui;
 
-import com.amalgam.os.BundleUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.model.PreviewStateHolder;
-import com.laevatein.internal.ui.helper.PreviewHelper;
-
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+
+import com.amalgam.os.BundleUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.ActionViewResources;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.model.AlbumPhotoCollection;
+import com.laevatein.internal.model.PreviewStateHolder;
+import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
+import com.laevatein.internal.ui.helper.PreviewHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
-public class ImagePreviewActivity extends ActionBarActivity {
+public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhotoCollection.AlbumPhotoCallbacks, ViewPager.OnPageChangeListener {
     public static final String EXTRA_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ITEM");
+    public static final String EXTRA_ALBUM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ALBUM");
     public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ERROR_SPEC");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_VIEW_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_VIEW_SPEC");
-    public static final String EXTRA_CURRENT_COUNT = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CURRENT_COUNT");
     public static final String EXTRA_CHECK_VIEW_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CHECK_VIEW_RES");
     public static final String EXTRA_DEFAULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_DEFAULT_CHECKED");
-    public static final String EXTRA_RESULT_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_ITEM");
     public static final String EXTRA_RESULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_CHECKED");
     private final PreviewStateHolder mStateHolder = new PreviewStateHolder(this);
+
+    private ViewPager mPager;
+    private CheckBox mCheckBox;
+
+    private final AlbumPhotoCollection mCollection = new AlbumPhotoCollection();
+    private boolean mIsAlreadySetPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +71,10 @@ public class ImagePreviewActivity extends ActionBarActivity {
         mStateHolder.onRestoreInstanceState(savedInstanceState);
         PreviewHelper.setUpActivity(this);
         PreviewHelper.setUpActionBar(this);
-        PreviewHelper.assign(this, getIntent().<Item>getParcelableExtra(EXTRA_ITEM));
+        mPager = (ViewPager) findViewById(R.id.l_pager);
+        mCollection.onCreate(this, this);
+        Album album = getIntent().getParcelableExtra(EXTRA_ALBUM);
+        mCollection.load(album);
     }
 
     @Override
@@ -65,6 +87,9 @@ public class ImagePreviewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.l_activity_image_preview, menu);
         PreviewHelper.setUpActionItem(this, menu);
+        final MenuItem item = menu.findItem(R.id.l_action_selection_state);
+        ActionViewResources resources = getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
+        mCheckBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -84,7 +109,57 @@ public class ImagePreviewActivity extends ActionBarActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCollection.onDestroy();
+    }
+
     public PreviewStateHolder getStateHolder() {
         return mStateHolder;
+    }
+
+    @Override
+    public void onLoad(Cursor cursor) {
+        List<Uri> uris = new ArrayList<>();
+        cursor.moveToFirst();
+        do {
+            final Item item = Item.valueOf(cursor);
+            Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, item.getId());
+            uris.add(uri);
+        } while (cursor.moveToNext());
+        PreviewPagerAdapter adapter = (PreviewPagerAdapter) mPager.getAdapter();
+        adapter.addAll(uris);
+        adapter.notifyDataSetChanged();
+        if (!mIsAlreadySetPosition) {
+            //onLoad is called many times..
+            mIsAlreadySetPosition = true;
+            Item selected = getIntent().getParcelableExtra(EXTRA_ITEM);
+            int selectedIndex = uris.indexOf(selected.buildContentUri());
+            mPager.setCurrentItem(selectedIndex, false);
+            mPager.setOnPageChangeListener(this);
+        }
+    }
+
+    @Override
+    public void onReset() {
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Uri uri = ((PreviewPagerAdapter) mPager.getAdapter()).getUri(position);
+        if (mStateHolder.isChecked(uri)) {
+            mCheckBox.setChecked(true);
+        } else {
+            mCheckBox.setChecked(false);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
     }
 }

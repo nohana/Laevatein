@@ -31,7 +31,6 @@ import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
@@ -39,13 +38,15 @@ import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 
+import java.util.ArrayList;
+
 import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public class PhotoSelectionActivity extends ActionBarActivity implements
         AlbumListFragment.OnDirectorySelectListener,
@@ -77,7 +78,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
         mDrawer = (DrawerLayout) findViewById(R.id.l_container_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
-        mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer ,toolbar);
+        mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer, toolbar);
         setSupportActionBar(toolbar);
         mToggle.setUpActionBar(getSupportActionBar());
         mDrawer.setDrawerListener(mToggle);
@@ -120,13 +121,8 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
             }
             supportInvalidateOptionsMenu();
         } else if (requestCode == REQUEST_CODE_PREVIEW && resultCode == Activity.RESULT_OK) {
-            boolean checked = data.getBooleanExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, false);
-            Item item = data.getParcelableExtra(ImagePreviewActivity.EXTRA_RESULT_ITEM);
-            if (checked) {
-                mCollection.add(item.buildContentUri());
-            } else {
-                mCollection.remove(item.buildContentUri());
-            }
+            ArrayList<Uri> checked = data.getParcelableArrayListExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED);
+            mCollection.overwrite(checked);
             PhotoSelectionViewHelper.refreshGridView(this);
             supportInvalidateOptionsMenu();
         }

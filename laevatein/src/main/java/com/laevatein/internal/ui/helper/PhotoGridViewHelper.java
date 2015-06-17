@@ -15,19 +15,6 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.laevatein.R;
-import com.laevatein.internal.entity.ErrorViewResources;
-import com.laevatein.internal.entity.ErrorViewSpec;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
-import com.laevatein.internal.entity.UncapableCause;
-import com.laevatein.internal.entity.ViewResourceSpec;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.ImagePreviewActivity;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
-import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
-import com.laevatein.internal.utils.ErrorViewUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,13 +26,31 @@ import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.UncapableCause;
+import com.laevatein.internal.entity.ViewResourceSpec;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.ui.PhotoGridFragment;
+import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
+import com.laevatein.internal.utils.ErrorViewUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public final class PhotoGridViewHelper {
     private PhotoGridViewHelper() {
@@ -85,17 +90,19 @@ public final class PhotoGridViewHelper {
         adapter.notifyDataSetChanged();
     }
 
-    public static void callPreview(Context context, Item item, boolean checked) {
+    public static void callPreview(Context context, Item item, List<Uri> checked) {
         PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
         ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Intent intent = new Intent(context, ImagePreviewActivity.class);
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.l_container_grid_fragment);
+        Album album = fragment.getArguments().getParcelable(PhotoGridFragment.ARGS_ALBUM);
+        intent.putExtra(ImagePreviewActivity.EXTRA_ALBUM, album);
         intent.putExtra(ImagePreviewActivity.EXTRA_ITEM, item);
         intent.putExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_VIEW_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
-        intent.putExtra(ImagePreviewActivity.EXTRA_CURRENT_COUNT, activity.getCollection().count());
-        intent.putExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, checked);
+        intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, (ArrayList<Uri>) checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }
 

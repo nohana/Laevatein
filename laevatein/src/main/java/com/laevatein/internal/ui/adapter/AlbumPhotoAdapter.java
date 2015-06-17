@@ -15,14 +15,6 @@
  */
 package com.laevatein.internal.ui.adapter;
 
-import com.amalgam.content.ContextUtils;
-import com.laevatein.R;
-import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -32,11 +24,19 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.amalgam.content.ContextUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
+import com.squareup.picasso.Picasso;
+
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public class AlbumPhotoAdapter extends CursorAdapter {
     private final ItemViewResources mResources;
@@ -67,7 +67,7 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                 if (item.isCapture()) {
                     PhotoGridViewHelper.callCamera(context);
                 } else {
-                    PhotoGridViewHelper.callPreview(context, item, check.isChecked());
+                    PhotoGridViewHelper.callPreview(context, item, mCollection.asList());
                 }
             }
         });

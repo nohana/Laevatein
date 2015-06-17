@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <it.sephiroth.android.library.imagezoom.ImageViewTouch
-        android:id="@+id/l_image_zoom_view"
+    <com.laevatein.internal.view.MyViewPager
+        android:id="@+id/l_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/l_toolbar" />
