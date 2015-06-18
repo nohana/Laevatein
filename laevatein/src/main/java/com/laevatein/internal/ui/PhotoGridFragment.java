@@ -15,6 +15,13 @@
  */
 package com.laevatein.internal.ui;
 
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
@@ -24,23 +31,16 @@ import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public class PhotoGridFragment extends Fragment implements
         AlbumPhotoCollection.AlbumPhotoCallbacks, AlbumPhotoAdapter.CheckStateListener {
     public static final String TAG = PhotoGridFragment.class.getSimpleName();
-    private static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
+    public static final String ARGS_ALBUM = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_ALBUM");
     private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
 
     public static PhotoGridFragment newInstance(Album album) {

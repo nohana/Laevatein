@@ -17,9 +17,9 @@ package com.laevatein.internal.ui.helper;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Point;
 import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,12 +37,12 @@ import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
 import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
-import com.squareup.picasso.Picasso;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KeithYokoma
@@ -60,6 +60,9 @@ public final class PreviewHelper {
         if (spec != null && spec.needActivityOrientationRestriction()) {
             activity.setRequestedOrientation(spec.getActivityOrientation());
         }
+        PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager(), activity);
+        ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
+        pager.setAdapter(adapter);
     }
 
     public static void setUpActionBar(ActionBarActivity activity) {
@@ -86,47 +89,39 @@ public final class PreviewHelper {
             MenuItemCompat.setActionView(item, resources.getLayoutId());
         }
         final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
-        checkBox.setChecked(activity.getStateHolder().isChecked());
+        checkBox.setChecked(activity.getStateHolder().isChecked(photo.buildContentUri()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
+                Uri currentUri = ((PreviewPagerAdapter) pager.getAdapter()).getUri(pager.getCurrentItem());
                 if (!isChecked) {
-                    activity.getStateHolder().setChecked(false);
+                    activity.getStateHolder().setChecked(currentUri, false);
                     return;
                 }
                 UncapableCause cause = PhotoMetadataUtils
-                        .isAcceptable(activity, spec, photo.buildContentUri());
-                int currentCount = activity.getIntent().getIntExtra(ImagePreviewActivity.EXTRA_CURRENT_COUNT, 0);
+                        .isAcceptable(activity, spec, currentUri);
+                int currentCount = activity.getStateHolder().getChechedCount();
                 if (currentCount + 1 > spec.getMaxSelectable()) {
                     cause = UncapableCause.OVER_COUNT;
                 }
                 if (cause == null) {
-                    activity.getStateHolder().setChecked(true);
+                    activity.getStateHolder().setChecked(currentUri, true);
                     return;
                 }
 
                 ErrorViewResources error = cause.getErrorResources(errorSpec);
                 ErrorViewUtils.showErrorView(activity, error);
                 checkBox.setChecked(false);
-                activity.getStateHolder().setChecked(false);
+                activity.getStateHolder().setChecked(currentUri, false);
             }
         });
     }
 
-    public static void assign(Activity activity, Item item) {
-        ImageViewTouch image = (ImageViewTouch) activity.findViewById(R.id.l_image_zoom_view);
-        image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
-        Uri uri = item.buildContentUri();
-        Point size = PhotoMetadataUtils.getBitmapSize(activity.getContentResolver(), uri, activity);
-        Picasso.with(activity).load(item.buildContentUri()).resize(size.x, size.y).centerInside().into(image);
-    }
-
     public static void sendBackResult(ImagePreviewActivity activity) {
         Intent intent = new Intent();
-        Item item = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
-        boolean checked = activity.getStateHolder().isChecked();
-        intent.putExtra(ImagePreviewActivity.EXTRA_RESULT_ITEM, item);
-        intent.putExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, checked);
+        List<Uri> checked = activity.getStateHolder().getAllChecked();
+        intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, (ArrayList<Uri>) checked);
         activity.setResult(Activity.RESULT_OK, intent);
     }
 }

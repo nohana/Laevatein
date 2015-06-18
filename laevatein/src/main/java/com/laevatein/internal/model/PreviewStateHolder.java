@@ -1,12 +1,15 @@
 package com.laevatein.internal.model;
 
+import android.app.Activity;
+import android.net.Uri;
+import android.os.Bundle;
+
 import com.amalgam.os.BundleUtils;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 
-import android.app.Activity;
-import android.os.Bundle;
-
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author keishin.yokomaku
@@ -14,7 +17,7 @@ import java.lang.ref.WeakReference;
  */
 public class PreviewStateHolder {
     private static final String STATE_CHECKED = BundleUtils.buildKey(PreviewStateHolder.class, "STATE_CHECKED");
-    private boolean mChecked;
+    private ArrayList<Uri> mChecked;
     private WeakReference<Activity> mContext;
 
     public PreviewStateHolder(Activity activity) {
@@ -26,25 +29,38 @@ public class PreviewStateHolder {
         if (activity == null) {
             return;
         }
-        mChecked = activity.getIntent().getBooleanExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, false);
+        mChecked = activity.getIntent().getParcelableArrayListExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             return;
         }
-        mChecked = savedInstanceState.getBoolean(STATE_CHECKED);
+        mChecked = savedInstanceState.getParcelableArrayList(STATE_CHECKED);
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(STATE_CHECKED, mChecked);
+        outState.putParcelableArrayList(STATE_CHECKED, mChecked);
     }
 
-    public boolean isChecked() {
-        return mChecked;
+    public boolean isChecked(Uri uri) {
+        return mChecked.contains(uri);
     }
 
-    public void setChecked(boolean checked) {
-        mChecked = checked;
+    public void setChecked(Uri uri, boolean checked) {
+        if (checked) {
+            mChecked.add(uri);
+        } else {
+            mChecked.remove(uri);
+        }
     }
+
+    public int getChechedCount(){
+        return mChecked.size();
+    }
+
+    public List<Uri> getAllChecked() {
+        return new ArrayList<Uri>(mChecked);
+    }
+
 }
