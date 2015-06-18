@@ -5,8 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
-
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 
 /**
@@ -22,7 +20,9 @@ public class PreviewViewPager extends ViewPager {
 
     @Override
     protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
-        PreviewPagerAdapter adapter = (PreviewPagerAdapter) getAdapter();
-        return ((ImageViewTouch) adapter.getCurrentFragment().getView()).canScroll(dx) || super.canScroll(v, checkV, dx, x, y);
+        if (v instanceof ImageViewTouch) {
+            return ((ImageViewTouch) v).canScroll(dx) || super.canScroll(v, checkV, dx, x, y);
+        }
+        return super.canScroll(v, checkV, dx, x, y);
     }
 }

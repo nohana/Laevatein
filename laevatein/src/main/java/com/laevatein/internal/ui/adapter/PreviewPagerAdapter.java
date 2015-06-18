@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
-    private Fragment mCurrentFragment;
-
     private ArrayList<Uri> mUris = new ArrayList<>();
 
     private OnPrimaryItemSetListener mListener;
@@ -41,9 +39,6 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        if (mCurrentFragment != object) {
-            mCurrentFragment = (Fragment) object;
-        }
         super.setPrimaryItem(container, position, object);
         mListener.onOnPrimaryItemSet(position);
     }
@@ -54,10 +49,6 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     public void addAll(List<Uri> uris) {
         mUris.addAll(uris);
-    }
-
-    public Fragment getCurrentFragment() {
-        return mCurrentFragment;
     }
 
     public interface OnPrimaryItemSetListener {
