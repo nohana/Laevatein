@@ -146,7 +146,7 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
     }
 
     @Override
-    public void onOnPrimaryItemSet(int position) {
+    public void onPrimaryItemSet(int position) {
         if (!mIsAlreadySetPosition) {
             return;
         }

@@ -40,7 +40,7 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
-        mListener.onOnPrimaryItemSet(position);
+        mListener.onPrimaryItemSet(position);
     }
 
     public Uri getUri(int position) {
@@ -52,7 +52,7 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
     }
 
     public interface OnPrimaryItemSetListener {
-        void onOnPrimaryItemSet(int position);
+        void onPrimaryItemSet(int position);
     }
 
 }
