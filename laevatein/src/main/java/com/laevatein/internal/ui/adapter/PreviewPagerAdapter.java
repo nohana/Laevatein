@@ -11,8 +11,6 @@ import com.laevatein.internal.ui.PreviewFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
-
 /**
  * Created by hiroyuki.seto on 15/06/16.
  *
@@ -24,9 +22,11 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Uri> mUris = new ArrayList<>();
 
+    private OnPrimaryItemSetListener mListener;
 
-    public PreviewPagerAdapter(FragmentManager manager) {
+    public PreviewPagerAdapter(FragmentManager manager, OnPrimaryItemSetListener listener) {
         super(manager);
+        mListener = listener;
     }
 
     @Override
@@ -42,12 +42,10 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (mCurrentFragment != object) {
-            if (mCurrentFragment != null) {
-                ((ImageViewTouch) mCurrentFragment.getView()).resetMatrix();
-            }
             mCurrentFragment = (Fragment) object;
         }
         super.setPrimaryItem(container, position, object);
+        mListener.onOnPrimaryItemSet(position);
     }
 
     public Uri getUri(int position) {
@@ -60,6 +58,10 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     public Fragment getCurrentFragment() {
         return mCurrentFragment;
+    }
+
+    public interface OnPrimaryItemSetListener {
+        void onOnPrimaryItemSet(int position);
     }
 
 }

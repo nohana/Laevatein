@@ -14,9 +14,9 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouch;
  *
  * @hide
  */
-public class MyViewPager extends ViewPager {
+public class PreviewViewPager extends ViewPager {
 
-    public MyViewPager(Context context, AttributeSet attrs) {
+    public PreviewViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -47,4 +47,8 @@ public class PreviewFragment extends Fragment {
         Point size = PhotoMetadataUtils.getBitmapSize(getActivity().getContentResolver(), uri, getActivity());
         Picasso.with(getActivity()).load(uri).priority(Picasso.Priority.HIGH).resize(size.x, size.y).centerInside().into(image);
     }
+
+    public void resetView() {
+        ((ImageViewTouch) getView()).resetMatrix();
+    }
 }

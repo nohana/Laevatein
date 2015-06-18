@@ -46,7 +46,7 @@ import java.util.List;
  * @hide
  * @since 2014/03/24
  */
-public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhotoCollection.AlbumPhotoCallbacks, ViewPager.OnPageChangeListener {
+public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhotoCollection.AlbumPhotoCallbacks, PreviewPagerAdapter.OnPrimaryItemSetListener {
     public static final String EXTRA_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ITEM");
     public static final String EXTRA_ALBUM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ALBUM");
     public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ERROR_SPEC");
@@ -62,6 +62,8 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
 
     private final AlbumPhotoCollection mCollection = new AlbumPhotoCollection();
     private boolean mIsAlreadySetPosition;
+
+    private int mPreviousPos = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,12 +124,11 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
     @Override
     public void onLoad(Cursor cursor) {
         List<Uri> uris = new ArrayList<>();
-        cursor.moveToFirst();
-        do {
+        while (cursor.moveToNext()) {
             final Item item = Item.valueOf(cursor);
             Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, item.getId());
             uris.add(uri);
-        } while (cursor.moveToNext());
+        }
         PreviewPagerAdapter adapter = (PreviewPagerAdapter) mPager.getAdapter();
         adapter.addAll(uris);
         adapter.notifyDataSetChanged();
@@ -137,7 +138,6 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
             Item selected = getIntent().getParcelableExtra(EXTRA_ITEM);
             int selectedIndex = uris.indexOf(selected.buildContentUri());
             mPager.setCurrentItem(selectedIndex, false);
-            mPager.setOnPageChangeListener(this);
         }
     }
 
@@ -146,20 +146,23 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        Uri uri = ((PreviewPagerAdapter) mPager.getAdapter()).getUri(position);
-        if (mStateHolder.isChecked(uri)) {
-            mCheckBox.setChecked(true);
-        } else {
-            mCheckBox.setChecked(false);
+    public void onOnPrimaryItemSet(int position) {
+        if (!mIsAlreadySetPosition) {
+            return;
         }
-    }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
+        PreviewPagerAdapter adapter = (PreviewPagerAdapter) mPager.getAdapter();
+        if (mPreviousPos != -1 && mPreviousPos != position) {
+            ((PreviewFragment) adapter.instantiateItem(mPager, mPreviousPos)).resetView();
+
+            Uri uri = adapter.getUri(position);
+            if (mStateHolder.isChecked(uri)) {
+                mCheckBox.setChecked(true);
+            } else {
+                mCheckBox.setChecked(false);
+            }
+
+        }
+        mPreviousPos = position;
     }
 }

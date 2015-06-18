@@ -9,6 +9,7 @@ import com.laevatein.internal.ui.ImagePreviewActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author keishin.yokomaku
@@ -58,7 +59,7 @@ public class PreviewStateHolder {
         return mChecked.size();
     }
 
-    public ArrayList<Uri> asList() {
+    public List<Uri> getAllChecked() {
         return new ArrayList<Uri>(mChecked);
     }
 

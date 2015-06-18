@@ -42,6 +42,7 @@ import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KeithYokoma
@@ -59,7 +60,7 @@ public final class PreviewHelper {
         if (spec != null && spec.needActivityOrientationRestriction()) {
             activity.setRequestedOrientation(spec.getActivityOrientation());
         }
-        PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager());
+        PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager(), activity);
         ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
         pager.setAdapter(adapter);
     }
@@ -119,9 +120,8 @@ public final class PreviewHelper {
 
     public static void sendBackResult(ImagePreviewActivity activity) {
         Intent intent = new Intent();
-        Item item = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
-        ArrayList<Uri> checked = activity.getStateHolder().asList();
-        intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, checked);
+        List<Uri> checked = activity.getStateHolder().getAllChecked();
+        intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_RESULT_CHECKED, (ArrayList<Uri>) checked);
         activity.setResult(Activity.RESULT_OK, intent);
     }
 }
