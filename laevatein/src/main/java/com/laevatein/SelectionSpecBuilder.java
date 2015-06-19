@@ -15,6 +15,11 @@
  */
 package com.laevatein;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.CountViewResources;
@@ -24,11 +29,6 @@ import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
-
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.content.Intent;
-import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -236,22 +236,18 @@ public final class SelectionSpecBuilder {
         if (activity == null) {
             return; // cannot continue;
         }
-        if (mAlbumViewResources == null) {
-            mAlbumViewResources = AlbumViewResources.getDefault();
-        }
-        if (mItemViewResources == null) {
-            mItemViewResources = ItemViewResources.getDefault();
-        }
-        if (mActionViewResources == null) {
-            mActionViewResources = ActionViewResources.getDefault();
-        }
-        if (mCountViewResources == null) {
-            mCountViewResources = CountViewResources.getDefault();
-        }
+
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
-        // XXX need refactoring using builder pattern
-        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
+        ViewResourceSpec viewSpec = new ViewResourceSpec.Builder()
+                .setActionViewResources(mActionViewResources)
+                .setAlbumViewResources(mAlbumViewResources)
+                .setCountViewResources(mCountViewResources)
+                .setItemViewResources(mItemViewResources)
+                .setEnableCapture(mEnableCapture)
+                .setEnableSelectedView(mEnableSelectedView)
+                .setActivityOrientation(mActivityOrientation)
+                .create();
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
                 .setCountSpec(mCountErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)
