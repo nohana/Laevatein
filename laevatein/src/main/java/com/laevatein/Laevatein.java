@@ -43,6 +43,8 @@ public final class Laevatein {
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;
 
+    private static PhotoGridViewBindListener bindListener;
+
     protected Laevatein(Activity context) {
         mContext = new WeakReference<Activity>(context);
         mFragment = null;
@@ -65,6 +67,28 @@ public final class Laevatein {
 
     public static Laevatein from(Fragment fragment) {
         return new Laevatein(fragment.getActivity(), fragment);
+    }
+
+    /**
+     * @param listener
+     * @Hide
+     */
+    public static void setListener(PhotoGridViewBindListener listener) {
+        bindListener = listener;
+    }
+
+    /**
+     * @Hide
+     */
+    public static void removeListener() {
+        bindListener = null;
+    }
+
+    /**
+     * @Hide
+     */
+    public static PhotoGridViewBindListener getListener() {
+        return bindListener;
     }
 
     /**

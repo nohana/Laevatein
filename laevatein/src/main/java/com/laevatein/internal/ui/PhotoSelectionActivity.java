@@ -29,6 +29,7 @@ import android.view.MenuItem;
 
 import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
+import com.laevatein.Laevatein;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.SelectionSpec;
@@ -107,6 +108,7 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     protected void onDestroy() {
         mMediaStoreCompat.destroy();
         super.onDestroy();
+        Laevatein.removeListener();
     }
 
     @Override

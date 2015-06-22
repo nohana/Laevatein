@@ -15,6 +15,11 @@
  */
 package com.laevatein;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+
 import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.entity.CountViewResources;
@@ -25,11 +30,6 @@ import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.ui.PhotoSelectionActivity;
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.content.Intent;
-import android.net.Uri;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,8 +38,8 @@ import java.util.Set;
  * Fluent API for building photo select specification.
  *
  * @author KeithYokoma
- * @since 2014/03/19
  * @version 1.0.0
+ * @since 2014/03/19
  */
 @SuppressWarnings("unused") // public APIs
 public final class SelectionSpecBuilder {
@@ -59,6 +59,7 @@ public final class SelectionSpecBuilder {
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
     private List<Uri> mResumeList;
+    private PhotoGridViewBindListener mHandler;
 
     /**
      * Constructs a new specification builder on the context.
@@ -227,6 +228,11 @@ public final class SelectionSpecBuilder {
         return this;
     }
 
+    public SelectionSpecBuilder overlayHandler(PhotoGridViewBindListener handler) {
+        mHandler = handler;
+        return this;
+    }
+
     /**
      * Start to select photo.
      * @param requestCode identity of the requester activity.
@@ -236,22 +242,20 @@ public final class SelectionSpecBuilder {
         if (activity == null) {
             return; // cannot continue;
         }
-        if (mAlbumViewResources == null) {
-            mAlbumViewResources = AlbumViewResources.getDefault();
-        }
-        if (mItemViewResources == null) {
-            mItemViewResources = ItemViewResources.getDefault();
-        }
-        if (mActionViewResources == null) {
-            mActionViewResources = ActionViewResources.getDefault();
-        }
-        if (mCountViewResources == null) {
-            mCountViewResources = CountViewResources.getDefault();
-        }
+
+        Laevatein.setListener(mHandler);
+
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
-        // XXX need refactoring using builder pattern
-        ViewResourceSpec viewSpec = new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources, mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
+        ViewResourceSpec viewSpec = new ViewResourceSpec.Builder()
+                .setActionViewResources(mActionViewResources)
+                .setAlbumViewResources(mAlbumViewResources)
+                .setCountViewResources(mCountViewResources)
+                .setItemViewResources(mItemViewResources)
+                .setEnableCapture(mEnableCapture)
+                .setEnableSelectedView(mEnableSelectedView)
+                .setActivityOrientation(mActivityOrientation)
+                .create();
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
                 .setCountSpec(mCountErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)
