@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.amalgam.content.ContextUtils;
+import com.laevatein.Laevatein;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
@@ -87,6 +88,9 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                     .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
                     .centerCrop()
                     .into(thumbnail);
+        }
+        if (Laevatein.getListener()!= null) {
+            Laevatein.getListener().onBindView(context, view, item.buildContentUri());
         }
     }
 

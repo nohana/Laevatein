@@ -38,8 +38,8 @@ import java.util.Set;
  * Fluent API for building photo select specification.
  *
  * @author KeithYokoma
- * @since 2014/03/19
  * @version 1.0.0
+ * @since 2014/03/19
  */
 @SuppressWarnings("unused") // public APIs
 public final class SelectionSpecBuilder {
@@ -59,6 +59,7 @@ public final class SelectionSpecBuilder {
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
     private List<Uri> mResumeList;
+    private PhotoGridViewBindListener mHandler;
 
     /**
      * Constructs a new specification builder on the context.
@@ -227,6 +228,11 @@ public final class SelectionSpecBuilder {
         return this;
     }
 
+    public SelectionSpecBuilder overlayHandler(PhotoGridViewBindListener handler) {
+        mHandler = handler;
+        return this;
+    }
+
     /**
      * Start to select photo.
      * @param requestCode identity of the requester activity.
@@ -236,6 +242,8 @@ public final class SelectionSpecBuilder {
         if (activity == null) {
             return; // cannot continue;
         }
+
+        Laevatein.setListener(mHandler);
 
         mSelectionSpec.setMimeTypeSet(mMimeType);
 
