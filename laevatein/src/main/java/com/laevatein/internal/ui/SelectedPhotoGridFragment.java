@@ -20,6 +20,7 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

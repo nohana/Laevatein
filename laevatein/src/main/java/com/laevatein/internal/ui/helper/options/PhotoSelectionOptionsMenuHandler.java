@@ -16,7 +16,7 @@
 package com.laevatein.internal.ui.helper.options;
 
 import com.laevatein.internal.misc.ui.helper.options.OptionsMenuHandler;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 /**
  * @author KeithYokoma

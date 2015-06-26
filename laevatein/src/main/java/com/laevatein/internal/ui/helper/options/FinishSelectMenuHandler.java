@@ -16,7 +16,7 @@
 package com.laevatein.internal.ui.helper.options;
 
 import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
 import android.content.Intent;

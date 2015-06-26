@@ -21,6 +21,7 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.DevicePhotoAlbumCollection;
 import com.laevatein.internal.ui.helper.AlbumListViewHelper;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import android.app.Activity;
 import android.database.Cursor;

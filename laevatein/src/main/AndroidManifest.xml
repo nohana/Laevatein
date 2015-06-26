@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application android:allowBackup="true">
-        <activity android:name=".internal.ui.PhotoSelectionActivity"/>
+        <activity android:name=".ui.PhotoSelectionActivity"/>
         <activity android:name=".internal.ui.ImagePreviewActivity"/>
     </application>
 </manifest>

@@ -20,7 +20,7 @@ import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.PhotoGridFragment;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.SelectedPhotoGridFragment;
 
 import android.support.v4.app.Fragment;

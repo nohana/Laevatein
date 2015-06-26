@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laevatein.internal.ui;
+package com.laevatein.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
@@ -34,6 +36,10 @@ import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.AlbumListFragment;
+import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.internal.ui.SelectedCountFragment;
+import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
@@ -45,13 +51,13 @@ import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 /**
  * @author KeithYokoma
  * @version 1.0.0
- * @hide
  * @since 2014/03/20
  */
 public class PhotoSelectionActivity extends ActionBarActivity implements
         AlbumListFragment.OnDirectorySelectListener,
         ConfirmationDialogFragment.ConfirmationSelectionListener,
-        SelectedCountFragment.OnShowSelectedClickListener {
+        SelectedCountFragment.OnShowSelectedClickListener,
+        AlbumPhotoAdapter.BindViewListener {
     public static final String EXTRA_VIEW_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_VIEW_SPEC");
     public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_RESUME_LIST");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(PhotoSelectionActivity.class, "EXTRA_SELECTION_SPEC");
@@ -158,26 +164,32 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void onSelect(Album album) {
+    public final void onSelect(Album album) {
         PhotoSelectionViewHelper.setPhotoGridFragment(this, mDrawer, album);
     }
 
     @Override
-    public void onClickSelectedView() {
+    public final void onClickSelectedView() {
         PhotoSelectionViewHelper.setSelectedGridFragment(this);
     }
 
-    public SelectedUriCollection getCollection() {
+    @Override
+    public void onBindView(Context context, View view, Uri uri) {
+    }
+
+    public final SelectedUriCollection getCollection() {
         return mCollection;
     }
 
-    public MediaStoreCompat getMediaStoreCompat() { return mMediaStoreCompat; }
+    public final MediaStoreCompat getMediaStoreCompat() {
+        return mMediaStoreCompat;
+    }
 
-    public void prepareCapture(String uri) {
+    public final void prepareCapture(String uri) {
         mCapturePhotoUriHolder = uri;
     }
 
-    public boolean isDrawerOpen() {
+    public final boolean isDrawerOpen() {
         return mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START);
     }
 

@@ -17,6 +17,7 @@ package com.laevatein.internal.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +43,13 @@ public class AlbumPhotoAdapter extends CursorAdapter {
     private final ItemViewResources mResources;
     private final SelectedUriCollection mCollection;
     private CheckStateListener mListener;
+    private BindViewListener mBindListener;
 
-    public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources, SelectedUriCollection collection) {
+    public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources, SelectedUriCollection collection, BindViewListener bindViewListener) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mResources = resources;
         mCollection = collection;
+        mBindListener = bindViewListener;
     }
 
     @Override
@@ -88,6 +91,7 @@ public class AlbumPhotoAdapter extends CursorAdapter {
                     .centerCrop()
                     .into(thumbnail);
         }
+        mBindListener.onBindView(context, view, item.buildContentUri());
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {
@@ -100,5 +104,16 @@ public class AlbumPhotoAdapter extends CursorAdapter {
 
     public static interface CheckStateListener {
         public void onUpdate();
+    }
+
+    public interface BindViewListener {
+        /**
+         * Called when view is bound to data.
+         *
+         * @param context context of photo selection activity
+         * @param view view of grid
+         * @param uri uri of image in grid
+         */
+        void onBindView(Context context, View view, Uri uri);
     }
 }

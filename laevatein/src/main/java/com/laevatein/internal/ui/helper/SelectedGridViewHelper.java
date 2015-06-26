@@ -18,7 +18,7 @@ package com.laevatein.internal.ui.helper;
 import com.laevatein.R;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
 
 import android.net.Uri;
