@@ -37,7 +37,7 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoGridFragment;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.utils.ErrorViewUtils;
 
@@ -61,9 +61,9 @@ public final class PhotoGridViewHelper {
         return ((PhotoSelectionActivity) fragment.getActivity()).getCollection();
     }
 
-    public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
+    public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection, AlbumPhotoAdapter.BindViewListener listener) {
         GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
-        AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection);
+        AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection, listener);
         adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
 

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import org.junit.Before;
 import org.junit.Test;

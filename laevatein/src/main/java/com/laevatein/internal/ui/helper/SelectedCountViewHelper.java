@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.laevatein.R;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.SelectedCountFragment;
 
 /**

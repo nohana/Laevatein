@@ -30,6 +30,7 @@ import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 /**
  * @author KeithYokoma
@@ -61,7 +62,13 @@ public class PhotoGridFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
         ViewResourceSpec resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         Album album = getArguments().getParcelable(ARGS_ALBUM);
-        PhotoGridViewHelper.setUpGridView(this, resources.getItemViewResources(), PhotoGridViewHelper.getSelectedPhotoSet(this));
+        AlbumPhotoAdapter.BindViewListener listener;
+        try {
+            listener = (AlbumPhotoAdapter.BindViewListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("the host activity should implement BindViewListener.");
+        }
+        PhotoGridViewHelper.setUpGridView(this, resources.getItemViewResources(), PhotoGridViewHelper.getSelectedPhotoSet(this), listener);
         mPhotoCollection.onCreate(getActivity(), this);
         mPhotoCollection.load(album, resources.isEnableCapture());
         getActivity().setTitle(album.getDisplayName(getActivity()));

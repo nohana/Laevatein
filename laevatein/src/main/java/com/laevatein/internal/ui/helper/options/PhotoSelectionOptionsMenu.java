@@ -17,7 +17,7 @@ package com.laevatein.internal.ui.helper.options;
 
 import com.laevatein.R;
 import com.laevatein.internal.misc.ui.helper.options.OptionsMenu;
-import com.laevatein.internal.ui.PhotoSelectionActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import android.view.MenuItem;
 
