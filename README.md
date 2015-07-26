@@ -126,7 +126,7 @@ repositories {
 }
 android {
     dependencies {
-        compile 'jp.co.nohana:Laevatein:1.0.2'
+        compile 'jp.co.nohana:Laevatein:1.0.4@aar'
     }
 }
 ```
