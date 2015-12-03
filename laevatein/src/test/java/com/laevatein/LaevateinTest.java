@@ -10,7 +10,6 @@ import com.laevatein.ui.PhotoSelectionActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ import static org.junit.Assert.assertSame;
  * @author keishin.yokomaku
  * @since 2014/04/01
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(emulateSdk = 18)
+@RunWith(LaevateinTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class LaevateinTest {
     private Activity mActivity;
 

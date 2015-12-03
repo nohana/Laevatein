@@ -5,9 +5,11 @@ import android.content.ContextWrapper;
 import android.database.MatrixCursor;
 import android.provider.MediaStore;
 
+import com.laevatein.BuildConfig;
+import com.laevatein.LaevateinTestRunner;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
@@ -19,8 +21,8 @@ import static org.junit.Assert.assertTrue;
  * @author KeithYokoma
  * @since 2014/04/01
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(emulateSdk = 18)
+@RunWith(LaevateinTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class AlbumTest {
     private static final String[] MOCK_PROJECTION = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
 
