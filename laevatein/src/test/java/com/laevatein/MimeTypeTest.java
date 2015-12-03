@@ -5,7 +5,6 @@ import android.test.mock.MockContentResolver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.Set;
@@ -18,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  * @author keishin.yokomaku
  * @since 2014/03/31
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(emulateSdk = 18)
+@RunWith(LaevateinTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class MimeTypeTest {
     @Test
     public void oneOf() throws Exception {
