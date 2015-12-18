@@ -2,14 +2,15 @@ language: android
 jdk: oraclejdk8
 android:
   components:
+    - tools
     - android-23
-    - build-tools-23
-    - extra-google-google_play_services
+    - build-tools-23.0.2
+    - google-google_play_services
     - extra-google-m2repository 
     - extra-android-m2repository
     - addon-google_apis-google-23- tools
 
-script: ./gradlew clean build -PdisablePreDex
+script: ./gradlew clean build
 
 notifications:
   email: false
