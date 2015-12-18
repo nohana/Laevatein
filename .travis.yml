@@ -8,9 +8,9 @@ android:
     - google-google_play_services
     - extra-google-m2repository 
     - extra-android-m2repository
-    - addon-google_apis-google-23- tools
+    - addon-google_apis-google-23
 
-script: ./gradlew clean build
+script: ./gradlew clean build -PdisablePreDex
 
 notifications:
   email: false
