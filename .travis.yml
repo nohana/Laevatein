@@ -7,7 +7,7 @@ android:
     - extra-google-google_play_services
     - extra-google-m2repository 
     - extra-android-m2repository
-    - addon-google_apis-google-21- tools
+    - addon-google_apis-google-23- tools
 
 script: ./gradlew clean build -PdisablePreDex
 
