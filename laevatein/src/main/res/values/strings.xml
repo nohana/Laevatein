@@ -22,4 +22,6 @@
     <string name="l_empty_photo">No photo.</string>
     <string name="l_empty_selection">Nothing selected.</string>
     <string name="l_action_counter">0</string>
+
+    <string name="l_detail_photo_title">Photo Detail</string>
 </resources>

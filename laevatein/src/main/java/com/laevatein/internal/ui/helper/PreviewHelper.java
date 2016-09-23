@@ -67,7 +67,7 @@ public final class PreviewHelper {
 
     public static void setUpActionBar(ActionBarActivity activity) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
-        toolbar.setTitle("写真詳細");
+        toolbar.setTitle(activity.getApplicationContext().getString(R.string.l_detail_photo_title));
         activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
