@@ -17,6 +17,7 @@ package com.laevatein.internal.ui.helper;
 
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.CursorAdapter;
 import android.widget.AdapterView;
@@ -62,7 +63,12 @@ public final class AlbumListViewHelper {
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
-                FragmentManager manager = fragment.getActivity().getSupportFragmentManager();
+                FragmentActivity fragmentActivity = fragment.getActivity();
+                if (fragmentActivity == null) {
+                    return;
+                }
+
+                FragmentManager manager = fragmentActivity.getSupportFragmentManager();
                 Fragment f = manager.findFragmentById(R.id.l_container_grid_fragment);
                 if (f != null) {
                     return;
