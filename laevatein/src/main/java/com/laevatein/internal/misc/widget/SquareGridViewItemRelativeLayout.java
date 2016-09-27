@@ -31,7 +31,7 @@ public class SquareGridViewItemRelativeLayout extends RelativeLayout {
     }
 
     public SquareGridViewItemRelativeLayout(Context context, AttributeSet attrs) {
-        this(context, null, 0);
+        this(context, attrs, 0);
     }
 
     public SquareGridViewItemRelativeLayout(Context context, AttributeSet attrs, int defStyle) {
