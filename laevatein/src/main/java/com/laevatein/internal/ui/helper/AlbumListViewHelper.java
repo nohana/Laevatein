@@ -20,7 +20,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.CursorAdapter;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 
 import com.amalgam.os.HandlerUtils;
@@ -41,6 +45,18 @@ public final class AlbumListViewHelper {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
     }
 
+    public static void setUpHeader(Fragment fragment) {
+        TypedValue value = new TypedValue();
+        fragment.getContext().getTheme().resolveAttribute(R.attr.l_drawerHeaderLayout, value, true);
+        if (value.resourceId == 0) {
+            return;
+        }
+        ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
+        LayoutInflater inflater = LayoutInflater.from(fragment.getContext());
+        View header = inflater.inflate(value.resourceId, listView, false);
+        listView.addHeaderView(header);
+    }
+
     public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener) {
         ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
         listView.setOnItemClickListener(listener);
@@ -49,7 +65,12 @@ public final class AlbumListViewHelper {
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
         ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
-        CursorAdapter adapter = (CursorAdapter) listView.getAdapter();
+        CursorAdapter adapter;
+        if (listView.getHeaderViewsCount() > 0) {
+            adapter = (CursorAdapter) ((HeaderViewListAdapter) listView.getAdapter()).getWrappedAdapter();
+        } else {
+            adapter = (CursorAdapter) listView.getAdapter();
+        }
         adapter.swapCursor(cursor);
     }
 

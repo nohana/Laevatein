@@ -61,6 +61,7 @@ public class AlbumListFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        AlbumListViewHelper.setUpHeader(this);
         AlbumListViewHelper.setUpListView(this, this);
         mCollection.onCreate(getActivity(), this);
         mCollection.onRestoreInstanceState(savedInstanceState);
