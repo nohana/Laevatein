@@ -38,7 +38,6 @@ import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.AlbumListFragment;
-import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.SelectedCountFragment;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;

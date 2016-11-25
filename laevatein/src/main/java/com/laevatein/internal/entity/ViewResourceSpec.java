@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 
 import com.amalgam.os.ParcelUtils;
+import com.laevatein.ui.ImagePreviewActivity;
 
 /**
  * @author keishin.yokomaku
@@ -28,14 +29,18 @@ public class ViewResourceSpec implements Parcelable {
     public static final int DEFAULT_SCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED; // no restriction
     @StyleRes
     private int mTheme;
+    private final Class<? extends ImagePreviewActivity> mPreviewActivityClass;
     private final ItemViewResources mItemViewResources;
+    private final PreviewViewResources mPreviewViewResources;
     private final boolean mEnableCapture;
     private final boolean mEnableSelectedView;
     private final int mActivityOrientation;
 
     /* package */ ViewResourceSpec(Parcel source) {
         mTheme = source.readInt();
+        mPreviewActivityClass = (Class<? extends ImagePreviewActivity>) source.readSerializable();
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
+        mPreviewViewResources = source.readParcelable(PreviewViewResources.class.getClassLoader());
         mEnableCapture = ParcelUtils.readBoolean(source);
         mEnableSelectedView = ParcelUtils.readBoolean(source);
         mActivityOrientation = source.readInt();
@@ -43,12 +48,16 @@ public class ViewResourceSpec implements Parcelable {
 
     /* package */ ViewResourceSpec(
             @StyleRes int theme,
+            Class<? extends ImagePreviewActivity> previewActivityClass,
             ItemViewResources itemViewResources,
+            PreviewViewResources previewViewResources,
             boolean enableCapture,
             boolean enableSelectedView,
             int activityOrientation) {
         mTheme = theme;
+        mPreviewActivityClass = previewActivityClass;
         mItemViewResources = itemViewResources;
+        mPreviewViewResources = previewViewResources;
         mEnableCapture = enableCapture;
         mEnableSelectedView = enableSelectedView;
         mActivityOrientation = activityOrientation;
@@ -62,7 +71,9 @@ public class ViewResourceSpec implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mTheme);
+        dest.writeSerializable(mPreviewActivityClass);
         dest.writeParcelable(mItemViewResources, flags);
+        dest.writeParcelable(mPreviewViewResources, flags);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
         ParcelUtils.writeBoolean(dest, mEnableSelectedView);
         dest.writeInt(mActivityOrientation);
@@ -71,7 +82,9 @@ public class ViewResourceSpec implements Parcelable {
     public static class Builder {
         @StyleRes
         private int mTheme;
+        private Class<? extends ImagePreviewActivity> mPreviewActivityClass;
         private ItemViewResources mItemViewResources;
+        private PreviewViewResources mPreviewViewResources;
         private boolean mEnableCapture;
         private boolean mEnableSelectedView;
         private int mActivityOrientation;
@@ -81,8 +94,18 @@ public class ViewResourceSpec implements Parcelable {
             return this;
         }
 
+        public Builder setPreviewClass(Class<? extends ImagePreviewActivity> previewActivityClass) {
+            mPreviewActivityClass = previewActivityClass;
+            return this;
+        }
+
         public Builder setItemViewResources(ItemViewResources itemViewResources) {
             mItemViewResources = itemViewResources;
+            return this;
+        }
+
+        public Builder setPreviewViewResources(PreviewViewResources previewViewResources) {
+            mPreviewViewResources = previewViewResources;
             return this;
         }
 
@@ -105,8 +128,12 @@ public class ViewResourceSpec implements Parcelable {
             if (mItemViewResources == null) {
                 mItemViewResources = ItemViewResources.getDefault();
             }
-            return new ViewResourceSpec(mTheme,
-                    mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
+            if (mPreviewViewResources == null) {
+                mPreviewViewResources = PreviewViewResources.getDefault();
+            }
+            return new ViewResourceSpec(mTheme, mPreviewActivityClass,
+                    mItemViewResources, mPreviewViewResources,
+                    mEnableCapture, mEnableSelectedView, mActivityOrientation);
         }
     }
 
@@ -114,8 +141,16 @@ public class ViewResourceSpec implements Parcelable {
         return mTheme;
     }
 
+    public Class<? extends ImagePreviewActivity> getPreviewActivityClass() {
+        return mPreviewActivityClass;
+    }
+
     public ItemViewResources getItemViewResources() {
         return mItemViewResources;
+    }
+
+    public PreviewViewResources getPreviewViewResources() {
+        return mPreviewViewResources;
     }
 
     public boolean isEnableCapture() {

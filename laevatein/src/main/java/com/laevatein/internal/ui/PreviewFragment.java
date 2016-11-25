@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amalgam.os.BundleUtils;
-import com.laevatein.R;
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 import com.squareup.picasso.Picasso;
 
@@ -23,25 +23,34 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
  */
 public class PreviewFragment extends Fragment {
     private static final String ARGS_URI = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_URI");
+    private static final String ARGS_LAYOUT_ID = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_LAYOUT_ID");
+    private static final String ARGS_IMAGE_VIEW_ID = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_IMAGE_VIEW_ID");
 
-    public static PreviewFragment newInstance(Uri uri) {
+    private int mLayoutId;
+    private int mImageViewId;
+
+    public static PreviewFragment newInstance(Uri uri, PreviewViewResources resources) {
         PreviewFragment fragment = new PreviewFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGS_URI, uri);
+        bundle.putInt(ARGS_LAYOUT_ID, resources.getLayoutId());
+        bundle.putInt(ARGS_IMAGE_VIEW_ID, resources.getImageViewId());
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.l_fragment_preview, container, false);
+        mLayoutId = getArguments().getInt(ARGS_LAYOUT_ID);
+        mImageViewId = getArguments().getInt(ARGS_IMAGE_VIEW_ID);
+        return inflater.inflate(mLayoutId, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageViewTouch image = (ImageViewTouch) getView().findViewById(R.id.l_image_zoom_view);
+        ImageViewTouch image = (ImageViewTouch) getView().findViewById(mImageViewId);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
         Point size = PhotoMetadataUtils.getBitmapSize(getActivity().getContentResolver(), uri, getActivity());

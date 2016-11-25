@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laevatein.internal.ui;
+package com.laevatein.ui;
 
 import android.content.ContentUris;
 import android.database.Cursor;
@@ -34,6 +34,7 @@ import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.model.PreviewStateHolder;
+import com.laevatein.internal.ui.PreviewFragment;
 import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
 import com.laevatein.internal.ui.helper.PreviewHelper;
 

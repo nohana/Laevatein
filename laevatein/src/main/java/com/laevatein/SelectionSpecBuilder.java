@@ -24,8 +24,10 @@ import android.support.v4.app.Fragment;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
+import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.ui.PhotoSelectionActivity;
 
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public final class SelectionSpecBuilder {
     @StyleRes
     private int mActivityTheme;
     private ItemViewResources mItemViewResources;
+    private PreviewViewResources mPreviewViewResources;
     private ErrorViewResources mCountErrorSpec;
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
@@ -57,6 +60,7 @@ public final class SelectionSpecBuilder {
     private int mActivityOrientation;
     private List<Uri> mResumeList;
     private Class<? extends PhotoSelectionActivity> mPhotoSelectionActivityClass;
+    private Class<? extends ImagePreviewActivity> mPreviewActivityClass = ImagePreviewActivity.class;
 
     /**
      * Constructs a new specification builder on the context.
@@ -90,6 +94,18 @@ public final class SelectionSpecBuilder {
      */
     public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
         mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId);
+        return this;
+    }
+
+    /**
+     * Sets the binding page of the ViewPager with the specified layout resource for photo list.
+     *
+     * @param layoutId    a layout resource id.
+     * @param imageViewId an id for the image view.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder bindPreviewImageWith(int layoutId, int imageViewId) {
+        mPreviewViewResources = new PreviewViewResources(layoutId, imageViewId);
         return this;
     }
 
@@ -183,6 +199,17 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the Activity instead of ImagePreviewActivity
+     *
+     * @param previewActivityClass an Activity called on photo preview
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder previewActivityClass(Class<? extends ImagePreviewActivity> previewActivityClass) {
+        mPreviewActivityClass = previewActivityClass;
+        return this;
+    }
+
+    /**
      * Sets the default selection to resume photo picking activity.
      * @param uriList to set selected as default.
      * @return the specification builder context.
@@ -225,7 +252,9 @@ public final class SelectionSpecBuilder {
 
         ViewResourceSpec viewSpec = new ViewResourceSpec.Builder()
                 .setTheme(mActivityTheme)
+                .setPreviewClass(mPreviewActivityClass)
                 .setItemViewResources(mItemViewResources)
+                .setPreviewViewResources(mPreviewViewResources)
                 .setEnableCapture(mEnableCapture)
                 .setEnableSelectedView(mEnableSelectedView)
                 .setActivityOrientation(mActivityOrientation)
