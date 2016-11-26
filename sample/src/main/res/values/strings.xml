@@ -2,10 +2,4 @@
     <string name="app_name">Laevatein</string>
     <string name="error_count_over">Over</string>
     <string name="label_button">Choose</string>
-    <string name="title_activity_main">MainActivity</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_lfragment">LFragmentActivity</string>
-    <string name="title_activity_ltoolbar">LToolbarActivity</string>
 </resources>
