@@ -2,4 +2,7 @@
     <string name="app_name">Laevatein</string>
     <string name="error_count_over">Over</string>
     <string name="label_button">Choose</string>
+
+    <string name="permission_denied">this app needs storage permission</string>
+    <string name="permission_nerver_ask">you cannot launch app without storage permission ¯\\_(ツ)_/¯</string>
 </resources>
