@@ -23,4 +23,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':laevatein')
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
 }

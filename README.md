@@ -140,6 +140,7 @@ This library depends on the following libraries.
 3. [Amalgam](https://github.com/nohana/Amalgam) by nohana, Inc.
 4. [CompoundContainers](https://github.com/KeithYokoma/CompoundContainers) by KeithYokoma
 5. [AndroidDeviceCompatibility](https://github.com/mixi-inc/Android-Device-Compatibility) by mixi, Inc.
+6. [PermissionsDispatcher](https://github.com/hotchemi/PermissionsDispatcher) by Shintaro Katafuchi, Marcel Schnelle, Yoshinori Isogai
 
 ## License
 
