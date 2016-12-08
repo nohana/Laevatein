@@ -249,6 +249,9 @@ public final class SelectionSpecBuilder {
         }
 
         mSelectionSpec.setMimeTypeSet(mMimeType);
+        if (mActivityTheme == 0) {
+            mActivityTheme = R.style.L_DefaultTheme;
+        }
 
         ViewResourceSpec viewSpec = new ViewResourceSpec.Builder()
                 .setTheme(mActivityTheme)

@@ -3,10 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="l_drawerStyle">@style/L_DrawerMenu</item>
-        <item name="l_drawerItemStyle">@style/L_DrawerMenuItem</item>
-        <item name="l_gridStyle">@style/L_Grid</item>
-        <item name="l_counterStyle">@style/L_Counter</item>
     </style>
 
 </resources>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="L_DefaultTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="l_drawerStyle">@style/L_DrawerMenu</item>
+        <item name="l_drawerItemStyle">@style/L_DrawerMenuItem</item>
+        <item name="l_gridStyle">@style/L_Grid</item>
+        <item name="l_counterStyle">@style/L_Counter</item>
+    </style>
+
     <style name="L_DrawerMenu">
         <item name="android:background">?android:attr/windowBackground</item>
         <item name="android:divider">@null</item>
