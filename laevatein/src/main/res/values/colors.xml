@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="l_background_default_drawer">#111</color>
-    <color name="l_text_color_count">#fff</color>
-    <color name="l_background_count">#222</color>
+    <color name="l_bg_item_selected">#1b000000</color>
 </resources>

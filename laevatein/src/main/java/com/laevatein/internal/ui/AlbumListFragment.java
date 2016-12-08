@@ -23,9 +23,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.model.DevicePhotoAlbumCollection;
 import com.laevatein.internal.ui.helper.AlbumListViewHelper;
 
@@ -62,6 +64,10 @@ public class AlbumListFragment extends Fragment implements
         AlbumListViewHelper.setUpListView(this, this);
         mCollection.onCreate(getActivity(), this);
         mCollection.onRestoreInstanceState(savedInstanceState);
+        ListView list = (ListView) FragmentUtils.findViewById(this, R.id.l_list_album);
+        if (list.getHeaderViewsCount() > 0 && mCollection.getCurrentSelection() == 0) {
+            mCollection.setStateCurrentSelection(1);
+        }
         AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());
         mCollection.loadAlbums();
     }
