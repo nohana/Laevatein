@@ -101,7 +101,6 @@ public final class PhotoGridViewHelper {
         intent.putExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_VIEW_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC));
-        intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
         intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, (ArrayList<Uri>) checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }

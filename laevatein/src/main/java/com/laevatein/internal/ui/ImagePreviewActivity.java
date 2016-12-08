@@ -29,9 +29,9 @@ import android.widget.CheckBox;
 
 import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
-import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.AlbumPhotoCollection;
 import com.laevatein.internal.model.PreviewStateHolder;
 import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
@@ -39,6 +39,8 @@ import com.laevatein.internal.ui.helper.PreviewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.laevatein.R.id.l_default_check_box;
 
 /**
  * @author KeithYokoma
@@ -52,7 +54,6 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
     public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ERROR_SPEC");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_VIEW_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_VIEW_SPEC");
-    public static final String EXTRA_CHECK_VIEW_RES = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_CHECK_VIEW_RES");
     public static final String EXTRA_DEFAULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_DEFAULT_CHECKED");
     public static final String EXTRA_RESULT_CHECKED = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_RESULT_CHECKED");
     private final PreviewStateHolder mStateHolder = new PreviewStateHolder(this);
@@ -67,6 +68,8 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ViewResourceSpec spec = getIntent().getParcelableExtra(EXTRA_VIEW_SPEC);
+        setTheme(spec.getTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_preview);
         mStateHolder.onCreate();
@@ -90,8 +93,7 @@ public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhot
         getMenuInflater().inflate(R.menu.l_activity_image_preview, menu);
         PreviewHelper.setUpActionItem(this, menu);
         final MenuItem item = menu.findItem(R.id.l_action_selection_state);
-        ActionViewResources resources = getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
-        mCheckBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
+        mCheckBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(l_default_check_box);
         return super.onCreateOptionsMenu(menu);
     }
 

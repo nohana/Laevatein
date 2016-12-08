@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="L_DrawerMenu">
+        <item name="android:background">@color/l_background_default_drawer</item>
+        <item name="android:divider">@null</item>
+    </style>
+
     <style name="L_DrawerMenuItem">
-        <item name="android:paddingLeft">@dimen/l_listPreferredItemPaddingLeft</item>
-        <item name="android:paddingRight">@dimen/l_listPreferredItemPaddingRight</item>
-        <item name="android:paddingTop">@dimen/l_listPreferredItemPaddingTop</item>
-        <item name="android:paddingBottom">@dimen/l_listPreferredItemPaddingBottom</item>
+        <item name="android:background">@drawable/l_list_selector_drawer_menu</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">?android:listPreferredItemHeight</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:drawableLeft">@drawable/l_ic_action_collection</item>
+        <item name="android:textColor">@color/primary_text_default_material_dark</item>
+    </style>
+
+    <style name="L_Grid">
+        <item name="android:horizontalSpacing">@dimen/l_gridItemSpacing</item>
+        <item name="android:verticalSpacing">@dimen/l_gridItemSpacing</item>
+        <item name="android:padding">@dimen/l_gridPadding</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:numColumns">4</item>
+    </style>
+
+    <style name="L_Counter" parent="android:Widget">
+        <item name="android:background">@color/l_background_count</item>
+        <item name="android:textColor">@color/l_text_color_count</item>
+        <item name="android:height">48dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

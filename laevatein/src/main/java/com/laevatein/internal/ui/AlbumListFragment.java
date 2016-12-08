@@ -15,14 +15,6 @@
  */
 package com.laevatein.internal.ui;
 
-import com.laevatein.R;
-import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.ViewResourceSpec;
-import com.laevatein.internal.misc.ui.FragmentUtils;
-import com.laevatein.internal.model.DevicePhotoAlbumCollection;
-import com.laevatein.internal.ui.helper.AlbumListViewHelper;
-import com.laevatein.ui.PhotoSelectionActivity;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,6 +23,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
+import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.model.DevicePhotoAlbumCollection;
+import com.laevatein.internal.ui.helper.AlbumListViewHelper;
 
 /**
  * @author KeithYokoma
@@ -62,8 +59,7 @@ public class AlbumListFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ViewResourceSpec resources = FragmentUtils.getIntentParcelableExtra(this, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
-        AlbumListViewHelper.setUpListView(this, this, resources.getAlbumViewResources());
+        AlbumListViewHelper.setUpListView(this, this);
         mCollection.onCreate(getActivity(), this);
         mCollection.onRestoreInstanceState(savedInstanceState);
         AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());

@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 
 import com.amalgam.os.ParcelUtils;
 
@@ -25,18 +26,15 @@ public class ViewResourceSpec implements Parcelable {
         }
     };
     public static final int DEFAULT_SCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED; // no restriction
-    private final ActionViewResources mActionViewResources;
-    private final AlbumViewResources mAlbumViewResources;
-    private final CountViewResources mCountViewResources;
+    @StyleRes
+    private int mTheme;
     private final ItemViewResources mItemViewResources;
     private final boolean mEnableCapture;
     private final boolean mEnableSelectedView;
     private final int mActivityOrientation;
 
     /* package */ ViewResourceSpec(Parcel source) {
-        mActionViewResources = source.readParcelable(ActionViewResources.class.getClassLoader());
-        mAlbumViewResources = source.readParcelable(AlbumViewResources.class.getClassLoader());
-        mCountViewResources = source.readParcelable(CountViewResources.class.getClassLoader());
+        mTheme = source.readInt();
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
         mEnableCapture = ParcelUtils.readBoolean(source);
         mEnableSelectedView = ParcelUtils.readBoolean(source);
@@ -44,16 +42,12 @@ public class ViewResourceSpec implements Parcelable {
     }
 
     /* package */ ViewResourceSpec(
-            ActionViewResources actionViewResources,
-            AlbumViewResources albumViewResources,
-            CountViewResources countViewResources,
+            @StyleRes int theme,
             ItemViewResources itemViewResources,
             boolean enableCapture,
             boolean enableSelectedView,
             int activityOrientation) {
-        mActionViewResources = actionViewResources;
-        mAlbumViewResources = albumViewResources;
-        mCountViewResources = countViewResources;
+        mTheme = theme;
         mItemViewResources = itemViewResources;
         mEnableCapture = enableCapture;
         mEnableSelectedView = enableSelectedView;
@@ -67,9 +61,7 @@ public class ViewResourceSpec implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(mActionViewResources, flags);
-        dest.writeParcelable(mAlbumViewResources, flags);
-        dest.writeParcelable(mCountViewResources, flags);
+        dest.writeInt(mTheme);
         dest.writeParcelable(mItemViewResources, flags);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
         ParcelUtils.writeBoolean(dest, mEnableSelectedView);
@@ -77,26 +69,15 @@ public class ViewResourceSpec implements Parcelable {
     }
 
     public static class Builder {
-        private ActionViewResources mActionViewResources;
-        private AlbumViewResources mAlbumViewResources;
-        private CountViewResources mCountViewResources;
+        @StyleRes
+        private int mTheme;
         private ItemViewResources mItemViewResources;
         private boolean mEnableCapture;
         private boolean mEnableSelectedView;
         private int mActivityOrientation;
 
-        public Builder setActionViewResources(ActionViewResources actionViewResources) {
-            mActionViewResources = actionViewResources;
-            return this;
-        }
-
-        public Builder setAlbumViewResources(AlbumViewResources albumViewResources) {
-            mAlbumViewResources = albumViewResources;
-            return this;
-        }
-
-        public Builder setCountViewResources(CountViewResources countViewResources) {
-            mCountViewResources = countViewResources;
+        public Builder setTheme(@StyleRes int theme) {
+            mTheme = theme;
             return this;
         }
 
@@ -121,33 +102,16 @@ public class ViewResourceSpec implements Parcelable {
         }
 
         public ViewResourceSpec create() {
-            if (mAlbumViewResources == null) {
-                mAlbumViewResources = AlbumViewResources.getDefault();
-            }
             if (mItemViewResources == null) {
                 mItemViewResources = ItemViewResources.getDefault();
             }
-            if (mActionViewResources == null) {
-                mActionViewResources = ActionViewResources.getDefault();
-            }
-            if (mCountViewResources == null) {
-                mCountViewResources = CountViewResources.getDefault();
-            }
-            return new ViewResourceSpec(mActionViewResources, mAlbumViewResources, mCountViewResources
-                    , mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
+            return new ViewResourceSpec(mTheme,
+                    mItemViewResources, mEnableCapture, mEnableSelectedView, mActivityOrientation);
         }
     }
 
-    public ActionViewResources getActionViewResources() {
-        return mActionViewResources;
-    }
-
-    public AlbumViewResources getAlbumViewResources() {
-        return mAlbumViewResources;
-    }
-
-    public CountViewResources getCountViewResources() {
-        return mCountViewResources;
+    public int getTheme() {
+        return mTheme;
     }
 
     public ItemViewResources getItemViewResources() {

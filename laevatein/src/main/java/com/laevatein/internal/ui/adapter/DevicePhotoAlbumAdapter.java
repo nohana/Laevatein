@@ -15,10 +15,6 @@
  */
 package com.laevatein.internal.ui.adapter;
 
-import com.amalgam.content.ContextUtils;
-import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.AlbumViewResources;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -27,30 +23,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.amalgam.content.ContextUtils;
+import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public class DevicePhotoAlbumAdapter extends CursorAdapter {
-    private final AlbumViewResources mResources;
 
-    public DevicePhotoAlbumAdapter(Context context, Cursor c, AlbumViewResources resources) {
+    public DevicePhotoAlbumAdapter(Context context, Cursor c) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        mResources = resources;
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = ContextUtils.getLayoutInflater(context);
-        return inflater.inflate(mResources.getLayoutId(), parent, false);
+        return inflater.inflate(R.layout.l_list_item_default_album, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         Album album = Album.valueOf(cursor);
-        TextView textView = (TextView) view.findViewById(mResources.getLabelViewId());
+        TextView textView = (TextView) view.findViewById(R.id.l_default_directory_label);
         textView.setText(album.getDisplayName(context));
     }
 }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/l_list_album"
+    style="?attr/l_drawerStyle"
     android:layout_width="@dimen/l_drawerMenuWidth"
     android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:background="@color/l_background_default_drawer"/>
+    android:choiceMode="singleChoice" />

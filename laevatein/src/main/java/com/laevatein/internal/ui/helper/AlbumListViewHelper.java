@@ -26,7 +26,6 @@ import android.widget.ListView;
 import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.AlbumViewResources;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.ui.AlbumListFragment;
 import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
@@ -42,10 +41,10 @@ public final class AlbumListViewHelper {
         throw new AssertionError("oops! the utility class is about to be instantiated...");
     }
 
-    public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener, AlbumViewResources resources) {
+    public static void setUpListView(Fragment fragment, AdapterView.OnItemClickListener listener) {
         ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
         listView.setOnItemClickListener(listener);
-        listView.setAdapter(new DevicePhotoAlbumAdapter(fragment.getActivity(), null, resources));
+        listView.setAdapter(new DevicePhotoAlbumAdapter(fragment.getActivity(), null));
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {

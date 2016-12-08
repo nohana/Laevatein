@@ -73,7 +73,6 @@ public class LSampleActivity extends AppCompatActivity {
                 .quality(300000, Integer.MAX_VALUE)
                 .resume(mSelected)
                 .capture(true)
-                .bindCountViewWith(android.R.color.white, R.color.l_background_count)
                 .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .enableSelectedView(true)
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)

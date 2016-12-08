@@ -29,7 +29,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.laevatein.R;
-import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
@@ -80,15 +79,10 @@ public final class PreviewHelper {
             return;
         }
         final Item photo = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
-        ActionViewResources resources = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
         final SelectionSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC);
         final ErrorViewSpec errorSpec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC);
-        if (resources == null) {
-            MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
-        } else {
-            MenuItemCompat.setActionView(item, resources.getLayoutId());
-        }
-        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
+        MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
+        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(R.id.l_default_check_box);
         checkBox.setChecked(activity.getStateHolder().isChecked(photo.buildContentUri()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

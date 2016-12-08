@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jp.yokomark.widget.compound.CompoundRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/L_DrawerMenuItem"
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?attr/l_drawerItemStyle"
+    android:id="@+id/l_default_directory_label"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/l_list_selector_drawer_menu">
-    <ImageView
-        android:id="@+id/l_default_list_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="12sp"
-        android:layout_marginEnd="12sp"
-        android:src="@drawable/l_ic_action_collection"
-        android:duplicateParentState="true"/>
-    <TextView
-        android:id="@+id/l_default_directory_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/l_default_list_image"
-        android:layout_toEndOf="@+id/l_default_list_image"
-        android:layout_centerVertical="true"
-        android:textColor="@color/primary_text_default_material_dark"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:duplicateParentState="true"/>
-</jp.yokomark.widget.compound.CompoundRelativeLayout>
+    android:layout_height="wrap_content" />
