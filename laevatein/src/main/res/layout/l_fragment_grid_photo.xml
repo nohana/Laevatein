@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <GridView
         android:id="@+id/l_grid_photo"
+        style="?attr/l_gridStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/l_gridPadding"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:numColumns="4"
-        android:columnWidth="@dimen/l_gridItemImageWidth"
-        android:verticalSpacing="@dimen/l_gridItemSpacing"
-        android:horizontalSpacing="@dimen/l_gridItemSpacing"/>
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/l_label_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 </RelativeLayout>

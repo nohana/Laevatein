@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.ui.PreviewFragment;
 
 import java.util.ArrayList;
@@ -20,16 +21,19 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Uri> mUris = new ArrayList<>();
 
+    private PreviewViewResources mPreviewViewResources;
     private OnPrimaryItemSetListener mListener;
 
-    public PreviewPagerAdapter(FragmentManager manager, OnPrimaryItemSetListener listener) {
+    public PreviewPagerAdapter(FragmentManager manager, PreviewViewResources previewViewResources,
+                               OnPrimaryItemSetListener listener) {
         super(manager);
+        mPreviewViewResources = previewViewResources;
         mListener = listener;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PreviewFragment.newInstance(mUris.get(position));
+        return PreviewFragment.newInstance(mUris.get(position), mPreviewViewResources);
     }
 
     @Override

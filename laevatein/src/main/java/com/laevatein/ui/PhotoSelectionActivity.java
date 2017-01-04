@@ -34,10 +34,10 @@ import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.SelectionSpec;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.AlbumListFragment;
-import com.laevatein.internal.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.SelectedCountFragment;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
@@ -74,6 +74,8 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ViewResourceSpec spec = getIntent().getParcelableExtra(EXTRA_VIEW_SPEC);
+        setTheme(spec.getTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_select_photo);
         PhotoSelectionViewHelper.setUpActivity(this);

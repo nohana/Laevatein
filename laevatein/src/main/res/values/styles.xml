@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="L_DrawerMenuItem">
-        <item name="android:paddingLeft">@dimen/l_listPreferredItemPaddingLeft</item>
-        <item name="android:paddingRight">@dimen/l_listPreferredItemPaddingRight</item>
-        <item name="android:paddingTop">@dimen/l_listPreferredItemPaddingTop</item>
-        <item name="android:paddingBottom">@dimen/l_listPreferredItemPaddingBottom</item>
-        <item name="android:minHeight">?android:listPreferredItemHeight</item>
+
+    <style name="L_DefaultTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="l_drawerStyle">@style/L_DrawerMenu</item>
+        <item name="l_drawerItemStyle">@style/L_DrawerMenuItem</item>
+        <item name="l_gridStyle">@style/L_Grid</item>
+        <item name="l_counterStyle">@style/L_Counter</item>
     </style>
+
+    <style name="L_DrawerMenu">
+        <item name="android:background">?android:attr/windowBackground</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="L_DrawerMenuItem">
+        <item name="android:background">@drawable/l_bg_drawer_item</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:drawablePadding">32dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:drawableLeft">@drawable/l_ic_folder</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="L_Grid">
+        <item name="android:horizontalSpacing">2dp</item>
+        <item name="android:verticalSpacing">2dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:numColumns">4</item>
+    </style>
+
+    <style name="L_Base.Counter" parent="android:Widget">
+        <item name="android:background">?android:attr/windowBackground</item>
+        <item name="android:height">48dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="L_Counter" parent="L_Base.Counter" />
 </resources>

@@ -18,16 +18,16 @@ package com.laevatein;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
-import com.laevatein.internal.entity.ActionViewResources;
-import com.laevatein.internal.entity.AlbumViewResources;
-import com.laevatein.internal.entity.CountViewResources;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
+import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.ui.PhotoSelectionActivity;
 
 import java.util.ArrayList;
@@ -47,10 +47,10 @@ public final class SelectionSpecBuilder {
     private final Laevatein mLaevatein;
     private final Set<MimeType> mMimeType;
     private final SelectionSpec mSelectionSpec;
+    @StyleRes
+    private int mActivityTheme;
     private ItemViewResources mItemViewResources;
-    private AlbumViewResources mAlbumViewResources;
-    private ActionViewResources mActionViewResources;
-    private CountViewResources mCountViewResources;
+    private PreviewViewResources mPreviewViewResources;
     private ErrorViewResources mCountErrorSpec;
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
@@ -60,6 +60,7 @@ public final class SelectionSpecBuilder {
     private int mActivityOrientation;
     private List<Uri> mResumeList;
     private Class<? extends PhotoSelectionActivity> mPhotoSelectionActivityClass;
+    private Class<? extends ImagePreviewActivity> mPreviewActivityClass = ImagePreviewActivity.class;
 
     /**
      * Constructs a new specification builder on the context.
@@ -75,48 +76,36 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the theme of activities.
+     *
+     * @param theme theme of activity
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder theme(@StyleRes int theme) {
+        mActivityTheme = theme;
+        return this;
+    }
+
+    /**
      * Sets the binding cell of the grid view with the specified layout resource for photo list.
      * @param layoutId a layout resource id.
      * @param imageViewId an id for the image view.
      * @param checkBoxId an id for the check box.
-     * @return the specification builder context.
      */
     public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
-        mItemViewResources = new ItemViewResources(layoutId,    imageViewId, checkBoxId);
+        mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId);
         return this;
     }
 
     /**
-     * Sets the binding cell of the list view with the specified layout resource for album list.
-     * @param layoutId a layout resource id.
+     * Sets the binding page of the ViewPager with the specified layout resource for photo list.
+     *
+     * @param layoutId    a layout resource id.
      * @param imageViewId an id for the image view.
-     * @param directoryNameViewId an id for the text view of the album name
      * @return the specification builder context.
      */
-    public SelectionSpecBuilder bindEachAlbumWith(int layoutId, int imageViewId, int directoryNameViewId) {
-        mAlbumViewResources = new AlbumViewResources(layoutId, imageViewId, directoryNameViewId);
-        return this;
-    }
-
-    /**
-     * Sets the binding appearance resources of the count view.
-     * @param textColorRes a text color resource for the count label.
-     * @param backgroundColorRes a background resource for the count label.
-     * @return the specification builder context.
-     */
-    public SelectionSpecBuilder bindCountViewWith(int textColorRes, int backgroundColorRes) {
-        mCountViewResources = new CountViewResources(textColorRes, backgroundColorRes);
-        return this;
-    }
-
-    /**
-     * Sets the layout resources for use as action view on the preview activity.
-     * @param layoutId a layout resource id.
-     * @param checkBoxId an id for the check box.
-     * @return the specification builder context.
-     */
-    public SelectionSpecBuilder useActionLayout(int layoutId, int checkBoxId) {
-        mActionViewResources = new ActionViewResources(layoutId, checkBoxId);
+    public SelectionSpecBuilder bindPreviewImageWith(int layoutId, int imageViewId) {
+        mPreviewViewResources = new PreviewViewResources(layoutId, imageViewId);
         return this;
     }
 
@@ -210,6 +199,17 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the Activity instead of ImagePreviewActivity
+     *
+     * @param previewActivityClass an Activity called on photo preview
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder previewActivityClass(Class<? extends ImagePreviewActivity> previewActivityClass) {
+        mPreviewActivityClass = previewActivityClass;
+        return this;
+    }
+
+    /**
      * Sets the default selection to resume photo picking activity.
      * @param uriList to set selected as default.
      * @return the specification builder context.
@@ -249,12 +249,15 @@ public final class SelectionSpecBuilder {
         }
 
         mSelectionSpec.setMimeTypeSet(mMimeType);
+        if (mActivityTheme == 0) {
+            mActivityTheme = R.style.L_DefaultTheme;
+        }
 
         ViewResourceSpec viewSpec = new ViewResourceSpec.Builder()
-                .setActionViewResources(mActionViewResources)
-                .setAlbumViewResources(mAlbumViewResources)
-                .setCountViewResources(mCountViewResources)
+                .setTheme(mActivityTheme)
+                .setPreviewClass(mPreviewActivityClass)
                 .setItemViewResources(mItemViewResources)
+                .setPreviewViewResources(mPreviewViewResources)
                 .setEnableCapture(mEnableCapture)
                 .setEnableSelectedView(mEnableSelectedView)
                 .setActivityOrientation(mActivityOrientation)

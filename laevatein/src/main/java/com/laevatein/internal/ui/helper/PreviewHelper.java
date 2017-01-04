@@ -29,14 +29,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.laevatein.R;
-import com.laevatein.internal.entity.ActionViewResources;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
-import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.adapter.PreviewPagerAdapter;
 import com.laevatein.internal.utils.ErrorViewUtils;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
@@ -60,7 +60,14 @@ public final class PreviewHelper {
         if (spec != null && spec.needActivityOrientationRestriction()) {
             activity.setRequestedOrientation(spec.getActivityOrientation());
         }
-        PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager(), activity);
+        PreviewViewResources previewViewResources;
+        if (spec != null && spec.getPreviewViewResources() != null) {
+            previewViewResources = spec.getPreviewViewResources();
+        } else {
+            previewViewResources = PreviewViewResources.getDefault();
+        }
+        PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager(),
+                previewViewResources, activity);
         ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
         pager.setAdapter(adapter);
     }
@@ -80,15 +87,10 @@ public final class PreviewHelper {
             return;
         }
         final Item photo = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
-        ActionViewResources resources = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES);
         final SelectionSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC);
         final ErrorViewSpec errorSpec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC);
-        if (resources == null) {
-            MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
-        } else {
-            MenuItemCompat.setActionView(item, resources.getLayoutId());
-        }
-        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(resources.getCheckBoxId());
+        MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
+        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(R.id.l_default_check_box);
         checkBox.setChecked(activity.getStateHolder().isChecked(photo.buildContentUri()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

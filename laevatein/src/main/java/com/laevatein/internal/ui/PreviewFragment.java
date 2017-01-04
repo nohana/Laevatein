@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amalgam.os.BundleUtils;
-import com.laevatein.R;
+import com.laevatein.internal.entity.PreviewViewResources;
 import com.laevatein.internal.utils.PhotoMetadataUtils;
 import com.squareup.picasso.Picasso;
 
@@ -23,25 +23,30 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
  */
 public class PreviewFragment extends Fragment {
     private static final String ARGS_URI = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_URI");
+    private static final String ARGS_RESOURCES = BundleUtils.buildKey(PhotoGridFragment.class, "ARGS_RESOURCES");
 
-    public static PreviewFragment newInstance(Uri uri) {
+    private PreviewViewResources mViewResources;
+
+    public static PreviewFragment newInstance(Uri uri, PreviewViewResources resources) {
         PreviewFragment fragment = new PreviewFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGS_URI, uri);
+        bundle.putParcelable(ARGS_RESOURCES, resources);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.l_fragment_preview, container, false);
+        mViewResources = getArguments().getParcelable(ARGS_RESOURCES);
+        return inflater.inflate(mViewResources.getLayoutId(), container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageViewTouch image = (ImageViewTouch) getView().findViewById(R.id.l_image_zoom_view);
+        ImageViewTouch image = (ImageViewTouch) getView().findViewById(mViewResources.getImageViewId());
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
         Point size = PhotoMetadataUtils.getBitmapSize(getActivity().getContentResolver(), uri, getActivity());

@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/l_container_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.laevatein.ui.PhotoSelectionActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/l_toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/l_container_drawer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/l_toolbar">
-
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/l_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:theme="?attr/l_toolbarTheme" />
 
-            <FrameLayout
-                android:id="@+id/l_container_grid_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/l_fragment_selected_count" />
-
-            <fragment
-                android:id="@+id/l_fragment_selected_count"
-                android:name="com.laevatein.internal.ui.SelectedCountFragment"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                tools:layout="@layout/l_fragment_selected_count" />
-        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/l_container_grid_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/l_fragment_selected_count"
+            android:layout_below="@id/l_toolbar" />
 
         <fragment
-            android:id="@+id/l_fragment_list_directory"
-            android:name="com.laevatein.internal.ui.AlbumListFragment"
-            android:layout_width="@dimen/l_drawerMenuWidth"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            tools:layout="@layout/l_fragment_list_album" />
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+            android:id="@+id/l_fragment_selected_count"
+            android:name="com.laevatein.internal.ui.SelectedCountFragment"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            tools:layout="@layout/l_fragment_selected_count" />
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/l_fragment_list_directory"
+        android:name="com.laevatein.internal.ui.AlbumListFragment"
+        android:layout_width="@dimen/l_drawerMenuWidth"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        tools:layout="@layout/l_fragment_list_album" />
+</android.support.v4.widget.DrawerLayout>

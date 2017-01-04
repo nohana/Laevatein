@@ -35,7 +35,7 @@ import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
@@ -93,7 +93,7 @@ public final class PhotoGridViewHelper {
     public static void callPreview(Context context, Item item, List<Uri> checked) {
         PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
         ViewResourceSpec resources = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
-        Intent intent = new Intent(context, ImagePreviewActivity.class);
+        Intent intent = new Intent(context, resources.getPreviewActivityClass());
         Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.l_container_grid_fragment);
         Album album = fragment.getArguments().getParcelable(PhotoGridFragment.ARGS_ALBUM);
         intent.putExtra(ImagePreviewActivity.EXTRA_ALBUM, album);
@@ -101,7 +101,6 @@ public final class PhotoGridViewHelper {
         intent.putExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_SELECTION_SPEC));
         intent.putExtra(ImagePreviewActivity.EXTRA_VIEW_SPEC, activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC));
-        intent.putExtra(ImagePreviewActivity.EXTRA_CHECK_VIEW_RES, resources.getActionViewResources());
         intent.putParcelableArrayListExtra(ImagePreviewActivity.EXTRA_DEFAULT_CHECKED, (ArrayList<Uri>) checked);
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }

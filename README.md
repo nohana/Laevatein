@@ -111,6 +111,28 @@ Laevatein.from(this)
         .forResult(REQUEST_CODE_CHOOSE);
 ```
 
+### Customize theme
+
+Change Laevatein's theme with `theme(int)`.
+
+```java
+Laevatein.from(this)
+        .theme(R.style.OriginalTheme)
+        .choose(MimeType.of(MimeType.JPEG))
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
+Theme must implement these parameter at least.
+
+```xml
+<style name="OriginalTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="l_drawerStyle">@style/L_DrawerMenu</item>
+    <item name="l_drawerItemStyle">@style/L_DrawerMenuItem</item>
+    <item name="l_gridStyle">@style/L_Grid</item>
+    <item name="l_counterStyle">@style/L_Counter</item>
+</style>
+```
+
 ## Sample App
 
 Sample application is available [here](https://deploygate.com/distributions/b43dc74fc4025bbb8587f179f5b8464418cca559).

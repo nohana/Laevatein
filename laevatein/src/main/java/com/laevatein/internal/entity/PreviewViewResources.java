@@ -15,49 +15,46 @@
  */
 package com.laevatein.internal.entity;
 
-import com.laevatein.R;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.laevatein.R;
+
 /**
- * @author KeithYokoma
- * @since 2014/03/20
- * @version 1.0.0
+ * @author HiroyukiSeto
+ * @version 2.0.0
  * @hide
+ * @since 2016/11/25
  */
-public final class AlbumViewResources implements Parcelable {
-    public static final Creator<AlbumViewResources> CREATOR = new Creator<AlbumViewResources>() {
+public final class PreviewViewResources implements Parcelable {
+    public static final Creator<PreviewViewResources> CREATOR = new Creator<PreviewViewResources>() {
         @Override
-        public AlbumViewResources createFromParcel(Parcel source) {
-            return new AlbumViewResources(source);
+        public PreviewViewResources createFromParcel(Parcel source) {
+            return new PreviewViewResources(source);
         }
 
         @Override
-        public AlbumViewResources[] newArray(int size) {
-            return new AlbumViewResources[size];
+        public PreviewViewResources[] newArray(int size) {
+            return new PreviewViewResources[size];
         }
     };
-    private static volatile AlbumViewResources sDefault;
+    private static volatile PreviewViewResources sDefault;
     private final int mLayoutId;
     private final int mImageViewId;
-    private final int mLabelViewId;
 
-    public AlbumViewResources(int layoutId, int imageViewId, int labelViewId) {
+    public PreviewViewResources(int layoutId, int imageViewId) {
         mLayoutId = layoutId;
         mImageViewId = imageViewId;
-        mLabelViewId = labelViewId;
     }
 
-    /* package */ AlbumViewResources(Parcel source) {
+    /* package */ PreviewViewResources(Parcel source) {
         mLayoutId = source.readInt();
         mImageViewId = source.readInt();
-        mLabelViewId = source.readInt();
     }
 
-    public static AlbumViewResources getDefault() {
+    public static PreviewViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new AlbumViewResources(R.layout.l_list_item_default_album, R.id.l_default_list_image, R.id.l_default_directory_label);
+            sDefault = new PreviewViewResources(R.layout.l_fragment_default_preview, R.id.l_default_image_zoom_view);
         }
         return sDefault;
     }
@@ -71,16 +68,6 @@ public final class AlbumViewResources implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mLayoutId);
         dest.writeInt(mImageViewId);
-        dest.writeInt(mLabelViewId);
-    }
-
-    @Override
-    public String toString() {
-        return new StringBuilder()
-                .append("layoutId:").append(mLayoutId)
-                .append(", imageId:").append(mImageViewId)
-                .append(", labelId:").append(mLabelViewId)
-                .toString();
     }
 
     public int getLayoutId() {
@@ -89,9 +76,5 @@ public final class AlbumViewResources implements Parcelable {
 
     public int getImageViewId() {
         return mImageViewId;
-    }
-
-    public int getLabelViewId() {
-        return mLabelViewId;
     }
 }

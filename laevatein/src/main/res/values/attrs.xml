@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="l_toolbarTheme" format="reference" />
+    <attr name="l_drawerStyle" format="reference" />
+    <attr name="l_drawerItemStyle" format="reference" />
+    <attr name="l_drawerHeaderLayout" format="reference" />
+    <attr name="l_gridStyle" format="reference" />
+    <attr name="l_counterStyle" format="reference" />
+    <attr name="l_actionStyle" format="reference" />
+</resources>

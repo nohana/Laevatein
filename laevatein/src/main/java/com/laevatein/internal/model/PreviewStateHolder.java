@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.amalgam.os.BundleUtils;
-import com.laevatein.internal.ui.ImagePreviewActivity;
+import com.laevatein.ui.ImagePreviewActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
