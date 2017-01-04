@@ -4,7 +4,7 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#80000000" />
+                    <solid android:color="@color/l_bg_item_selected" />
                 </shape>
             </item>
         </layer-list>
@@ -13,19 +13,9 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="#80000000" />
+                    <solid android:color="@color/l_bg_item_selected" />
                 </shape>
             </item>
-        </layer-list>
-    </item>
-    <item>
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="#80000000" />
-                </shape>
-            </item>
-            <item android:drawable="?attr/selectableItemBackground" />
         </layer-list>
     </item>
 </selector>
