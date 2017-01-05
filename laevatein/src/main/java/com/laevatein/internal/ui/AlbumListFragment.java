@@ -33,9 +33,9 @@ import com.laevatein.internal.ui.helper.AlbumListViewHelper;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public class AlbumListFragment extends Fragment implements
         AdapterView.OnItemClickListener,
@@ -87,7 +87,13 @@ public class AlbumListFragment extends Fragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AlbumListViewHelper.callOnSelect(mListener, (Cursor) parent.getItemAtPosition(position));
+        Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+        if (cursor == null) {
+            //avoid moving selection to header
+            AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());
+            return;
+        }
+        AlbumListViewHelper.callOnSelect(mListener, cursor);
         AlbumListViewHelper.setCheckedState(this, position);
         mCollection.setStateCurrentSelection(position);
     }
