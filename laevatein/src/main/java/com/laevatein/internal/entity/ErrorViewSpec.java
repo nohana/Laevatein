@@ -1,11 +1,10 @@
 package com.laevatein.internal.entity;
 
-import com.laevatein.R;
-
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import android.support.annotation.Nullable;
+
+import com.laevatein.R;
 
 /**
  * @author Keithyokoma
@@ -102,16 +101,16 @@ public class ErrorViewSpec implements Parcelable {
 
         public ErrorViewSpec create() {
             if (mCountSpec == null) {
-                mCountSpec = ErrorViewResources.ViewType.NONE.createSpec(0);
+                mCountSpec = ErrorViewResources.ViewType.NONE.createSpec(0, 0);
             }
             if (mUnderQualitySpec == null) {
-                mUnderQualitySpec = ErrorViewResources.ViewType.DIALOG.createSpec(R.string.l_error_quality);
+                mUnderQualitySpec = ErrorViewResources.ViewType.DIALOG.createSpec(-1, R.string.l_error_quality);
             }
             if (mOverQualitySpec == null) {
-                mOverQualitySpec = ErrorViewResources.ViewType.DIALOG.createSpec(R.string.l_error_quality);
+                mOverQualitySpec = ErrorViewResources.ViewType.DIALOG.createSpec(-1, R.string.l_error_quality);
             }
             if (mTypeSpec == null) {
-                mTypeSpec = ErrorViewResources.ViewType.DIALOG.createSpec(R.string.l_error_invalid_format);
+                mTypeSpec = ErrorViewResources.ViewType.DIALOG.createSpec(-1, R.string.l_error_invalid_format);
             }
             return new ErrorViewSpec(mCountSpec, mUnderQualitySpec, mOverQualitySpec, mTypeSpec);
         }

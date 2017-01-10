@@ -128,7 +128,18 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder countOver(ErrorViewResources.ViewType type, int errorMessageId) {
-        mCountErrorSpec = type.createSpec(errorMessageId);
+        return countOver(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of count over.
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder countOver(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mCountErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
@@ -150,7 +161,18 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder underQuality(ErrorViewResources.ViewType type, int errorMessageId) {
-        mUnderQualityErrorSpec = type.createSpec(errorMessageId);
+        return underQuality(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of quality un-satisfaction.
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder underQuality(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mUnderQualityErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
@@ -161,7 +183,18 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder overQuality(ErrorViewResources.ViewType type, int errorMessageId) {
-        mOverQualityErrorSpec = type.createSpec(errorMessageId);
+        return overQuality(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of quality un-satisfaction..
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder overQuality(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mOverQualityErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
@@ -172,7 +205,18 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder invalidType(ErrorViewResources.ViewType type, int errorMessageId) {
-        mTypeErrorSpec = type.createSpec(errorMessageId);
+        return invalidType(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of type validation.
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder invalidType(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mTypeErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
