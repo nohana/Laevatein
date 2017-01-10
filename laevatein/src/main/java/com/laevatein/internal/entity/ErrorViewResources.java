@@ -51,6 +51,10 @@ public class ErrorViewResources implements Parcelable {
         return new ErrorViewResources(ViewType.TOAST, messageId);
     }
 
+    /* package */  static ErrorViewResources asSnackbar(int messageId) {
+        return new ErrorViewResources(ViewType.SNACKBAR, messageId);
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -84,6 +88,12 @@ public class ErrorViewResources implements Parcelable {
             @Override
             public ErrorViewResources createSpec(int titleId, int messageId) {
                 return ErrorViewResources.asToast(messageId);
+            }
+        },
+        SNACKBAR {
+            @Override
+            public ErrorViewResources createSpec(int titleId, int messageId) {
+                return ErrorViewResources.asSnackbar(messageId);
             }
         },
         DIALOG {

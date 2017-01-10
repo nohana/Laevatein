@@ -1,5 +1,6 @@
 package com.laevatein.internal.utils;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public final class ErrorViewUtils {
             }
         } else if (resources.getViewType() == ErrorViewResources.ViewType.TOAST) {
             Toast.makeText(activity.getApplicationContext(), resources.getMessageId(), Toast.LENGTH_LONG).show();
+        } else if (resources.getViewType() == ErrorViewResources.ViewType.SNACKBAR) {
+            Snackbar.make(activity.findViewById(android.R.id.content), resources.getMessageId(), Snackbar.LENGTH_LONG).show();
         }
     }
 }
