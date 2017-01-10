@@ -1,10 +1,11 @@
 package com.laevatein.internal.utils;
 
-import com.amalgam.app.SupportSimpleAlertDialogFragment;
-import com.laevatein.internal.entity.ErrorViewResources;
-
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
+
+import com.amalgam.app.SupportSimpleAlertDialogFragment;
+import com.laevatein.internal.entity.ErrorViewResources;
 
 /**
  * @author KeithYokoma
@@ -23,10 +24,17 @@ public final class ErrorViewUtils {
         }
 
         if (resources.getViewType() == ErrorViewResources.ViewType.DIALOG) {
-            SupportSimpleAlertDialogFragment.newInstance(resources.getMessageId())
-                    .show(activity.getSupportFragmentManager(), SupportSimpleAlertDialogFragment.TAG);
+            if (resources.getTitleId() == -1) {
+                SupportSimpleAlertDialogFragment.newInstance(resources.getMessageId())
+                        .show(activity.getSupportFragmentManager(), SupportSimpleAlertDialogFragment.TAG);
+            } else {
+                SupportSimpleAlertDialogFragment.newInstance(resources.getTitleId(), resources.getMessageId())
+                        .show(activity.getSupportFragmentManager(), SupportSimpleAlertDialogFragment.TAG);
+            }
         } else if (resources.getViewType() == ErrorViewResources.ViewType.TOAST) {
             Toast.makeText(activity.getApplicationContext(), resources.getMessageId(), Toast.LENGTH_LONG).show();
+        } else if (resources.getViewType() == ErrorViewResources.ViewType.SNACKBAR) {
+            Snackbar.make(activity.findViewById(android.R.id.content), resources.getMessageId(), Snackbar.LENGTH_LONG).show();
         }
     }
 }
