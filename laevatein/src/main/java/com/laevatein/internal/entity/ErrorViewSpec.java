@@ -29,19 +29,24 @@ public class ErrorViewSpec implements Parcelable {
     private final ErrorViewResources mUnderQualitySpec;
     private final ErrorViewResources mOverQualitySpec;
     private final ErrorViewResources mTypeErrorSpec;
+    private final DialogResources mBackConfirmSpec;
 
     /* package */ ErrorViewSpec(Parcel source) {
         mCountErrorSpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mUnderQualitySpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mOverQualitySpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mTypeErrorSpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
+        mBackConfirmSpec = source.readParcelable(DialogResources.class.getClassLoader());
     }
 
-    /* package */ ErrorViewSpec(ErrorViewResources countSpec, ErrorViewResources underQualitySpec, ErrorViewResources overQualitySpec, ErrorViewResources typeErrorSpec) {
+    /* package */ ErrorViewSpec(ErrorViewResources countSpec, ErrorViewResources underQualitySpec,
+                                ErrorViewResources overQualitySpec, ErrorViewResources typeErrorSpec,
+                                DialogResources backConfirmSpec) {
         mCountErrorSpec = countSpec;
         mUnderQualitySpec = underQualitySpec;
         mOverQualitySpec = overQualitySpec;
         mTypeErrorSpec = typeErrorSpec;
+        mBackConfirmSpec = backConfirmSpec;
     }
 
     @Override
@@ -55,6 +60,7 @@ public class ErrorViewSpec implements Parcelable {
         dest.writeParcelable(mUnderQualitySpec, flags);
         dest.writeParcelable(mOverQualitySpec, flags);
         dest.writeParcelable(mTypeErrorSpec, flags);
+        dest.writeParcelable(mBackConfirmSpec, flags);
     }
 
     public ErrorViewResources getCountErrorSpec() {
@@ -73,11 +79,16 @@ public class ErrorViewSpec implements Parcelable {
         return mTypeErrorSpec;
     }
 
+    public DialogResources getBackConfirmSpec() {
+        return mBackConfirmSpec;
+    }
+
     public static class Builder {
         private ErrorViewResources mCountSpec;
         private ErrorViewResources mUnderQualitySpec;
         private ErrorViewResources mOverQualitySpec;
         private ErrorViewResources mTypeSpec;
+        private DialogResources mBackSpec;
 
         public Builder setCountSpec(ErrorViewResources spec) {
             mCountSpec = spec;
@@ -99,6 +110,11 @@ public class ErrorViewSpec implements Parcelable {
             return this;
         }
 
+        public Builder setConfirmSpec(DialogResources spec) {
+            mBackSpec = spec;
+            return this;
+        }
+
         public ErrorViewSpec create() {
             if (mCountSpec == null) {
                 mCountSpec = ErrorViewResources.ViewType.NONE.createSpec(0, 0);
@@ -112,7 +128,10 @@ public class ErrorViewSpec implements Parcelable {
             if (mTypeSpec == null) {
                 mTypeSpec = ErrorViewResources.ViewType.DIALOG.createSpec(-1, R.string.l_error_invalid_format);
             }
-            return new ErrorViewSpec(mCountSpec, mUnderQualitySpec, mOverQualitySpec, mTypeSpec);
+            if (mBackSpec == null) {
+                mBackSpec = new DialogResources(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
+            }
+            return new ErrorViewSpec(mCountSpec, mUnderQualitySpec, mOverQualitySpec, mTypeSpec, mBackSpec);
         }
     }
 }
