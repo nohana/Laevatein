@@ -35,7 +35,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'it.sephiroth.android.library.imagezoom:library:1.0.4'
     compile 'com.github.keithyokoma:CompoundContainers:1.0.0@aar'
-    compile 'jp.co.nohana:Amalgam:0.3.2@aar'
+    compile 'jp.co.nohana:Amalgam:0.4.0@aar'
     compile 'jp.mixi:AndroidDeviceCompatibility:1.0.0@aar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
