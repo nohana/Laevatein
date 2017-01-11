@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
+import com.laevatein.internal.entity.DialogResources;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ItemViewResources;
@@ -55,6 +56,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
+    private DialogResources mConfirmDialogSpec;
     private boolean mEnableCapture;
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
@@ -221,6 +223,26 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the error view specification for the press back without finish.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder confirmDialog(int errorMessageId) {
+        return confirmDialog(-1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the press back without finish.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder confirmDialog(int errorTitleId, int errorMessageId) {
+        mConfirmDialogSpec = new DialogResources(errorTitleId, errorMessageId);
+        return this;
+    }
+
+    /**
      * Sets the limitation of a selectable image quality by pixel count within the specified range.
      * @param minPixel minimum value to select.
      * @param maxPixel maximum value to select.
@@ -311,6 +333,7 @@ public final class SelectionSpecBuilder {
                 .setOverQualitySpec(mOverQualityErrorSpec)
                 .setUnderQualitySpec(mUnderQualityErrorSpec)
                 .setTypeSpec(mTypeErrorSpec)
+                .setConfirmSpec(mConfirmDialogSpec)
                 .create();
 
         if (mPhotoSelectionActivityClass == null) {

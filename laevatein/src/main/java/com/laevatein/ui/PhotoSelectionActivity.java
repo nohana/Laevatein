@@ -33,6 +33,7 @@ import com.amalgam.os.BundleUtils;
 import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.SelectionSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
@@ -43,6 +44,7 @@ import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
+import com.laevatein.internal.utils.ErrorViewUtils;
 
 import java.util.ArrayList;
 
@@ -161,8 +163,8 @@ public class PhotoSelectionActivity extends ActionBarActivity implements
             super.onBackPressed();
             return;
         }
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
-        dialog.show(getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
+        ErrorViewSpec spec = getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC);
+        ErrorViewUtils.showConfirmDialog(this, spec.getBackConfirmSpec());
     }
 
     @Override

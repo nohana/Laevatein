@@ -15,14 +15,15 @@
  */
 package com.laevatein.internal.misc.ui;
 
-import com.amalgam.os.BundleUtils;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
+
+import com.amalgam.os.BundleUtils;
+import com.laevatein.R;
 
 /**
  * @author KeithYokoma
@@ -37,6 +38,14 @@ public class ConfirmationDialogFragment extends DialogFragment {
     private ConfirmationSelectionListener mListener;
 
     public ConfirmationDialogFragment() {}
+
+    public static ConfirmationDialogFragment newInstance(int message) {
+        ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARGS_MESSAGE, message);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public static ConfirmationDialogFragment newInstance(int title, int message) {
         ConfirmationDialogFragment fragment = new ConfirmationDialogFragment();
@@ -60,7 +69,10 @@ public class ConfirmationDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int title = getArguments().getInt(ARGS_TITLE);
+        int title = getArguments().getInt(ARGS_TITLE, -1);
+        if (title == -1) {
+            title = R.string.l_confirm_dialog_title;
+        }
         int message = getArguments().getInt(ARGS_MESSAGE);
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(title)

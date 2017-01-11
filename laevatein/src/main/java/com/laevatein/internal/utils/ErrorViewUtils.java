@@ -5,13 +5,15 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.amalgam.app.SupportSimpleAlertDialogFragment;
+import com.laevatein.internal.entity.DialogResources;
 import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.misc.ui.ConfirmationDialogFragment;
 
 /**
  * @author KeithYokoma
- * @since 2014/04/07
  * @version 1.0.0
  * @hide
+ * @since 2014/04/07
  */
 public final class ErrorViewUtils {
     private ErrorViewUtils() {
@@ -35,6 +37,16 @@ public final class ErrorViewUtils {
             Toast.makeText(activity.getApplicationContext(), resources.getMessageId(), Toast.LENGTH_LONG).show();
         } else if (resources.getViewType() == ErrorViewResources.ViewType.SNACKBAR) {
             Snackbar.make(activity.findViewById(android.R.id.content), resources.getMessageId(), Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public static void showConfirmDialog(FragmentActivity activity, DialogResources resources) {
+        if (resources.getTitleId() == -1) {
+            ConfirmationDialogFragment.newInstance(resources.getMessageId())
+                    .show(activity.getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
+        } else {
+            ConfirmationDialogFragment.newInstance(resources.getTitleId(), resources.getMessageId())
+                    .show(activity.getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
         }
     }
 }
