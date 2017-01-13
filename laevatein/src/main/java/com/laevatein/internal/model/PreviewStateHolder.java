@@ -55,7 +55,7 @@ public class PreviewStateHolder {
         }
     }
 
-    public int getChechedCount(){
+    public int getCheckedCount() {
         return mChecked.size();
     }
 

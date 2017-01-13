@@ -103,7 +103,7 @@ public final class PreviewHelper {
                 }
                 UncapableCause cause = PhotoMetadataUtils
                         .isAcceptable(activity, spec, currentUri);
-                int currentCount = activity.getStateHolder().getChechedCount();
+                int currentCount = activity.getStateHolder().getCheckedCount();
                 if (!activity.getStateHolder().isChecked(currentUri) && currentCount + 1 > spec.getMaxSelectable()) {
                     cause = UncapableCause.OVER_COUNT;
                 }
