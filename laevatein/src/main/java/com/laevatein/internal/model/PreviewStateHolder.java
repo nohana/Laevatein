@@ -48,14 +48,14 @@ public class PreviewStateHolder {
     }
 
     public void setChecked(Uri uri, boolean checked) {
-        if (checked) {
+        if (checked && !mChecked.contains(uri)) {
             mChecked.add(uri);
-        } else {
+        } else if (!checked) {
             mChecked.remove(uri);
         }
     }
 
-    public int getChechedCount(){
+    public int getCheckedCount() {
         return mChecked.size();
     }
 
