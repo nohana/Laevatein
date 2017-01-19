@@ -52,7 +52,7 @@ public final class SelectionSpecBuilder {
     private int mActivityTheme;
     private ItemViewResources mItemViewResources;
     private PreviewViewResources mPreviewViewResources;
-    private ErrorViewResources mCountErrorSpec;
+    private ErrorViewResources mCountOverErrorSpec;
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
@@ -141,7 +141,7 @@ public final class SelectionSpecBuilder {
      * @return the specification builder context.
      */
     public SelectionSpecBuilder countOver(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
-        mCountErrorSpec = type.createSpec(errorTitleId, errorMessageId);
+        mCountOverErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
@@ -329,7 +329,7 @@ public final class SelectionSpecBuilder {
                 .setActivityOrientation(mActivityOrientation)
                 .create();
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
-                .setCountSpec(mCountErrorSpec)
+                .setCountOverSpec(mCountOverErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)
                 .setUnderQualitySpec(mUnderQualityErrorSpec)
                 .setTypeSpec(mTypeErrorSpec)
