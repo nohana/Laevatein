@@ -168,7 +168,7 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
     }
 
     @Override
-    public final void onSelect(Album album) {
+    public void onSelect(Album album) {
         PhotoSelectionViewHelper.setPhotoGridFragment(this, mDrawer, album);
     }
 

@@ -4,6 +4,7 @@
     android:id="@+id/l_container_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="@string/l_content_transition_name"
     tools:context="com.laevatein.ui.PhotoSelectionActivity">
 
     <RelativeLayout
