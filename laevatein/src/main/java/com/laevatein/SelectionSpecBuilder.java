@@ -19,7 +19,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.StyleRes;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.laevatein.internal.entity.DialogResources;
 import com.laevatein.internal.entity.ErrorViewResources;
@@ -58,6 +61,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mOverQualityErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
     private DialogResources mConfirmDialogSpec;
+    private boolean mOpenDrawer = true;
     private boolean mEnableCapture;
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
@@ -312,6 +316,18 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Determines whether opening NavigationDrawer on launch or not.
+     * This flag is true by default.
+     *
+     * @param open whether to open drawer or not.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder openDrawer(boolean open) {
+        mOpenDrawer = open;
+        return this;
+    }
+
+    /**
      * Determines whether the photo capturing is enabled or not on the camera photo grid view.
      * This flag is false by default.
      * @param enable whether to enable capturing or not.
@@ -332,6 +348,16 @@ public final class SelectionSpecBuilder {
      * @param requestCode identity of the requester activity.
      */
     public void forResult(int requestCode) {
+        forResultWithTransition(requestCode, null);
+    }
+
+    /**
+     * Start to select photo.
+     *
+     * @param requestCode identity of the requester activity.
+     * @param view        transition source view
+     */
+    public void forResultWithTransition(int requestCode, View view) {
         Activity activity = mLaevatein.getActivity();
         if (activity == null) {
             return; // cannot continue;
@@ -347,6 +373,7 @@ public final class SelectionSpecBuilder {
                 .setPreviewClass(mPreviewActivityClass)
                 .setItemViewResources(mItemViewResources)
                 .setPreviewViewResources(mPreviewViewResources)
+                .setOpenDrawer(mOpenDrawer)
                 .setEnableCapture(mEnableCapture)
                 .setEnableSelectedView(mEnableSelectedView)
                 .setActivityOrientation(mActivityOrientation)
@@ -373,6 +400,10 @@ public final class SelectionSpecBuilder {
         Fragment fragment = mLaevatein.getFragment();
         if (fragment != null) {
             fragment.startActivityForResult(intent, requestCode);
+        } else if (view != null) {
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                    view, activity.getString(R.string.l_content_transition_name));
+            ActivityCompat.startActivityForResult(activity, intent, requestCode, options.toBundle());
         } else {
             activity.startActivityForResult(intent, requestCode);
         }

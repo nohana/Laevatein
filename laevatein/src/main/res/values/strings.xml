@@ -24,4 +24,6 @@
     <string name="l_action_counter">0</string>
 
     <string name="l_detail_photo_title">Photo Detail</string>
+
+    <string name="l_content_transition_name">ContentsTransition</string>
 </resources>
