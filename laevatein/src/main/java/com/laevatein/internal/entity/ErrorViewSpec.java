@@ -25,6 +25,7 @@ public class ErrorViewSpec implements Parcelable {
             return new ErrorViewSpec[size];
         }
     };
+    private final ErrorViewResources mCountUnderErrorSpec;
     private final ErrorViewResources mCountOverErrorSpec;
     private final ErrorViewResources mUnderQualitySpec;
     private final ErrorViewResources mOverQualitySpec;
@@ -32,6 +33,7 @@ public class ErrorViewSpec implements Parcelable {
     private final DialogResources mBackConfirmSpec;
 
     /* package */ ErrorViewSpec(Parcel source) {
+        mCountUnderErrorSpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mCountOverErrorSpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mUnderQualitySpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
         mOverQualitySpec = source.readParcelable(ErrorViewResources.class.getClassLoader());
@@ -39,10 +41,11 @@ public class ErrorViewSpec implements Parcelable {
         mBackConfirmSpec = source.readParcelable(DialogResources.class.getClassLoader());
     }
 
-    /* package */ ErrorViewSpec(ErrorViewResources countSpec, ErrorViewResources underQualitySpec,
-                                ErrorViewResources overQualitySpec, ErrorViewResources typeErrorSpec,
-                                DialogResources backConfirmSpec) {
-        mCountOverErrorSpec = countSpec;
+    /* package */ ErrorViewSpec(ErrorViewResources countUnderSpec, ErrorViewResources countOverSpec,
+                                ErrorViewResources underQualitySpec, ErrorViewResources overQualitySpec,
+                                ErrorViewResources typeErrorSpec, DialogResources backConfirmSpec) {
+        mCountUnderErrorSpec = countUnderSpec;
+        mCountOverErrorSpec = countOverSpec;
         mUnderQualitySpec = underQualitySpec;
         mOverQualitySpec = overQualitySpec;
         mTypeErrorSpec = typeErrorSpec;
@@ -56,11 +59,16 @@ public class ErrorViewSpec implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mCountUnderErrorSpec, flags);
         dest.writeParcelable(mCountOverErrorSpec, flags);
         dest.writeParcelable(mUnderQualitySpec, flags);
         dest.writeParcelable(mOverQualitySpec, flags);
         dest.writeParcelable(mTypeErrorSpec, flags);
         dest.writeParcelable(mBackConfirmSpec, flags);
+    }
+
+    public ErrorViewResources getCountUnderErrorSpec() {
+        return mCountUnderErrorSpec;
     }
 
     public ErrorViewResources getCountOverErrorSpec() {
@@ -84,11 +92,17 @@ public class ErrorViewSpec implements Parcelable {
     }
 
     public static class Builder {
+        private ErrorViewResources mCountUnderSpec;
         private ErrorViewResources mCountOverSpec;
         private ErrorViewResources mUnderQualitySpec;
         private ErrorViewResources mOverQualitySpec;
         private ErrorViewResources mTypeSpec;
         private DialogResources mBackSpec;
+
+        public Builder setCountUnderSpec(ErrorViewResources spec) {
+            mCountUnderSpec = spec;
+            return this;
+        }
 
         public Builder setCountOverSpec(ErrorViewResources spec) {
             mCountOverSpec = spec;
@@ -116,6 +130,9 @@ public class ErrorViewSpec implements Parcelable {
         }
 
         public ErrorViewSpec create() {
+            if (mCountUnderSpec == null) {
+                mCountUnderSpec = ErrorViewResources.ViewType.NONE.createSpec(0, 0);
+            }
             if (mCountOverSpec == null) {
                 mCountOverSpec = ErrorViewResources.ViewType.NONE.createSpec(0, 0);
             }
@@ -131,7 +148,7 @@ public class ErrorViewSpec implements Parcelable {
             if (mBackSpec == null) {
                 mBackSpec = new DialogResources(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
             }
-            return new ErrorViewSpec(mCountOverSpec, mUnderQualitySpec, mOverQualitySpec, mTypeSpec, mBackSpec);
+            return new ErrorViewSpec(mCountUnderSpec, mCountOverSpec, mUnderQualitySpec, mOverQualitySpec, mTypeSpec, mBackSpec);
         }
     }
 }

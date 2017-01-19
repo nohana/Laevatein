@@ -52,6 +52,7 @@ public final class SelectionSpecBuilder {
     private int mActivityTheme;
     private ItemViewResources mItemViewResources;
     private PreviewViewResources mPreviewViewResources;
+    private ErrorViewResources mCountUnderErrorSpec;
     private ErrorViewResources mCountOverErrorSpec;
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
@@ -120,6 +121,28 @@ public final class SelectionSpecBuilder {
     public SelectionSpecBuilder count(int min, int max) {
         mSelectionSpec.setMinSelectable(min);
         mSelectionSpec.setMaxSelectable(max);
+        return this;
+    }
+
+    /**
+     * Sets the error view specification for the error of count over.
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder countUnder(ErrorViewResources.ViewType type, int errorMessageId) {
+        return countUnder(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of count over.
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder countUnder(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mCountUnderErrorSpec = type.createSpec(errorTitleId, errorMessageId);
         return this;
     }
 
@@ -329,6 +352,7 @@ public final class SelectionSpecBuilder {
                 .setActivityOrientation(mActivityOrientation)
                 .create();
         ErrorViewSpec errorSpec = new ErrorViewSpec.Builder()
+                .setCountUnderSpec(mCountUnderErrorSpec)
                 .setCountOverSpec(mCountOverErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)
                 .setUnderQualitySpec(mUnderQualityErrorSpec)

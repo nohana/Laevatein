@@ -69,10 +69,11 @@ public class LSampleActivity extends AppCompatActivity {
     void startPhotoSelect() {
         Laevatein.from(this)
                 .choose(MimeType.of(MimeType.JPEG))
-                .count(0, 10)
+                .count(10, 10)
                 .quality(300000, Integer.MAX_VALUE)
                 .resume(mSelected)
                 .capture(true)
+                .countUnder(ErrorViewResources.ViewType.SNACKBAR, R.string.error_count_under)
                 .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .enableSelectedView(true)
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
