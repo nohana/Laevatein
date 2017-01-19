@@ -21,7 +21,7 @@ import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,7 +72,7 @@ public final class PreviewHelper {
         pager.setAdapter(adapter);
     }
 
-    public static void setUpActionBar(ActionBarActivity activity) {
+    public static void setUpActionBar(AppCompatActivity activity) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
         toolbar.setTitle(activity.getApplicationContext().getString(R.string.l_detail_photo_title));
         activity.setSupportActionBar(toolbar);

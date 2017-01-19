@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
@@ -49,7 +49,7 @@ import static com.laevatein.R.id.l_default_check_box;
  * @hide
  * @since 2014/03/24
  */
-public class ImagePreviewActivity extends ActionBarActivity implements AlbumPhotoCollection.AlbumPhotoCallbacks, PreviewPagerAdapter.OnPrimaryItemSetListener {
+public class ImagePreviewActivity extends AppCompatActivity implements AlbumPhotoCollection.AlbumPhotoCallbacks, PreviewPagerAdapter.OnPrimaryItemSetListener {
     public static final String EXTRA_ITEM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ITEM");
     public static final String EXTRA_ALBUM = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ALBUM");
     public static final String EXTRA_ERROR_SPEC = BundleUtils.buildKey(ImagePreviewActivity.class, "EXTRA_ERROR_SPEC");
