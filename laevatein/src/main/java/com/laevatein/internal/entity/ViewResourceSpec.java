@@ -32,6 +32,7 @@ public class ViewResourceSpec implements Parcelable {
     private final Class<? extends ImagePreviewActivity> mPreviewActivityClass;
     private final ItemViewResources mItemViewResources;
     private final PreviewViewResources mPreviewViewResources;
+    private final boolean mOpenDrawer;
     private final boolean mEnableCapture;
     private final boolean mEnableSelectedView;
     private final int mActivityOrientation;
@@ -41,6 +42,7 @@ public class ViewResourceSpec implements Parcelable {
         mPreviewActivityClass = (Class<? extends ImagePreviewActivity>) source.readSerializable();
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
         mPreviewViewResources = source.readParcelable(PreviewViewResources.class.getClassLoader());
+        mOpenDrawer = ParcelUtils.readBoolean(source);
         mEnableCapture = ParcelUtils.readBoolean(source);
         mEnableSelectedView = ParcelUtils.readBoolean(source);
         mActivityOrientation = source.readInt();
@@ -51,6 +53,7 @@ public class ViewResourceSpec implements Parcelable {
             Class<? extends ImagePreviewActivity> previewActivityClass,
             ItemViewResources itemViewResources,
             PreviewViewResources previewViewResources,
+            boolean openDrawer,
             boolean enableCapture,
             boolean enableSelectedView,
             int activityOrientation) {
@@ -58,6 +61,7 @@ public class ViewResourceSpec implements Parcelable {
         mPreviewActivityClass = previewActivityClass;
         mItemViewResources = itemViewResources;
         mPreviewViewResources = previewViewResources;
+        mOpenDrawer = openDrawer;
         mEnableCapture = enableCapture;
         mEnableSelectedView = enableSelectedView;
         mActivityOrientation = activityOrientation;
@@ -74,6 +78,7 @@ public class ViewResourceSpec implements Parcelable {
         dest.writeSerializable(mPreviewActivityClass);
         dest.writeParcelable(mItemViewResources, flags);
         dest.writeParcelable(mPreviewViewResources, flags);
+        ParcelUtils.writeBoolean(dest, mOpenDrawer);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
         ParcelUtils.writeBoolean(dest, mEnableSelectedView);
         dest.writeInt(mActivityOrientation);
@@ -85,6 +90,7 @@ public class ViewResourceSpec implements Parcelable {
         private Class<? extends ImagePreviewActivity> mPreviewActivityClass;
         private ItemViewResources mItemViewResources;
         private PreviewViewResources mPreviewViewResources;
+        private boolean mOpenDrawer;
         private boolean mEnableCapture;
         private boolean mEnableSelectedView;
         private int mActivityOrientation;
@@ -106,6 +112,11 @@ public class ViewResourceSpec implements Parcelable {
 
         public Builder setPreviewViewResources(PreviewViewResources previewViewResources) {
             mPreviewViewResources = previewViewResources;
+            return this;
+        }
+
+        public Builder setOpenDrawer(boolean openDrawer) {
+            mOpenDrawer = openDrawer;
             return this;
         }
 
@@ -132,7 +143,7 @@ public class ViewResourceSpec implements Parcelable {
                 mPreviewViewResources = PreviewViewResources.getDefault();
             }
             return new ViewResourceSpec(mTheme, mPreviewActivityClass,
-                    mItemViewResources, mPreviewViewResources,
+                    mItemViewResources, mPreviewViewResources, mOpenDrawer,
                     mEnableCapture, mEnableSelectedView, mActivityOrientation);
         }
     }
@@ -151,6 +162,10 @@ public class ViewResourceSpec implements Parcelable {
 
     public PreviewViewResources getPreviewViewResources() {
         return mPreviewViewResources;
+    }
+
+    public boolean openDrawer() {
+        return mOpenDrawer;
     }
 
     public boolean isEnableCapture() {

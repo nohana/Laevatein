@@ -82,7 +82,10 @@ public final class PhotoSelectionViewHelper {
         if (((PhotoSelectionActivity) activity).isDrawerOpen()) {
             drawer.closeDrawers();
         } else {
-            drawer.openDrawer(GravityCompat.START);
+            ViewResourceSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
+            if (spec.openDrawer()) {
+                drawer.openDrawer(GravityCompat.START);
+            }
         }
     }
 

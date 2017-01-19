@@ -61,6 +61,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mOverQualityErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
     private DialogResources mConfirmDialogSpec;
+    private boolean mOpenDrawer = true;
     private boolean mEnableCapture;
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
@@ -315,6 +316,18 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Determines whether opening NavigationDrawer on launch or not.
+     * This flag is true by default.
+     *
+     * @param open whether to open drawer or not.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder openDrawer(boolean open) {
+        mOpenDrawer = open;
+        return this;
+    }
+
+    /**
      * Determines whether the photo capturing is enabled or not on the camera photo grid view.
      * This flag is false by default.
      * @param enable whether to enable capturing or not.
@@ -360,6 +373,7 @@ public final class SelectionSpecBuilder {
                 .setPreviewClass(mPreviewActivityClass)
                 .setItemViewResources(mItemViewResources)
                 .setPreviewViewResources(mPreviewViewResources)
+                .setOpenDrawer(mOpenDrawer)
                 .setEnableCapture(mEnableCapture)
                 .setEnableSelectedView(mEnableSelectedView)
                 .setActivityOrientation(mActivityOrientation)
