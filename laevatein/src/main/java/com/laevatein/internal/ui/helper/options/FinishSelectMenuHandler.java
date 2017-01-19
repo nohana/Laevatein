@@ -15,12 +15,15 @@
  */
 package com.laevatein.internal.ui.helper.options;
 
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.ui.PhotoSelectionActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Parcelable;
+
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import java.util.ArrayList;
 
@@ -32,11 +35,17 @@ public class FinishSelectMenuHandler implements PhotoSelectionOptionsMenuHandler
     @Override
     public boolean handle(PhotoSelectionActivity activity, Void extra) {
         SelectedUriCollection collection = activity.getCollection();
-        Intent intent = new Intent();
-        intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESULT_SELECTION,
-                (ArrayList<? extends Parcelable>) collection.asList());
-        activity.setResult(Activity.RESULT_OK, intent);
-        activity.finish();
+        if (collection.isCountInRange()) {
+            Intent intent = new Intent();
+            intent.putParcelableArrayListExtra(PhotoSelectionActivity.EXTRA_RESULT_SELECTION,
+                    (ArrayList<? extends Parcelable>) collection.asList());
+            activity.setResult(Activity.RESULT_OK, intent);
+            activity.finish();
+        } else {
+            ErrorViewSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC);
+            ErrorViewResources res = spec.getCountUnderErrorSpec();
+            ErrorViewUtils.showErrorView(activity, res);
+        }
         return true;
     }
 }

@@ -25,7 +25,7 @@ public enum UncapableCause {
     OVER_COUNT {
         @Override
         public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
-            return spec.getCountErrorSpec();
+            return spec.getCountOverErrorSpec();
         }
     },
     UNDER_QUALITY {

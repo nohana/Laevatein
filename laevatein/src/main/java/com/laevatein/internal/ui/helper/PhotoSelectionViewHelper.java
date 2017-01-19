@@ -17,6 +17,8 @@ package com.laevatein.internal.ui.helper;
 
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.PhotoGridFragment;
@@ -53,16 +55,22 @@ public final class PhotoSelectionViewHelper {
         if (collection == null) {
             return;
         }
+        ErrorViewSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC);
+        ErrorViewResources res = spec.getCountUnderErrorSpec();
         MenuItem select = menu.findItem(R.id.action_finish_select);
-        updateSelectMenuState(select, collection, activity.isDrawerOpen());
+        updateSelectMenuState(select, res, collection, activity.isDrawerOpen());
     }
 
-    public static void updateSelectMenuState(MenuItem item, SelectedUriCollection collection, boolean drawerOpen) {
+    public static void updateSelectMenuState(MenuItem item, ErrorViewResources res, SelectedUriCollection collection, boolean drawerOpen) {
         if (item == null) {
             return;
         }
         item.setVisible(!drawerOpen);
-        item.setEnabled(!collection.isEmpty() && collection.isCountInRange());
+        if (res.isNoView()) {
+            item.setEnabled(!collection.isEmpty() && collection.isCountInRange());
+        } else {
+            item.setEnabled(!collection.isEmpty());
+        }
     }
 
     public static void setPhotoGridFragment(FragmentActivity activity, DrawerLayout drawer, Album album) {

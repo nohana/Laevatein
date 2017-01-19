@@ -132,7 +132,7 @@ public final class PhotoGridViewHelper {
         ErrorViewSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_ERROR_SPEC);
 
         if (cause == null) {
-            ErrorViewResources countSpec = spec.getCountErrorSpec();
+            ErrorViewResources countSpec = spec.getCountOverErrorSpec();
             collection.add(uri);
             if (collection.isCountOver() && !countSpec.isNoView()) {
                 ErrorViewUtils.showErrorView(activity, countSpec);
