@@ -8,29 +8,27 @@
     tools:context="com.laevatein.ui.PhotoSelectionActivity">
 
     <RelativeLayout
+        android:id="@+id/l_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/l_toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/l_app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="?attr/l_toolbarTheme" />
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/l_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="?attr/l_toolbarTheme" />
+        </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
             android:id="@+id/l_container_grid_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/l_fragment_selected_count"
-            android:layout_below="@id/l_toolbar" />
-
-        <fragment
-            android:id="@+id/l_fragment_selected_count"
-            android:name="com.laevatein.internal.ui.SelectedCountFragment"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            tools:layout="@layout/l_fragment_selected_count" />
+            android:layout_below="@id/l_app_bar" />
     </RelativeLayout>
 
     <fragment

@@ -31,6 +31,7 @@ public class ViewResourceSpec implements Parcelable {
     private int mTheme;
     private final Class<? extends ImagePreviewActivity> mPreviewActivityClass;
     private final ItemViewResources mItemViewResources;
+    private final CounterViewResources mCounterViewResources;
     private final PreviewViewResources mPreviewViewResources;
     private final boolean mOpenDrawer;
     private final boolean mEnableCapture;
@@ -41,6 +42,7 @@ public class ViewResourceSpec implements Parcelable {
         mTheme = source.readInt();
         mPreviewActivityClass = (Class<? extends ImagePreviewActivity>) source.readSerializable();
         mItemViewResources = source.readParcelable(ItemViewResources.class.getClassLoader());
+        mCounterViewResources = source.readParcelable(CounterViewResources.class.getClassLoader());
         mPreviewViewResources = source.readParcelable(PreviewViewResources.class.getClassLoader());
         mOpenDrawer = ParcelUtils.readBoolean(source);
         mEnableCapture = ParcelUtils.readBoolean(source);
@@ -52,6 +54,7 @@ public class ViewResourceSpec implements Parcelable {
             @StyleRes int theme,
             Class<? extends ImagePreviewActivity> previewActivityClass,
             ItemViewResources itemViewResources,
+            CounterViewResources counterViewResources,
             PreviewViewResources previewViewResources,
             boolean openDrawer,
             boolean enableCapture,
@@ -60,6 +63,7 @@ public class ViewResourceSpec implements Parcelable {
         mTheme = theme;
         mPreviewActivityClass = previewActivityClass;
         mItemViewResources = itemViewResources;
+        mCounterViewResources = counterViewResources;
         mPreviewViewResources = previewViewResources;
         mOpenDrawer = openDrawer;
         mEnableCapture = enableCapture;
@@ -77,6 +81,7 @@ public class ViewResourceSpec implements Parcelable {
         dest.writeInt(mTheme);
         dest.writeSerializable(mPreviewActivityClass);
         dest.writeParcelable(mItemViewResources, flags);
+        dest.writeParcelable(mCounterViewResources, flags);
         dest.writeParcelable(mPreviewViewResources, flags);
         ParcelUtils.writeBoolean(dest, mOpenDrawer);
         ParcelUtils.writeBoolean(dest, mEnableCapture);
@@ -89,6 +94,7 @@ public class ViewResourceSpec implements Parcelable {
         private int mTheme;
         private Class<? extends ImagePreviewActivity> mPreviewActivityClass;
         private ItemViewResources mItemViewResources;
+        private CounterViewResources mCounterViewResources;
         private PreviewViewResources mPreviewViewResources;
         private boolean mOpenDrawer;
         private boolean mEnableCapture;
@@ -107,6 +113,11 @@ public class ViewResourceSpec implements Parcelable {
 
         public Builder setItemViewResources(ItemViewResources itemViewResources) {
             mItemViewResources = itemViewResources;
+            return this;
+        }
+
+        public Builder setCounterViewResources(CounterViewResources counterViewResources) {
+            mCounterViewResources = counterViewResources;
             return this;
         }
 
@@ -139,11 +150,14 @@ public class ViewResourceSpec implements Parcelable {
             if (mItemViewResources == null) {
                 mItemViewResources = ItemViewResources.getDefault();
             }
+            if (mCounterViewResources == null) {
+                mCounterViewResources = CounterViewResources.getDefault();
+            }
             if (mPreviewViewResources == null) {
                 mPreviewViewResources = PreviewViewResources.getDefault();
             }
             return new ViewResourceSpec(mTheme, mPreviewActivityClass,
-                    mItemViewResources, mPreviewViewResources, mOpenDrawer,
+                    mItemViewResources, mCounterViewResources, mPreviewViewResources, mOpenDrawer,
                     mEnableCapture, mEnableSelectedView, mActivityOrientation);
         }
     }
@@ -158,6 +172,10 @@ public class ViewResourceSpec implements Parcelable {
 
     public ItemViewResources getItemViewResources() {
         return mItemViewResources;
+    }
+
+    public CounterViewResources getCounterViewResources() {
+        return mCounterViewResources;
     }
 
     public PreviewViewResources getPreviewViewResources() {

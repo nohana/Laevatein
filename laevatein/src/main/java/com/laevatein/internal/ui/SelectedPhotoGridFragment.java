@@ -15,18 +15,18 @@
  */
 package com.laevatein.internal.ui;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.misc.ui.FragmentUtils;
 import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
 import com.laevatein.ui.PhotoSelectionActivity;
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * @author KeithYokoma
@@ -35,7 +35,10 @@ import android.view.ViewGroup;
  * @hide
  */
 public class SelectedPhotoGridFragment extends Fragment implements SelectedPhotoAdapter.CheckStateListener {
-    public SelectedPhotoGridFragment() {}
+    public static final String TAG = SelectedPhotoGridFragment.class.getSimpleName();
+
+    public SelectedPhotoGridFragment() {
+    }
 
     public static SelectedPhotoGridFragment newInstance() {
         return new SelectedPhotoGridFragment();

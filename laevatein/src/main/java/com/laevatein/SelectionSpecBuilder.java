@@ -18,12 +18,14 @@ package com.laevatein;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.laevatein.internal.entity.CounterViewResources;
 import com.laevatein.internal.entity.DialogResources;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
@@ -54,6 +56,7 @@ public final class SelectionSpecBuilder {
     @StyleRes
     private int mActivityTheme;
     private ItemViewResources mItemViewResources;
+    private CounterViewResources mCounterViewResources;
     private PreviewViewResources mPreviewViewResources;
     private ErrorViewResources mCountUnderErrorSpec;
     private ErrorViewResources mCountOverErrorSpec;
@@ -101,6 +104,18 @@ public final class SelectionSpecBuilder {
      */
     public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
         mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId);
+        return this;
+    }
+
+    /**
+     * Sets counter view style of photo selection.
+     *
+     * @param viewPosition the position where counter view layouted
+     * @param textId counter text id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder counterView(@CounterViewResources.VIEW_POSITION int viewPosition, @StringRes int textId) {
+        mCounterViewResources = new CounterViewResources(viewPosition, textId);
         return this;
     }
 
@@ -372,6 +387,7 @@ public final class SelectionSpecBuilder {
                 .setTheme(mActivityTheme)
                 .setPreviewClass(mPreviewActivityClass)
                 .setItemViewResources(mItemViewResources)
+                .setCounterViewResources(mCounterViewResources)
                 .setPreviewViewResources(mPreviewViewResources)
                 .setOpenDrawer(mOpenDrawer)
                 .setEnableCapture(mEnableCapture)

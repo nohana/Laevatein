@@ -42,4 +42,6 @@
     </style>
 
     <style name="L_Counter" parent="L_Base.Counter" />
+
+    <style name="L_Counter.AppBar" parent="L_Counter" />
 </resources>
