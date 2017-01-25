@@ -15,23 +15,29 @@
  */
 package com.laevatein.internal.ui.helper;
 
-import com.laevatein.R;
-import com.laevatein.internal.entity.Album;
-import com.laevatein.internal.entity.ErrorViewResources;
-import com.laevatein.internal.entity.ErrorViewSpec;
-import com.laevatein.internal.entity.ViewResourceSpec;
-import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.internal.ui.PhotoGridFragment;
-import com.laevatein.ui.PhotoSelectionActivity;
-import com.laevatein.internal.ui.SelectedPhotoGridFragment;
-
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import com.laevatein.R;
+import com.laevatein.internal.entity.Album;
+import com.laevatein.internal.entity.CounterViewResources;
+import com.laevatein.internal.entity.ErrorViewResources;
+import com.laevatein.internal.entity.ErrorViewSpec;
+import com.laevatein.internal.entity.ViewResourceSpec;
+import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.PhotoGridFragment;
+import com.laevatein.internal.ui.SelectedPhotoGridFragment;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 /**
  * @author KeithYokoma
@@ -48,6 +54,23 @@ public final class PhotoSelectionViewHelper {
         ViewResourceSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         if (spec != null && spec.needActivityOrientationRestriction()) {
             activity.setRequestedOrientation(spec.getActivityOrientation());
+        }
+    }
+
+    public static void setUpCounter(PhotoSelectionActivity activity) {
+        ViewResourceSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
+        if (spec.getCounterViewResources().getViewType() == CounterViewResources.LAYOUT_APP_BAR) {
+            AppBarLayout appBar = (AppBarLayout) activity.findViewById(R.id.l_app_bar);
+            LayoutInflater.from(activity).inflate(R.layout.l_view_counter, appBar);
+        } else {
+            RelativeLayout content = (RelativeLayout) activity.findViewById(R.id.l_content);
+            View counter = LayoutInflater.from(activity).inflate(R.layout.l_view_counter, content, false);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            content.addView(counter, params);
+            View view = activity.findViewById(R.id.l_container_grid_fragment);
+            RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            params2.addRule(RelativeLayout.ABOVE, R.id.l_fragment_selected_count);
         }
     }
 

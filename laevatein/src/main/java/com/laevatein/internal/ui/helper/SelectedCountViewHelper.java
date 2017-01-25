@@ -36,9 +36,10 @@ public final class SelectedCountViewHelper {
         if (activity == null || fragment == null || activity.getCollection() == null || fragment.getView() == null) {
             return;
         }
+        ViewResourceSpec spec = FragmentUtils.getIntentParcelableExtra(fragment, PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         TextView label = (TextView) FragmentUtils.findViewById(fragment, R.id.l_container_count_view);
         int max = activity.getCollection().maxCount();
         int current = activity.getCollection().count();
-        label.setText(activity.getString(R.string.l_format_selection_count, current, max));
+        label.setText(activity.getString(spec.getCounterViewResources().getTextRes(), current, max));
     }
 }
