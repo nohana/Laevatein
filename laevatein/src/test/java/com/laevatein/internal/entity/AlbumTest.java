@@ -1,16 +1,12 @@
 package com.laevatein.internal.entity;
 
-import android.app.Activity;
-import android.content.ContextWrapper;
 import android.database.MatrixCursor;
 import android.provider.MediaStore;
 
-import com.laevatein.BuildConfig;
-import com.laevatein.LaevateinTestRunner;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,8 +17,7 @@ import static org.junit.Assert.assertTrue;
  * @author KeithYokoma
  * @since 2014/04/01
  */
-@RunWith(LaevateinTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricTestRunner.class)
 public class AlbumTest {
     private static final String[] MOCK_PROJECTION = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
 
@@ -37,7 +32,7 @@ public class AlbumTest {
         assertTrue(camera.isCamera());
         assertEquals(1L, camera.getCoverId());
         assertEquals("1", camera.getId());
-        assertEquals("Camera", camera.getDisplayName(new ContextWrapper(new Activity())));
+        assertEquals("Camera", camera.getDisplayName(RuntimeEnvironment.application));
     }
 
     @Test
@@ -51,7 +46,7 @@ public class AlbumTest {
         assertFalse(all.isCamera());
         assertEquals(-1L, all.getCoverId());
         assertEquals(Album.ALBUM_ID_ALL, all.getId());
-        assertEquals("All Photos", all.getDisplayName(new ContextWrapper(new Activity())));
+        assertEquals("All Photos", all.getDisplayName(RuntimeEnvironment.application));
     }
 
     @Test
@@ -65,7 +60,7 @@ public class AlbumTest {
         assertFalse(download.isCamera());
         assertEquals(2L, download.getCoverId());
         assertEquals("2", download.getId());
-        assertEquals("Download", download.getDisplayName(new ContextWrapper(new Activity())));
+        assertEquals("Download", download.getDisplayName(RuntimeEnvironment.application));
     }
 
     @Test
@@ -79,6 +74,6 @@ public class AlbumTest {
         assertFalse(screenShot.isCamera());
         assertEquals(3L, screenShot.getCoverId());
         assertEquals("3", screenShot.getId());
-        assertEquals("Screenshot", screenShot.getDisplayName(new ContextWrapper(new Activity())));
+        assertEquals("Screenshot", screenShot.getDisplayName(RuntimeEnvironment.application));
     }
 }
