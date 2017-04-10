@@ -9,7 +9,7 @@ import com.laevatein.ui.PhotoSelectionActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNotNull;
  * @author keishin.yokomaku
  * @since 2014/03/31
  */
-@RunWith(LaevateinTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@RunWith(RobolectricTestRunner.class)
 public class SelectionSpecBuilderTest {
     private static final int MOCK_REQUEST_CODE = 1;
     private SelectionSpecBuilder mBuilder;
