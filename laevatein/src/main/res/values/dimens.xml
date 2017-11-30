@@ -8,4 +8,6 @@
     <dimen name="l_gridItemImageHeight">48dp</dimen>
     <dimen name="l_gridItemSpacing">8dp</dimen>
     <dimen name="l_gridPadding">8dp</dimen>
+
+    <dimen name="grid_spacing">2dp</dimen>
 </resources>

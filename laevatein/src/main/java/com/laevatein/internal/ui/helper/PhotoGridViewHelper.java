@@ -21,9 +21,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.CheckBox;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.laevatein.R;
@@ -35,11 +36,13 @@ import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.internal.ui.PhotoGridFragment;
-import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
+import com.laevatein.internal.ui.adapter.RecyclerViewCursorAdapter;
+import com.laevatein.internal.ui.widget.PhotoDecoration;
 import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.ui.ImagePreviewActivity;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,31 +65,52 @@ public final class PhotoGridViewHelper {
     }
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection, AlbumPhotoAdapter.BindViewListener listener) {
-        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
-        AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection, listener);
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        int spanCount = resources.getSpanCount();
+        recyclerView.setLayoutManager(new GridLayoutManager(fragment.getContext(), resources.getSpanCount()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
+
+        AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), resources, collection, listener);
         adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
-        gridView.setAdapter(adapter);
+
+        int spacing = fragment.getResources().getDimensionPixelSize(R.dimen.grid_spacing);
+        recyclerView.addItemDecoration(new PhotoDecoration(spanCount, spacing, false));
+        recyclerView.setAdapter(adapter);
 
         TextView emptyMessage = fragment.getView().findViewById(R.id.l_label_empty);
-        emptyMessage.setText(R.string.l_empty_photo);
-        gridView.setEmptyView(emptyMessage);
+        if (adapter.getItemCount() == 0) {
+            emptyMessage.setVisibility(View.VISIBLE);
+            emptyMessage.setText(R.string.l_empty_photo);
+        } else {
+            emptyMessage.setVisibility(View.GONE);
+        }
     }
 
     public static void tearDownGridView(Fragment fragment) {
-        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
-        AlbumPhotoAdapter adapter = (AlbumPhotoAdapter) gridView.getAdapter();
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        AlbumPhotoAdapter adapter = (AlbumPhotoAdapter) recyclerView.getAdapter();
         adapter.unregisterCheckStateListener();
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
-        CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        RecyclerViewCursorAdapter adapter = (RecyclerViewCursorAdapter) recyclerView.getAdapter();
         adapter.swapCursor(cursor);
+
+        TextView emptyMessage = fragment.getView().findViewById(R.id.l_label_empty);
+        if (adapter.getItemCount() == 0) {
+            emptyMessage.setVisibility(View.VISIBLE);
+            emptyMessage.setText(R.string.l_empty_photo);
+        } else {
+            emptyMessage.setVisibility(View.GONE);
+        }
     }
 
     public static void refreshView(Fragment fragment) {
-        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
-        CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        RecyclerViewCursorAdapter adapter = (RecyclerViewCursorAdapter) recyclerView.getAdapter();
         adapter.notifyDataSetChanged();
     }
 

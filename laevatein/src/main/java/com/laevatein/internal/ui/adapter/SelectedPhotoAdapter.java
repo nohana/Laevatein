@@ -15,23 +15,23 @@
  */
 package com.laevatein.internal.ui.adapter;
 
+import android.content.Context;
+import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
 import com.squareup.picasso.Picasso;
 
-import android.content.Context;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-
-import android.support.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author KeithYokoma
@@ -39,50 +39,48 @@ import android.support.annotation.Nullable;
  * @version 1.0.0
  * @hide
  */
-public class SelectedPhotoAdapter extends ArrayAdapter<Uri> {
+public class SelectedPhotoAdapter extends RecyclerView.Adapter<SelectedPhotoAdapter.ViewHolder> {
     public static final String TAG = SelectedPhotoAdapter.class.getSimpleName();
+    private final Context mContext;
     private final ItemViewResources mResources;
     private final SelectedUriCollection mCollection;
     private CheckStateListener mListener;
+    private List<Uri> mUris;
 
     public SelectedPhotoAdapter(Context context, ItemViewResources resources, SelectedUriCollection collection) {
-        super(context, resources.getLayoutId(), resources.getCheckBoxId(), collection.asList());
+        mContext = context;
         mResources = resources;
         mCollection = collection;
+        mUris = collection.asList();
     }
 
-    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
-        if (view == null) {
-            return null;
-        }
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(mResources.getLayoutId(), viewGroup, false);
+        return new ViewHolder(v, mResources);
+    }
 
-        final Uri uri = getItem(position);
-
-        ImageView thumbnail = view.findViewById(mResources.getImageViewId());
-        thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                PhotoGridViewHelper.callPreview(getContext(), item);
-            }
-        });
-        final CheckBox check = view.findViewById(mResources.getCheckBoxId());
-        check.setChecked(mCollection.isSelected(uri));
-        check.setText(null);
-        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final Uri uri = mUris.get(position);
+        holder.checkBox.setChecked(mCollection.isSelected(uri));
+        holder.checkBox.setText(null);
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SelectedGridViewHelper.syncCollection(mCollection, uri, isChecked);
                 SelectedGridViewHelper.callCheckStateListener(mListener);
             }
         });
-        Picasso.with(getContext()).load(uri)
+        Picasso.with(mContext).load(uri)
                 .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
                 .centerCrop()
-                .into(thumbnail);
-        return view;
+                .into(holder.thumbnail);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mUris.size();
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {
@@ -95,5 +93,16 @@ public class SelectedPhotoAdapter extends ArrayAdapter<Uri> {
 
     public interface CheckStateListener {
         void onUpdate();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView thumbnail;
+        private final CheckBox checkBox;
+
+        ViewHolder(View v, ItemViewResources resources) {
+            super(v);
+            thumbnail = v.findViewById(resources.getImageViewId());
+            checkBox = v.findViewById(resources.getCheckBoxId());
+        }
     }
 }
