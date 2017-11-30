@@ -43,15 +43,15 @@ public class SelectedUriCollection {
     private SelectionSpec mSpec;
 
     public SelectedUriCollection(Context context) {
-        mContext = new WeakReference<Context>(context);
+        mContext = new WeakReference<>(context);
     }
 
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            mUris = new LinkedHashSet<Uri>();
+            mUris = new LinkedHashSet<>();
         } else {
             List<Uri> saved = savedInstanceState.getParcelableArrayList(STATE_SELECTION);
-            mUris = new LinkedHashSet<Uri>(saved);
+            mUris = new LinkedHashSet<>(saved);
         }
     }
 
@@ -64,7 +64,7 @@ public class SelectedUriCollection {
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<Uri>(mUris));
+        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mUris));
     }
 
     public boolean add(Uri uri) {
@@ -81,7 +81,7 @@ public class SelectedUriCollection {
     }
 
     public List<Uri> asList() {
-        return new ArrayList<Uri>(mUris);
+        return new ArrayList<>(mUris);
     }
 
     public boolean isEmpty() {

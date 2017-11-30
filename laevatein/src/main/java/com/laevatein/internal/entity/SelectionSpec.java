@@ -61,7 +61,7 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
-        List<MimeType> list = new ArrayList<MimeType>();
+        List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
     }
@@ -77,7 +77,7 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxSelectable);
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
-        dest.writeList(new ArrayList<MimeType>(mMimeTypeSet));
+        dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
 
     public void setMaxSelectable(int maxSelectable) {

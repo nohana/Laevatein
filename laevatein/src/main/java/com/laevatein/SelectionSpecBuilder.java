@@ -81,7 +81,7 @@ public final class SelectionSpecBuilder {
         mLaevatein = laevatein;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
-        mResumeList = new ArrayList<Uri>();
+        mResumeList = new ArrayList<>();
         mActivityOrientation = -1;
     }
 
