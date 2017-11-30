@@ -71,12 +71,12 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
     @Override
     public void onDrawerClosed(View drawerView) {
         super.onDrawerClosed(drawerView);
-        mActivity.supportInvalidateOptionsMenu();
+        mActivity.invalidateOptionsMenu();
     }
 
     @Override
     public void onDrawerOpened(View drawerView) {
         super.onDrawerOpened(drawerView);
-        mActivity.supportInvalidateOptionsMenu();
+        mActivity.invalidateOptionsMenu();
     }
 }

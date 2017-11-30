@@ -92,7 +92,7 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer, toolbar);
         setSupportActionBar(toolbar);
         mToggle.setUpActionBar(getSupportActionBar());
-        mDrawer.setDrawerListener(mToggle);
+        mDrawer.addDrawerListener(mToggle);
     }
 
     @Override

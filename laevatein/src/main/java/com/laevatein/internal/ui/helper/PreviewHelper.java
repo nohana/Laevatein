@@ -89,8 +89,8 @@ public final class PreviewHelper {
         final Item photo = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ITEM);
         final SelectionSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC);
         final ErrorViewSpec errorSpec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC);
-        MenuItemCompat.setActionView(item, R.layout.l_action_layout_checkbox);
-        final CheckBox checkBox = (CheckBox) MenuItemCompat.getActionView(item).findViewById(R.id.l_default_check_box);
+        item.setActionView(R.layout.l_action_layout_checkbox);
+        final CheckBox checkBox = (CheckBox) item.getActionView().findViewById(R.id.l_default_check_box);
         checkBox.setChecked(activity.getStateHolder().isChecked(photo.buildContentUri()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

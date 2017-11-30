@@ -93,7 +93,7 @@ public class PhotoGridFragment extends Fragment implements
 
     @Override
     public void onUpdate() {
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     public void refreshGrid() {

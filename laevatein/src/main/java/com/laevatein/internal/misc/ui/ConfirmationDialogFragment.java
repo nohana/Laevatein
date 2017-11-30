@@ -15,8 +15,8 @@
  */
 package com.laevatein.internal.misc.ui;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -57,11 +57,11 @@ public class ConfirmationDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         try {
-            mListener = (ConfirmationSelectionListener) activity;
+            mListener = (ConfirmationSelectionListener) context;
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("the host activity should implement ConfirmationSelectionListener");
         }

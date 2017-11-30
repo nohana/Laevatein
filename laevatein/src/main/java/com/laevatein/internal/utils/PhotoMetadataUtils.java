@@ -21,9 +21,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.media.ExifInterface;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -37,13 +37,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import jp.mixi.compatibility.android.media.ExifInterfaceCompat;
-
 /**
  * @author KeithYokoma
- * @since 2014/03/25
  * @version 1.0.0
  * @hide
+ * @since 2014/03/25
  */
 public final class PhotoMetadataUtils {
     public static final String TAG = PhotoMetadataUtils.class.getSimpleName();
@@ -75,7 +73,7 @@ public final class PhotoMetadataUtils {
         float widthScale = screenWidth / w;
         float heightScale = screenHeight / h;
         if (widthScale > heightScale) {
-            return new Point((int) (w * widthScale), (int)(h * heightScale));
+            return new Point((int) (w * widthScale), (int) (h * heightScale));
         }
         return new Point((int) (w * widthScale), (int) (h * heightScale));
     }
@@ -105,7 +103,7 @@ public final class PhotoMetadataUtils {
         if (SCHEME_CONTENT.equals(uri.getScheme())) {
             Cursor cursor = null;
             try {
-                cursor = resolver.query(uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                cursor = resolver.query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
                 if (cursor == null || !cursor.moveToFirst()) {
                     return null;
                 }
@@ -165,7 +163,7 @@ public final class PhotoMetadataUtils {
     public static boolean shouldRotate(ContentResolver resolver, Uri uri) {
         ExifInterface exif;
         try {
-            exif = ExifInterfaceCompat.newInstance(getPath(resolver, uri));
+            exif = new ExifInterface(getPath(resolver, uri));
         } catch (IOException e) {
             Log.e(TAG, "could not read exif info of the image: " + uri);
             return false;
