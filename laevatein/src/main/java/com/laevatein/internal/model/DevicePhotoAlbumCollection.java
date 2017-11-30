@@ -105,8 +105,8 @@ public class DevicePhotoAlbumCollection implements LoaderManager.LoaderCallbacks
         mCurrentSelection = currentSelection;
     }
 
-    public static interface DevicePhotoAlbumCallbacks {
-        public void onLoad(Cursor cursor);
-        public void onReset();
+    public interface DevicePhotoAlbumCallbacks {
+        void onLoad(Cursor cursor);
+        void onReset();
     }
 }

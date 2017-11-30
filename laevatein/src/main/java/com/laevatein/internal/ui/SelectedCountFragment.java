@@ -61,7 +61,7 @@ public class SelectedCountFragment extends Fragment {
         return mListener;
     }
 
-    public static interface OnShowSelectedClickListener {
-        public void onClickSelectedView();
+    public interface OnShowSelectedClickListener {
+        void onClickSelectedView();
     }
 }

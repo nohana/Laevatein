@@ -24,5 +24,5 @@ import android.app.Activity;
  * @hide
  */
 public interface OptionsMenuHandler<A extends Activity, E> {
-    public boolean handle(A activity, E extra);
+    boolean handle(A activity, E extra);
 }

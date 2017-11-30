@@ -60,14 +60,14 @@ public class SelectedPhotoAdapter extends ArrayAdapter<Uri> {
 
         final Uri uri = getItem(position);
 
-        ImageView thumbnail = (ImageView) view.findViewById(mResources.getImageViewId());
+        ImageView thumbnail = view.findViewById(mResources.getImageViewId());
         thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                PhotoGridViewHelper.callPreview(getContext(), item);
             }
         });
-        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        final CheckBox check = view.findViewById(mResources.getCheckBoxId());
         check.setChecked(mCollection.isSelected(uri));
         check.setText(null);
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -92,7 +92,7 @@ public class SelectedPhotoAdapter extends ArrayAdapter<Uri> {
         mListener = null;
     }
 
-    public static interface CheckStateListener {
-        public void onUpdate();
+    public interface CheckStateListener {
+        void onUpdate();
     }
 }

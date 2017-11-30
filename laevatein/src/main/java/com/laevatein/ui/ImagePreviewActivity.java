@@ -76,7 +76,7 @@ public class ImagePreviewActivity extends AppCompatActivity implements AlbumPhot
         mStateHolder.onRestoreInstanceState(savedInstanceState);
         PreviewHelper.setUpActivity(this);
         PreviewHelper.setUpActionBar(this);
-        mPager = (ViewPager) findViewById(R.id.l_pager);
+        mPager = findViewById(R.id.l_pager);
         mCollection.onCreate(this, this);
         Album album = getIntent().getParcelableExtra(EXTRA_ALBUM);
         mCollection.load(album);
@@ -93,7 +93,7 @@ public class ImagePreviewActivity extends AppCompatActivity implements AlbumPhot
         getMenuInflater().inflate(R.menu.l_activity_image_preview, menu);
         PreviewHelper.setUpActionItem(this, menu);
         final MenuItem item = menu.findItem(R.id.l_action_selection_state);
-        mCheckBox = (CheckBox) item.getActionView().findViewById(l_default_check_box);
+        mCheckBox = item.getActionView().findViewById(l_default_check_box);
         return super.onCreateOptionsMenu(menu);
     }
 

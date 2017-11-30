@@ -62,8 +62,8 @@ public class AlbumPhotoAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         final Item item = Item.valueOf(cursor);
 
-        ImageView thumbnail = (ImageView) view.findViewById(mResources.getImageViewId());
-        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
+        ImageView thumbnail = view.findViewById(mResources.getImageViewId());
+        final CheckBox check = view.findViewById(mResources.getCheckBoxId());
         thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +102,8 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         mListener = null;
     }
 
-    public static interface CheckStateListener {
-        public void onUpdate();
+    public interface CheckStateListener {
+        void onUpdate();
     }
 
     public interface BindViewListener {

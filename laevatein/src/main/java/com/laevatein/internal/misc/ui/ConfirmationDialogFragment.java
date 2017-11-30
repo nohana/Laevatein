@@ -94,8 +94,8 @@ public class ConfirmationDialogFragment extends DialogFragment {
         return dialog.create();
     }
 
-    public static interface ConfirmationSelectionListener {
-        public void onPositive();
-        public void onNegative();
+    public interface ConfirmationSelectionListener {
+        void onPositive();
+        void onNegative();
     }
 }

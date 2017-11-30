@@ -105,8 +105,8 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
         mLoaderManager.initLoader(LOADER_ID, args, this);
     }
 
-    public static interface AlbumPhotoCallbacks {
-        public void onLoad(Cursor cursor);
-        public void onReset();
+    public interface AlbumPhotoCallbacks {
+        void onLoad(Cursor cursor);
+        void onReset();
     }
 }

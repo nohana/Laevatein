@@ -15,17 +15,17 @@
  */
 package com.laevatein.internal.ui.helper.options;
 
+import android.view.MenuItem;
+
 import com.laevatein.R;
 import com.laevatein.internal.misc.ui.helper.options.OptionsMenu;
 import com.laevatein.ui.PhotoSelectionActivity;
 
-import android.view.MenuItem;
-
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public enum PhotoSelectionOptionsMenu implements OptionsMenu<PhotoSelectionActivity, PhotoSelectionOptionsMenuHandler> {
     SELECT(R.id.action_finish_select, new FinishSelectMenuHandler()),
@@ -34,7 +34,7 @@ public enum PhotoSelectionOptionsMenu implements OptionsMenu<PhotoSelectionActiv
     private final int mMenuId;
     private final PhotoSelectionOptionsMenuHandler mHandler;
 
-    private PhotoSelectionOptionsMenu(int menuId, PhotoSelectionOptionsMenuHandler handler) {
+    PhotoSelectionOptionsMenu(int menuId, PhotoSelectionOptionsMenuHandler handler) {
         mMenuId = menuId;
         mHandler = handler;
     }

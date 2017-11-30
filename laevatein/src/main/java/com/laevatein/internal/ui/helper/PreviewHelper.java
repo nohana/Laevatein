@@ -68,12 +68,12 @@ public final class PreviewHelper {
         }
         PreviewPagerAdapter adapter = new PreviewPagerAdapter(activity.getSupportFragmentManager(),
                 previewViewResources, activity);
-        ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
+        ViewPager pager = activity.findViewById(R.id.l_pager);
         pager.setAdapter(adapter);
     }
 
     public static void setUpActionBar(AppCompatActivity activity) {
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.l_toolbar);
+        Toolbar toolbar = activity.findViewById(R.id.l_toolbar);
         toolbar.setTitle(activity.getApplicationContext().getString(R.string.l_detail_photo_title));
         activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();
@@ -90,12 +90,12 @@ public final class PreviewHelper {
         final SelectionSpec spec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_SELECTION_SPEC);
         final ErrorViewSpec errorSpec = activity.getIntent().getParcelableExtra(ImagePreviewActivity.EXTRA_ERROR_SPEC);
         item.setActionView(R.layout.l_action_layout_checkbox);
-        final CheckBox checkBox = (CheckBox) item.getActionView().findViewById(R.id.l_default_check_box);
+        final CheckBox checkBox = item.getActionView().findViewById(R.id.l_default_check_box);
         checkBox.setChecked(activity.getStateHolder().isChecked(photo.buildContentUri()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ViewPager pager = (ViewPager) activity.findViewById(R.id.l_pager);
+                ViewPager pager = activity.findViewById(R.id.l_pager);
                 Uri currentUri = ((PreviewPagerAdapter) pager.getAdapter()).getUri(pager.getCurrentItem());
                 if (!isChecked) {
                     activity.getStateHolder().setChecked(currentUri, false);

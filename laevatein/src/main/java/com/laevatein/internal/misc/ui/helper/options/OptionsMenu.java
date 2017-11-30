@@ -24,6 +24,6 @@ import android.app.Activity;
  * @hide
  */
 public interface OptionsMenu<A extends Activity, H extends OptionsMenuHandler<A, ?>> {
-    public int getMenuId();
-    public H getHandler();
+    int getMenuId();
+    H getHandler();
 }

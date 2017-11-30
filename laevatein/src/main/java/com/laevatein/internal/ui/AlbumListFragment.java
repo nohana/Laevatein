@@ -111,6 +111,6 @@ public class AlbumListFragment extends Fragment implements
     }
 
     public interface OnDirectorySelectListener {
-        public void onSelect(Album album);
+        void onSelect(Album album);
     }
 }

@@ -87,8 +87,8 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
-        mDrawer = (DrawerLayout) findViewById(R.id.l_container_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
+        mDrawer = findViewById(R.id.l_container_drawer);
+        Toolbar toolbar = findViewById(R.id.l_toolbar);
         mToggle = new PhotoSelectionActivityDrawerToggle(this, mDrawer, toolbar);
         setSupportActionBar(toolbar);
         mToggle.setUpActionBar(getSupportActionBar());

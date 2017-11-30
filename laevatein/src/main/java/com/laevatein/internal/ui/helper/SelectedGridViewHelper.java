@@ -42,18 +42,18 @@ public final class SelectedGridViewHelper {
     }
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         SelectedPhotoAdapter adapter = new SelectedPhotoAdapter(fragment.getActivity(), resources, collection);
         adapter.registerCheckStateListener((SelectedPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
 
-        TextView emptyMessage = (TextView) fragment.getView().findViewById(R.id.l_label_empty);
+        TextView emptyMessage = fragment.getView().findViewById(R.id.l_label_empty);
         emptyMessage.setText(R.string.l_empty_selection);
         gridView.setEmptyView(emptyMessage);
     }
 
     public static void tearDownGridView(Fragment fragment) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         SelectedPhotoAdapter adapter = (SelectedPhotoAdapter) gridView.getAdapter();
         adapter.unregisterCheckStateListener();
     }

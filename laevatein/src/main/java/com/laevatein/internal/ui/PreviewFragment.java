@@ -46,7 +46,7 @@ public class PreviewFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ImageViewTouch image = (ImageViewTouch) getView().findViewById(mViewResources.getImageViewId());
+        ImageViewTouch image = getView().findViewById(mViewResources.getImageViewId());
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
         Point size = PhotoMetadataUtils.getBitmapSize(getActivity().getContentResolver(), uri, getActivity());

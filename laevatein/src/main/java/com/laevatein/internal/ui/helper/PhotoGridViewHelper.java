@@ -62,30 +62,30 @@ public final class PhotoGridViewHelper {
     }
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection, AlbumPhotoAdapter.BindViewListener listener) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         AlbumPhotoAdapter adapter = new AlbumPhotoAdapter(fragment.getActivity(), null, resources, collection, listener);
         adapter.registerCheckStateListener((AlbumPhotoAdapter.CheckStateListener) fragment);
         gridView.setAdapter(adapter);
 
-        TextView emptyMessage = (TextView) fragment.getView().findViewById(R.id.l_label_empty);
+        TextView emptyMessage = fragment.getView().findViewById(R.id.l_label_empty);
         emptyMessage.setText(R.string.l_empty_photo);
         gridView.setEmptyView(emptyMessage);
     }
 
     public static void tearDownGridView(Fragment fragment) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         AlbumPhotoAdapter adapter = (AlbumPhotoAdapter) gridView.getAdapter();
         adapter.unregisterCheckStateListener();
     }
 
     public static void setCursor(Fragment fragment, Cursor cursor) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
         adapter.swapCursor(cursor);
     }
 
     public static void refreshView(Fragment fragment) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        GridView gridView = fragment.getView().findViewById(R.id.l_grid_photo);
         CursorAdapter adapter = (CursorAdapter) gridView.getAdapter();
         adapter.notifyDataSetChanged();
     }
