@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.media.ExifInterface;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -78,21 +79,21 @@ public final class PhotoMetadataUtils {
         return new Point((int) (w * widthScale), (int) (h * heightScale));
     }
 
-    public static Point getBitmapBound(ContentResolver resolver, Uri uri) {
+    private static Point getBitmapBound(ContentResolver resolver, Uri uri) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
         InputStream is = null;
         try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            is = resolver.openInputStream(uri);
-            BitmapFactory.decodeStream(is, null, options);
-            int width = options.outWidth;
-            int height = options.outHeight;
-            return new Point(width, height);
+            is = ContentResolverWrapper.openInputStream(resolver, uri);
         } catch (FileNotFoundException e) {
             return new Point(0, 0);
         } finally {
             CloseableUtils.close(is);
         }
+        BitmapFactory.decodeStream(is, null, options); // Argument "InputStream" is nullable, so never crash here.
+        int width = options.outWidth;
+        int height = options.outHeight;
+        return new Point(width, height);
     }
 
     public static String getPath(ContentResolver resolver, Uri uri) {
@@ -172,4 +173,19 @@ public final class PhotoMetadataUtils {
         return orientation == ExifInterface.ORIENTATION_ROTATE_90
                 || orientation == ExifInterface.ORIENTATION_ROTATE_270;
     }
+
+    static final class ContentResolverWrapper {
+        @Nullable
+        static InputStream openInputStream(ContentResolver resolver, Uri uri) throws FileNotFoundException {
+            try {
+                return resolver.openInputStream(uri);
+            } catch (NullPointerException e) {
+                // NPE may occur when `openInputStream` is called on Kyocera's device.
+                // > Attempt to invoke virtual method 'char[] java.lang.String.toCharArray()' on a null object reference
+                // That was "kyocera original" implement, so we cannot get bounds in this cause.
+                return null;
+            }
+        }
+    }
+
 }
