@@ -90,7 +90,7 @@ public final class PhotoMetadataUtils {
         } finally {
             CloseableUtils.close(is);
         }
-        BitmapFactory.decodeStream(is, null, options);
+        BitmapFactory.decodeStream(is, null, options); // Argument "InputStream" is nullable, so never crash here.
         int width = options.outWidth;
         int height = options.outHeight;
         return new Point(width, height);
