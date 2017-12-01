@@ -44,13 +44,13 @@ public final class Laevatein {
     private final WeakReference<Fragment> mFragment;
 
     protected Laevatein(Activity context) {
-        mContext = new WeakReference<Activity>(context);
+        mContext = new WeakReference<>(context);
         mFragment = null;
     }
 
     protected Laevatein(Activity activity, Fragment fragment) {
-        mContext = new WeakReference<Activity>(activity);
-        mFragment = new WeakReference<Fragment>(fragment);
+        mContext = new WeakReference<>(activity);
+        mFragment = new WeakReference<>(fragment);
     }
 
     /**

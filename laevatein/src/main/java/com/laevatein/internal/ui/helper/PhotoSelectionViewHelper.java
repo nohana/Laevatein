@@ -60,10 +60,10 @@ public final class PhotoSelectionViewHelper {
     public static void setUpCounter(PhotoSelectionActivity activity) {
         ViewResourceSpec spec = activity.getIntent().getParcelableExtra(PhotoSelectionActivity.EXTRA_VIEW_SPEC);
         if (spec.getCounterViewResources().getViewType() == CounterViewResources.LAYOUT_APP_BAR) {
-            AppBarLayout appBar = (AppBarLayout) activity.findViewById(R.id.l_app_bar);
+            AppBarLayout appBar = activity.findViewById(R.id.l_app_bar);
             LayoutInflater.from(activity).inflate(R.layout.l_view_counter, appBar);
         } else {
-            RelativeLayout content = (RelativeLayout) activity.findViewById(R.id.l_content);
+            RelativeLayout content = activity.findViewById(R.id.l_content);
             View counter = LayoutInflater.from(activity).inflate(R.layout.l_view_counter, content, false);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

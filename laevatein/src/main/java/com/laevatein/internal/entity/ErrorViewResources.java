@@ -83,7 +83,7 @@ public class ErrorViewResources implements Parcelable {
         return mViewType == ViewType.NONE;
     }
 
-    public static enum ViewType {
+    public enum ViewType {
         TOAST {
             @Override
             public ErrorViewResources createSpec(int titleId, int messageId) {

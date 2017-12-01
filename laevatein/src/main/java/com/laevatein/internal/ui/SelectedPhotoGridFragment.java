@@ -65,6 +65,6 @@ public class SelectedPhotoGridFragment extends Fragment implements SelectedPhoto
 
     @Override
     public void onUpdate() {
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 }

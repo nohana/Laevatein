@@ -15,7 +15,7 @@
  */
 package com.laevatein.internal.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,10 +44,10 @@ public class AlbumListFragment extends Fragment implements
     private OnDirectorySelectListener mListener;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnDirectorySelectListener) activity;
+            mListener = (OnDirectorySelectListener) context;
         } catch (ClassCastException e) {
             throw new IllegalStateException("the host activity should implement OnDirectorySelectListener.", e);
         }
@@ -111,6 +111,6 @@ public class AlbumListFragment extends Fragment implements
     }
 
     public interface OnDirectorySelectListener {
-        public void onSelect(Album album);
+        void onSelect(Album album);
     }
 }

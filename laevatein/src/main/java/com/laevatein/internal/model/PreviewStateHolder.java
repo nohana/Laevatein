@@ -21,7 +21,7 @@ public class PreviewStateHolder {
     private WeakReference<Activity> mContext;
 
     public PreviewStateHolder(Activity activity) {
-        mContext = new WeakReference<Activity>(activity);
+        mContext = new WeakReference<>(activity);
     }
 
     public void onCreate() {
@@ -60,7 +60,7 @@ public class PreviewStateHolder {
     }
 
     public List<Uri> getAllChecked() {
-        return new ArrayList<Uri>(mChecked);
+        return new ArrayList<>(mChecked);
     }
 
 }

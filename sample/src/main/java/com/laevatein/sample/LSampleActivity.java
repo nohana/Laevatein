@@ -38,10 +38,10 @@ public class LSampleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.l_toolbar);
+        Toolbar toolbar = findViewById(R.id.l_toolbar);
         setSupportActionBar(toolbar);
 
-        Button button = (Button) findViewById(R.id.choose);
+        Button button = findViewById(R.id.choose);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +87,7 @@ public class LSampleActivity extends AppCompatActivity {
 
     @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void showNeverAskForCamera() {
-        Button button = (Button) findViewById(R.id.choose);
+        Button button = findViewById(R.id.choose);
         button.setText(R.string.permission_nerver_ask);
     }
 }

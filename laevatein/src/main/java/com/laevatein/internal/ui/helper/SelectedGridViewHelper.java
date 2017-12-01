@@ -15,22 +15,25 @@
  */
 package com.laevatein.internal.ui.helper;
 
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
 import com.laevatein.R;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
-import com.laevatein.ui.PhotoSelectionActivity;
 import com.laevatein.internal.ui.adapter.SelectedPhotoAdapter;
-
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.widget.GridView;
-import android.widget.TextView;
+import com.laevatein.internal.ui.widget.PhotoDecoration;
+import com.laevatein.ui.PhotoSelectionActivity;
 
 /**
  * @author keishin.yokomaku
- * @since 2014/03/27
  * @version 1.0.0
  * @hide
+ * @since 2014/03/27
  */
 public final class SelectedGridViewHelper {
     private SelectedGridViewHelper() {
@@ -42,19 +45,32 @@ public final class SelectedGridViewHelper {
     }
 
     public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        int spanCount = resources.getSpanCount();
+        recyclerView.setLayoutManager(new GridLayoutManager(fragment.getContext(), resources.getSpanCount()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
+
         SelectedPhotoAdapter adapter = new SelectedPhotoAdapter(fragment.getActivity(), resources, collection);
         adapter.registerCheckStateListener((SelectedPhotoAdapter.CheckStateListener) fragment);
-        gridView.setAdapter(adapter);
 
-        TextView emptyMessage = (TextView) fragment.getView().findViewById(R.id.l_label_empty);
-        emptyMessage.setText(R.string.l_empty_selection);
-        gridView.setEmptyView(emptyMessage);
+        int spacing = fragment.getResources().getDimensionPixelSize(R.dimen.grid_spacing);
+        recyclerView.addItemDecoration(new PhotoDecoration(spanCount, spacing, false));
+        recyclerView.setAdapter(adapter);
+
+        TextView emptyMessage = fragment.getView().findViewById(R.id.l_label_empty);
+        if (collection.asList().size() == 0) {
+            emptyMessage.setVisibility(View.VISIBLE);
+            emptyMessage.setText(R.string.l_empty_selection);
+        } else {
+            emptyMessage.setVisibility(View.GONE);
+        }
     }
 
     public static void tearDownGridView(Fragment fragment) {
-        GridView gridView = (GridView) fragment.getView().findViewById(R.id.l_grid_photo);
-        SelectedPhotoAdapter adapter = (SelectedPhotoAdapter) gridView.getAdapter();
+        RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
+        SelectedPhotoAdapter adapter = (SelectedPhotoAdapter) recyclerView.getAdapter();
         adapter.unregisterCheckStateListener();
     }
 

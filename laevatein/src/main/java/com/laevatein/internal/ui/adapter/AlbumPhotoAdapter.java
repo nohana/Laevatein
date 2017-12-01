@@ -18,14 +18,13 @@ package com.laevatein.internal.ui.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
-import com.amalgam.content.ContextUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
@@ -39,59 +38,58 @@ import com.squareup.picasso.Picasso;
  * @hide
  * @since 2014/03/24
  */
-public class AlbumPhotoAdapter extends CursorAdapter {
+public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapter.ViewHolder> {
+    private final Context mContext;
     private final ItemViewResources mResources;
     private final SelectedUriCollection mCollection;
     private CheckStateListener mListener;
-    private BindViewListener mBindListener;
+    private BindViewListener mBindViewListener;
 
-    public AlbumPhotoAdapter(Context context, Cursor c, ItemViewResources resources, SelectedUriCollection collection, BindViewListener bindViewListener) {
-        super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+    public AlbumPhotoAdapter(Context context, ItemViewResources resources, SelectedUriCollection collection, BindViewListener bindViewListener) {
+        super(null);
+        mContext = context;
         mResources = resources;
         mCollection = collection;
-        mBindListener = bindViewListener;
+        mBindViewListener = bindViewListener;
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater inflater = ContextUtils.getLayoutInflater(context);
-        return inflater.inflate(mResources.getLayoutId(), parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(mResources.getLayoutId(), viewGroup, false);
+        return new ViewHolder(v, mResources);
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor) {
+    protected void onBindViewHolder(ViewHolder holder, Cursor cursor) {
         final Item item = Item.valueOf(cursor);
-
-        ImageView thumbnail = (ImageView) view.findViewById(mResources.getImageViewId());
-        final CheckBox check = (CheckBox) view.findViewById(mResources.getCheckBoxId());
-        thumbnail.setOnClickListener(new View.OnClickListener() {
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (item.isCapture()) {
-                    PhotoGridViewHelper.callCamera(context);
+                    PhotoGridViewHelper.callCamera(mContext);
                 } else {
-                    PhotoGridViewHelper.callPreview(context, item, mCollection.asList());
+                    PhotoGridViewHelper.callPreview(mContext, item, mCollection.asList());
                 }
             }
         });
-        check.setVisibility(item.isCapture() ? View.GONE : View.VISIBLE);
-        check.setChecked(mCollection.isSelected(item.buildContentUri()));
-        check.setOnClickListener(new View.OnClickListener() {
+        holder.checkBox.setVisibility(item.isCapture() ? View.GONE : View.VISIBLE);
+        holder.checkBox.setChecked(mCollection.isSelected(item.buildContentUri()));
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoGridViewHelper.syncCheckState(context, mCollection, item, check);
+                PhotoGridViewHelper.syncCheckState(mContext, mCollection, item, (CheckBox) v);
                 PhotoGridViewHelper.callCheckStateListener(mListener);
             }
         });
         if (item.isCapture()) {
-            thumbnail.setImageResource(R.drawable.l_ic_capture);
+            holder.thumbnail.setImageResource(R.drawable.l_ic_capture);
         } else {
-            Picasso.with(context).load(item.buildContentUri())
+            Picasso.with(mContext).load(item.buildContentUri())
                     .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
                     .centerCrop()
-                    .into(thumbnail);
+                    .into(holder.thumbnail);
         }
-        mBindListener.onBindView(context, view, item.buildContentUri());
+        mBindViewListener.onBindView(mContext, null, item.buildContentUri());
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {
@@ -102,8 +100,8 @@ public class AlbumPhotoAdapter extends CursorAdapter {
         mListener = null;
     }
 
-    public static interface CheckStateListener {
-        public void onUpdate();
+    public interface CheckStateListener {
+        void onUpdate();
     }
 
     public interface BindViewListener {
@@ -111,9 +109,20 @@ public class AlbumPhotoAdapter extends CursorAdapter {
          * Called when view is bound to data.
          *
          * @param context context of photo selection activity
-         * @param view view of grid
-         * @param uri uri of image in grid
+         * @param view    view of grid
+         * @param uri     uri of image in grid
          */
         void onBindView(Context context, View view, Uri uri);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView thumbnail;
+        private final CheckBox checkBox;
+
+        ViewHolder(View v, ItemViewResources resources) {
+            super(v);
+            thumbnail = v.findViewById(resources.getImageViewId());
+            checkBox = v.findViewById(resources.getCheckBoxId());
+        }
     }
 }

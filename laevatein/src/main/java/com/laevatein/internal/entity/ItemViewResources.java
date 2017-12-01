@@ -15,18 +15,19 @@
  */
 package com.laevatein.internal.entity;
 
-import com.laevatein.R;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.laevatein.R;
+
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public final class ItemViewResources implements Parcelable {
+    private static final int DEFAULT_SPAN_COUNT = 4;
     public static final Creator<ItemViewResources> CREATOR = new Creator<ItemViewResources>() {
         @Override
         public ItemViewResources createFromParcel(Parcel source) {
@@ -42,22 +43,25 @@ public final class ItemViewResources implements Parcelable {
     private final int mLayoutId;
     private final int mImageViewId;
     private final int mCheckBoxId;
+    private final int mSpanCount;
 
-    public ItemViewResources(int layoutId, int imageViewId, int checkBoxId) {
+    public ItemViewResources(int layoutId, int imageViewId, int checkBoxId, int spanCount) {
         mLayoutId = layoutId;
         mImageViewId = imageViewId;
         mCheckBoxId = checkBoxId;
+        mSpanCount = spanCount;
     }
 
     /* package */ ItemViewResources(Parcel source) {
         mLayoutId = source.readInt();
         mImageViewId = source.readInt();
         mCheckBoxId = source.readInt();
+        mSpanCount = source.readInt();
     }
 
     public static ItemViewResources getDefault() {
         if (sDefault == null) {
-            sDefault = new ItemViewResources(R.layout.l_grid_item_default_photo, R.id.l_default_grid_image, R.id.l_default_check_box);
+            sDefault = new ItemViewResources(R.layout.l_grid_item_default_photo, R.id.l_default_grid_image, R.id.l_default_check_box, DEFAULT_SPAN_COUNT);
         }
         return sDefault;
     }
@@ -72,6 +76,7 @@ public final class ItemViewResources implements Parcelable {
         dest.writeInt(mLayoutId);
         dest.writeInt(mImageViewId);
         dest.writeInt(mCheckBoxId);
+        dest.writeInt(mSpanCount);
     }
 
     public int getLayoutId() {
@@ -84,5 +89,9 @@ public final class ItemViewResources implements Parcelable {
 
     public int getCheckBoxId() {
         return mCheckBoxId;
+    }
+
+    public int getSpanCount() {
+        return mSpanCount;
     }
 }

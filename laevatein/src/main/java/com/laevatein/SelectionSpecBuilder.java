@@ -81,7 +81,7 @@ public final class SelectionSpecBuilder {
         mLaevatein = laevatein;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
-        mResumeList = new ArrayList<Uri>();
+        mResumeList = new ArrayList<>();
         mActivityOrientation = -1;
     }
 
@@ -101,9 +101,10 @@ public final class SelectionSpecBuilder {
      * @param layoutId a layout resource id.
      * @param imageViewId an id for the image view.
      * @param checkBoxId an id for the check box.
+     * @param spanCount an span count for GridLayout.
      */
-    public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId) {
-        mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId);
+    public SelectionSpecBuilder bindEachImageWith(int layoutId, int imageViewId, int checkBoxId, int spanCount) {
+        mItemViewResources = new ItemViewResources(layoutId, imageViewId, checkBoxId, spanCount);
         return this;
     }
 
