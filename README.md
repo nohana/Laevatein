@@ -142,13 +142,28 @@ Sample application is available [here](https://deploygate.com/distributions/b43d
 
 Via Gradle
 
+for Android Studio ~2.x
+
 ```groovy
 repositories {
     mavenCentral()
 }
 android {
     dependencies {
-        compile 'jp.co.nohana:Laevatein:1.0.4@aar'
+        compile 'jp.co.nohana:Laevatein:2.1.2@aar'
+    }
+}
+```
+
+for Android Studio 3.x~
+
+```groovy
+repositories {
+    mavenCentral()
+}
+android {
+    dependencies {
+        implementation 'jp.co.nohana:Laevatein:2.1.2@aar'
     }
 }
 ```
