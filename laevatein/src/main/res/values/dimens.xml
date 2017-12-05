@@ -2,12 +2,5 @@
 <resources>
     <!-- for drawers -->
     <dimen name="l_drawerMenuWidth">280dp</dimen>
-
-    <!-- for grid views -->
-    <dimen name="l_gridItemImageWidth">48dp</dimen>
-    <dimen name="l_gridItemImageHeight">48dp</dimen>
-    <dimen name="l_gridItemSpacing">8dp</dimen>
-    <dimen name="l_gridPadding">8dp</dimen>
-
     <dimen name="grid_spacing">2dp</dimen>
 </resources>

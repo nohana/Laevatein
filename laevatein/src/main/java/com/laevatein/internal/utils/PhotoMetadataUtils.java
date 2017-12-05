@@ -15,7 +15,6 @@
  */
 package com.laevatein.internal.utils;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +24,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.media.ExifInterface;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.amalgam.database.CursorUtils;
@@ -56,27 +54,6 @@ public final class PhotoMetadataUtils {
     public static int getPixelsCount(ContentResolver resolver, Uri uri) {
         Point size = getBitmapBound(resolver, uri);
         return size.x * size.y;
-    }
-
-    public static Point getBitmapSize(ContentResolver resolver, Uri uri, Activity activity) {
-        Point imageSize = getBitmapBound(resolver, uri);
-        int w = imageSize.x;
-        int h = imageSize.y;
-        if (PhotoMetadataUtils.shouldRotate(resolver, uri)) {
-            w = imageSize.y;
-            h = imageSize.x;
-        }
-        if (h == 0) return new Point(MAX_WIDTH, MAX_WIDTH);
-        DisplayMetrics metrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        float screenWidth = (float) metrics.widthPixels;
-        float screenHeight = (float) metrics.heightPixels;
-        float widthScale = screenWidth / w;
-        float heightScale = screenHeight / h;
-        if (widthScale > heightScale) {
-            return new Point((int) (w * widthScale), (int) (h * heightScale));
-        }
-        return new Point((int) (w * widthScale), (int) (h * heightScale));
     }
 
     private static Point getBitmapBound(ContentResolver resolver, Uri uri) {

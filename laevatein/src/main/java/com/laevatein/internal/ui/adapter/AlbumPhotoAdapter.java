@@ -85,7 +85,7 @@ public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapt
             holder.thumbnail.setImageResource(R.drawable.l_ic_capture);
         } else {
             Picasso.with(mContext).load(item.buildContentUri())
-                    .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
+                    .fit()
                     .centerCrop()
                     .into(holder.thumbnail);
         }
