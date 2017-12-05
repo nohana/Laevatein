@@ -163,7 +163,7 @@ repositories {
 }
 android {
     dependencies {
-        implementation 'jp.co.nohana:Laevatein:2.1.2@aar'
+        implementation 'jp.co.nohana:Laevatein:2.1.2'
     }
 }
 ```
