@@ -25,7 +25,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.laevatein.R;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
@@ -35,9 +34,9 @@ import java.util.List;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/27
  * @version 1.0.0
  * @hide
+ * @since 2014/03/27
  */
 public class SelectedPhotoAdapter extends RecyclerView.Adapter<SelectedPhotoAdapter.ViewHolder> {
     public static final String TAG = SelectedPhotoAdapter.class.getSimpleName();
@@ -73,7 +72,7 @@ public class SelectedPhotoAdapter extends RecyclerView.Adapter<SelectedPhotoAdap
             }
         });
         Picasso.with(mContext).load(uri)
-                .resizeDimen(R.dimen.l_gridItemImageWidth, R.dimen.l_gridItemImageHeight)
+                .fit()
                 .centerCrop()
                 .into(holder.thumbnail);
     }

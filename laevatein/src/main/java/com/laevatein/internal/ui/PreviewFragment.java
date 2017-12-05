@@ -49,8 +49,7 @@ public class PreviewFragment extends Fragment {
         ImageViewTouch image = getView().findViewById(mViewResources.getImageViewId());
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
-        Point size = PhotoMetadataUtils.getBitmapSize(getActivity().getContentResolver(), uri, getActivity());
-        Picasso.with(getActivity()).load(uri).priority(Picasso.Priority.HIGH).resize(size.x, size.y).centerInside().into(image);
+        Picasso.with(getActivity()).load(uri).priority(Picasso.Priority.HIGH).fit().centerInside().into(image);
     }
 
     public void resetView() {
