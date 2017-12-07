@@ -89,7 +89,7 @@ public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapt
                     .centerCrop()
                     .into(holder.thumbnail);
         }
-        mBindViewListener.onBindView(mContext, null, item.buildContentUri());
+        mBindViewListener.onBindView(mContext, holder.itemView, item.buildContentUri());
     }
 
     public void registerCheckStateListener(CheckStateListener listener) {
