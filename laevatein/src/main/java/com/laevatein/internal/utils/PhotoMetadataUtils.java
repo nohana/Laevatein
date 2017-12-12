@@ -62,12 +62,12 @@ public final class PhotoMetadataUtils {
         InputStream is = null;
         try {
             is = ContentResolverWrapper.openInputStream(resolver, uri);
+            BitmapFactory.decodeStream(is, null, options); // Argument "InputStream" is nullable, so never crash here.
         } catch (FileNotFoundException e) {
             return new Point(0, 0);
         } finally {
             CloseableUtils.close(is);
         }
-        BitmapFactory.decodeStream(is, null, options); // Argument "InputStream" is nullable, so never crash here.
         int width = options.outWidth;
         int height = options.outHeight;
         return new Point(width, height);
