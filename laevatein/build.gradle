@@ -31,7 +31,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-fragment'
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
-    // implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
     implementation 'jp.co.nohana:Amalgam:0.4.0@aar'
     implementation 'jp.mixi:AndroidDeviceCompatibility:1.0.0@aar'
