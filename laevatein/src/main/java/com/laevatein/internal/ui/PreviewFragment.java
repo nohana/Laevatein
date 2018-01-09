@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amalgam.os.BundleUtils;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
-import com.laevatein.GlideApp;
+import com.bumptech.glide.request.RequestOptions;
 import com.laevatein.internal.entity.PreviewViewResources;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
@@ -48,7 +49,9 @@ public class PreviewFragment extends Fragment {
         ImageViewTouch image = getView().findViewById(mViewResources.getImageViewId());
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
-        GlideApp.with(getActivity()).load(uri).priority(Priority.HIGH).fitCenter().centerInside().into(image);
+        Glide.with(getActivity()).load(uri)
+                .apply(new RequestOptions().priority(Priority.HIGH).fitCenter().centerInside())
+                .into(image);
     }
 
     public void resetView() {
