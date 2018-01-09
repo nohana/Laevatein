@@ -1,6 +1,5 @@
 package com.laevatein.internal.ui;
 
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amalgam.os.BundleUtils;
+import com.bumptech.glide.Priority;
+import com.laevatein.GlideApp;
 import com.laevatein.internal.entity.PreviewViewResources;
-import com.laevatein.internal.utils.PhotoMetadataUtils;
-import com.squareup.picasso.Picasso;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
@@ -49,7 +48,7 @@ public class PreviewFragment extends Fragment {
         ImageViewTouch image = getView().findViewById(mViewResources.getImageViewId());
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         Uri uri = getArguments().getParcelable(ARGS_URI);
-        Picasso.with(getActivity()).load(uri).priority(Picasso.Priority.HIGH).fit().centerInside().into(image);
+        GlideApp.with(getActivity()).load(uri).priority(Priority.HIGH).fitCenter().centerInside().into(image);
     }
 
     public void resetView() {

@@ -25,10 +25,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import com.laevatein.GlideApp;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -71,8 +71,8 @@ public class SelectedPhotoAdapter extends RecyclerView.Adapter<SelectedPhotoAdap
                 SelectedGridViewHelper.callCheckStateListener(mListener);
             }
         });
-        Picasso.with(mContext).load(uri)
-                .fit()
+        GlideApp.with(mContext).load(uri)
+                .fitCenter()
                 .centerCrop()
                 .into(holder.thumbnail);
     }

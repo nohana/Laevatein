@@ -25,12 +25,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.laevatein.GlideApp;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
-import com.squareup.picasso.Picasso;
 
 /**
  * @author KeithYokoma
@@ -84,8 +86,8 @@ public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapt
         if (item.isCapture()) {
             holder.thumbnail.setImageResource(R.drawable.l_ic_capture);
         } else {
-            Picasso.with(mContext).load(item.buildContentUri())
-                    .fit()
+            GlideApp.with(mContext).load(item.buildContentUri())
+                    .fitCenter()
                     .centerCrop()
                     .into(holder.thumbnail);
         }
