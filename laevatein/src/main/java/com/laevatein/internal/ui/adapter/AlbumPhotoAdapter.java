@@ -27,7 +27,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.laevatein.GlideApp;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
@@ -86,9 +85,8 @@ public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapt
         if (item.isCapture()) {
             holder.thumbnail.setImageResource(R.drawable.l_ic_capture);
         } else {
-            GlideApp.with(mContext).load(item.buildContentUri())
-                    .fitCenter()
-                    .centerCrop()
+            Glide.with(mContext).load(item.buildContentUri())
+                    .apply(new RequestOptions().fitCenter().centerCrop())
                     .into(holder.thumbnail);
         }
         mBindViewListener.onBindView(mContext, holder.itemView, item.buildContentUri());

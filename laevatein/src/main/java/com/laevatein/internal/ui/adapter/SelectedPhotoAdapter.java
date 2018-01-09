@@ -25,7 +25,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.laevatein.GlideApp;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.SelectedGridViewHelper;
@@ -71,9 +72,8 @@ public class SelectedPhotoAdapter extends RecyclerView.Adapter<SelectedPhotoAdap
                 SelectedGridViewHelper.callCheckStateListener(mListener);
             }
         });
-        GlideApp.with(mContext).load(uri)
-                .fitCenter()
-                .centerCrop()
+        Glide.with(mContext).load(uri)
+                .apply(new RequestOptions().fitCenter().centerCrop())
                 .into(holder.thumbnail);
     }
 
