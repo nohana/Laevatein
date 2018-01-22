@@ -102,10 +102,10 @@ public final class PhotoMetadataUtils {
         if (!hasOverAtLeastQuality(context, spec, uri)) {
             return UncapableCause.UNDER_QUALITY;
         }
-        if (!isShorterThanMaxSize(context, spec, uri)) {
+        if (!isSmallerThanMaxSize(context, spec, uri)) {
             return UncapableCause.OVER_SIZE;
         }
-        if (!isLongerThanMinSize(context, spec, uri)) {
+        if (!isLargerThanMinSize(context, spec, uri)) {
             return UncapableCause.UNDER_SIZE;
         }
         return null;
@@ -129,7 +129,7 @@ public final class PhotoMetadataUtils {
         return pixels <= spec.getMaxPixels();
     }
 
-    public static boolean isLongerThanMinSize(Context context, SelectionSpec spec, Uri uri) {
+    public static boolean isLargerThanMinSize(Context context, SelectionSpec spec, Uri uri) {
         if (context == null) {
             return false;
         }
@@ -137,7 +137,7 @@ public final class PhotoMetadataUtils {
         return p.x >= spec.getMinWidthPixels() && p.y >= spec.getMinHeightPixels();
     }
 
-    public static boolean isShorterThanMaxSize(Context context, SelectionSpec spec, Uri uri) {
+    public static boolean isSmallerThanMaxSize(Context context, SelectionSpec spec, Uri uri) {
         if (context == null) {
             return false;
         }

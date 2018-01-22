@@ -47,10 +47,10 @@ public final class SelectionSpec implements Parcelable {
     private int mMinSelectable;
     private long mMinPixels;
     private long mMaxPixels;
-    private long mMinWidthPixels;
-    private long mMinHeightPixels;
-    private long mMaxWidthPixels;
-    private long mMaxHeightPixels;
+    private int mMinWidthPixels;
+    private int mMinHeightPixels;
+    private int mMaxWidthPixels;
+    private int mMaxHeightPixels;
     private Set<MimeType> mMimeTypeSet;
 
     public SelectionSpec() {
@@ -58,10 +58,10 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = 1;
         mMinPixels = 0L;
         mMaxPixels = Long.MAX_VALUE;
-        mMinWidthPixels = 0L;
-        mMinHeightPixels = 0L;
-        mMaxWidthPixels = Long.MAX_VALUE;
-        mMaxHeightPixels = Long.MAX_VALUE;
+        mMinWidthPixels = 0;
+        mMinHeightPixels = 0;
+        mMaxWidthPixels = Integer.MAX_VALUE;
+        mMaxHeightPixels = Integer.MAX_VALUE;
     }
 
     /* package */ SelectionSpec(Parcel source) {
@@ -69,10 +69,10 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
-        mMinWidthPixels = source.readLong();
-        mMinHeightPixels = source.readLong();
-        mMaxWidthPixels = source.readLong();
-        mMaxHeightPixels = source.readLong();
+        mMinWidthPixels = source.readInt();
+        mMinHeightPixels = source.readInt();
+        mMaxWidthPixels = source.readInt();
+        mMaxHeightPixels = source.readInt();
         List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
@@ -89,10 +89,10 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxSelectable);
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
-        dest.writeLong(mMinWidthPixels);
-        dest.writeLong(mMinHeightPixels);
-        dest.writeLong(mMaxWidthPixels);
-        dest.writeLong(mMaxHeightPixels);
+        dest.writeInt(mMinWidthPixels);
+        dest.writeInt(mMinHeightPixels);
+        dest.writeInt(mMaxWidthPixels);
+        dest.writeInt(mMaxHeightPixels);
         dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
 
@@ -142,19 +142,19 @@ public final class SelectionSpec implements Parcelable {
         return mMaxPixels;
     }
 
-    public long getMinWidthPixels() {
+    public int getMinWidthPixels() {
         return mMinWidthPixels;
     }
 
-    public long getMinHeightPixels() {
+    public int getMinHeightPixels() {
         return mMinHeightPixels;
     }
 
-    public long getMaxWidthPixels() {
+    public int getMaxWidthPixels() {
         return mMaxWidthPixels;
     }
 
-    public long getMaxHeightPixels() {
+    public int getMaxHeightPixels() {
         return mMaxHeightPixels;
     }
 
