@@ -62,6 +62,8 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mCountOverErrorSpec;
     private ErrorViewResources mUnderQualityErrorSpec;
     private ErrorViewResources mOverQualityErrorSpec;
+    private ErrorViewResources mUnderSizeErrorSpec;
+    private ErrorViewResources mOverSizeErrorSpec;
     private ErrorViewResources mTypeErrorSpec;
     private DialogResources mConfirmDialogSpec;
     private boolean mOpenDrawer = true;
@@ -244,6 +246,50 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the error view specification for the error of size un-satisfaction.
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder underSize(ErrorViewResources.ViewType type, int errorMessageId) {
+        return underSize(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of size un-satisfaction.
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder underSize(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mUnderSizeErrorSpec = type.createSpec(errorTitleId, errorMessageId);
+        return this;
+    }
+
+    /**
+     * Sets the error view specification for the error of size un-satisfaction..
+     * @param type error view type.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder overSize(ErrorViewResources.ViewType type, int errorMessageId) {
+        return overSize(type, -1, errorMessageId);
+    }
+
+    /**
+     * Sets the error view specification for the error of size un-satisfaction..
+     * @param type error view type.
+     * @param errorTitleId an error title resource id. If type is not {@see ErrorViewResources.ViewType.DIALOG}, this parameter is ignored.
+     * @param errorMessageId an error message resource id.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder overSize(ErrorViewResources.ViewType type, int errorTitleId, int errorMessageId) {
+        mOverSizeErrorSpec = type.createSpec(errorTitleId, errorMessageId);
+        return this;
+    }
+
+    /**
      * Sets the error view specification for the error of type validation.
      * @param type error view type.
      * @param errorMessageId an error message resource id.
@@ -294,6 +340,33 @@ public final class SelectionSpecBuilder {
     public SelectionSpecBuilder quality(int minPixel, int maxPixel) {
         mSelectionSpec.setMinPixels(minPixel);
         mSelectionSpec.setMaxPixels(maxPixel);
+        return this;
+    }
+
+    /**
+     * Sets the limitation of a selectable image size by pixel count minimum.
+     *
+     * @param minWidth  minimum width value to select.
+     * @param minHeight minimum width value to select.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder size(int minWidth, int minHeight) {
+        size(minWidth, minHeight, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        return this;
+    }
+
+    /**
+     * Sets the limitation of a selectable image size by pixel count minimum and maximum.
+     *
+     * @param minWidth  minimum width value to select.
+     * @param minHeight minimum width value to select.
+     * @param maxWidth  maximum height value to select.
+     * @param maxHeight maximum height value to select.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder size(int minWidth, int minHeight, int maxWidth, int maxHeight) {
+        mSelectionSpec.setMinSize(minWidth, minHeight);
+        mSelectionSpec.setMaxSize(maxWidth, maxHeight);
         return this;
     }
 
@@ -400,6 +473,8 @@ public final class SelectionSpecBuilder {
                 .setCountOverSpec(mCountOverErrorSpec)
                 .setOverQualitySpec(mOverQualityErrorSpec)
                 .setUnderQualitySpec(mUnderQualityErrorSpec)
+                .setOverSizeSpec(mOverSizeErrorSpec)
+                .setUnderSizeSpec(mUnderSizeErrorSpec)
                 .setTypeSpec(mTypeErrorSpec)
                 .setConfirmSpec(mConfirmDialogSpec)
                 .create();

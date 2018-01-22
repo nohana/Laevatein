@@ -40,6 +40,18 @@ public enum UncapableCause {
             return spec.getOverQualitySpec();
         }
     },
+    UNDER_SIZE {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getUnderSizeSpec();
+        }
+    },
+    OVER_SIZE {
+        @Override
+        public ErrorViewResources getErrorResources(ErrorViewSpec spec) {
+            return spec.getOverSizeSpec();
+        }
+    },
     FILE_TYPE {
         @Override
         public ErrorViewResources getErrorResources(ErrorViewSpec spec) {

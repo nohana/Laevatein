@@ -12,6 +12,7 @@
 
     <string name="l_error_invalid_format">Not allowed to select this photo due to invalid file format.</string>
     <string name="l_error_quality">Not allowed to select this photo due to not enough quality.</string>
+    <string name="l_error_size">Not allowed to select this photo due to not suitable size.</string>
 
     <string name="l_album_name_all">All Photos</string>
     <string name="l_album_name_selected">Selected Photos</string>

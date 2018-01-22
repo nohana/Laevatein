@@ -44,7 +44,6 @@ import java.io.InputStream;
  */
 public final class PhotoMetadataUtils {
     public static final String TAG = PhotoMetadataUtils.class.getSimpleName();
-    private static final int MAX_WIDTH = 1600;
     private static final String SCHEME_CONTENT = "content";
 
     private PhotoMetadataUtils() {
@@ -103,6 +102,12 @@ public final class PhotoMetadataUtils {
         if (!hasOverAtLeastQuality(context, spec, uri)) {
             return UncapableCause.UNDER_QUALITY;
         }
+        if (!isSmallerThanMaxSize(context, spec, uri)) {
+            return UncapableCause.OVER_SIZE;
+        }
+        if (!isLargerThanMinSize(context, spec, uri)) {
+            return UncapableCause.UNDER_SIZE;
+        }
         return null;
     }
 
@@ -122,6 +127,23 @@ public final class PhotoMetadataUtils {
 
         int pixels = PhotoMetadataUtils.getPixelsCount(context.getContentResolver(), uri);
         return pixels <= spec.getMaxPixels();
+    }
+
+    public static boolean isLargerThanMinSize(Context context, SelectionSpec spec, Uri uri) {
+        if (context == null) {
+            return false;
+        }
+        Point p = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), uri);
+        return p.x >= spec.getMinWidthPixels() && p.y >= spec.getMinHeightPixels();
+    }
+
+    public static boolean isSmallerThanMaxSize(Context context, SelectionSpec spec, Uri uri) {
+        if (context == null) {
+            return false;
+        }
+
+        Point p = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), uri);
+        return p.x <= spec.getMaxWidthPixels() && p.y <= spec.getMaxHeightPixels();
     }
 
     public static boolean isSelectableType(Context context, SelectionSpec spec, Uri uri) {
