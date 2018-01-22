@@ -134,7 +134,6 @@ public final class PhotoMetadataUtils {
             return false;
         }
         Point p = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), uri);
-        Log.d("Size", "x = " + p.x + "y = " + p.y);
         return p.x >= spec.getMinSidePixels() && p.y >= spec.getMinSidePixels();
     }
 
