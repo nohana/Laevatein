@@ -88,6 +88,15 @@ public class SelectionSpecBuilderTest {
     }
 
     @Test
+    public void size() throws Exception {
+        mBuilder = mBuilder.size(0, 100);
+        assertNotNull(mBuilder);
+
+        mBuilder.forResult(MOCK_REQUEST_CODE);
+        mLatch.await();
+    }
+
+    @Test
     public void resume() throws Exception {
         mBuilder = mBuilder.resume(new ArrayList<Uri>());
         assertNotNull(mBuilder);

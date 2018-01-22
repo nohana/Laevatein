@@ -76,6 +76,18 @@ Laevatein.from(this)
         .forResult(REQUEST_CODE_CHOOSE);
 ```
 
+### Selectable photo size limitation
+
+Set selectable photo size by pixel with `size(int, int)`.
+Default is `0 <= pixels <= Integer.MAX_VALUE`.
+
+```java
+Laevatein.from(this)
+        .choose(MimeType.of(MimeType.JPEG))
+        .size(300, Integer.MAX_VALUE)  // minimum = 300px, max = Integer.MAX_VALUEpx, so 300px <= count <= Integer.MAX_VALUEpx;
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+
 ### Use custom cell layout
 
 Set your layout and ids for the image cell with `bindEachImageWith(int, int, int)`.

@@ -47,6 +47,8 @@ public final class SelectionSpec implements Parcelable {
     private int mMinSelectable;
     private long mMinPixels;
     private long mMaxPixels;
+    private long mMinSidePixels;
+    private long mMaxSidePixels;
     private Set<MimeType> mMimeTypeSet;
 
     public SelectionSpec() {
@@ -54,6 +56,8 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = 1;
         mMinPixels = 0L;
         mMaxPixels = Long.MAX_VALUE;
+        mMinSidePixels = 0L;
+        mMaxSidePixels = Long.MAX_VALUE;
     }
 
     /* package */ SelectionSpec(Parcel source) {
@@ -61,6 +65,8 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
+        mMinSidePixels = source.readLong();
+        mMaxSidePixels = source.readLong();
         List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
@@ -77,6 +83,8 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxSelectable);
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
+        dest.writeLong(mMinSidePixels);
+        dest.writeLong(mMaxSidePixels);
         dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
 
@@ -94,6 +102,14 @@ public final class SelectionSpec implements Parcelable {
 
     public void setMaxPixels(long maxPixels) {
         mMaxPixels = maxPixels;
+    }
+
+    public void setMinSidePixels(long mMinSidePixels) {
+        this.mMinSidePixels = mMinSidePixels;
+    }
+
+    public void setMaxSidePixels(long mMaxSidePixels) {
+        this.mMaxSidePixels = mMaxSidePixels;
     }
 
     public void setMimeTypeSet(Set<MimeType> set) {
@@ -114,6 +130,14 @@ public final class SelectionSpec implements Parcelable {
 
     public long getMaxPixels() {
         return mMaxPixels;
+    }
+
+    public long getMinSidePixels() {
+        return mMinSidePixels;
+    }
+
+    public long getMaxSidePixels() {
+        return mMaxSidePixels;
     }
 
     public Set<MimeType> getMimeTypeSet() {
