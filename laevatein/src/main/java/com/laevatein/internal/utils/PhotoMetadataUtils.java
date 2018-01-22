@@ -98,7 +98,7 @@ public final class PhotoMetadataUtils {
             return UncapableCause.FILE_TYPE;
         }
         if (!hasUnderAtMostQuality(context, spec, uri)) {
-            return UncapableCause.OVER_COUNT;
+            return UncapableCause.OVER_QUALITY;
         }
         if (!hasOverAtLeastQuality(context, spec, uri)) {
             return UncapableCause.UNDER_QUALITY;
