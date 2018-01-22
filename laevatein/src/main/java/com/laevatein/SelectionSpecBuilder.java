@@ -344,14 +344,29 @@ public final class SelectionSpecBuilder {
     }
 
     /**
-     * Sets the limitation of a selectable image size by pixel count around side.
-     * @param minPixel minimum value to select.
-     * @param maxPixel maximum value to select.
+     * Sets the limitation of a selectable image size by pixel count minimum.
+     *
+     * @param minWidth  minimum width value to select.
+     * @param minHeight minimum width value to select.
      * @return the specification builder context.
      */
-    public SelectionSpecBuilder size(int minPixel, int maxPixel) {
-        mSelectionSpec.setMinSidePixels(minPixel);
-        mSelectionSpec.setMaxSidePixels(maxPixel);
+    public SelectionSpecBuilder size(int minWidth, int minHeight) {
+        size(minWidth, minHeight, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        return this;
+    }
+
+    /**
+     * Sets the limitation of a selectable image size by pixel count minimum and maximum.
+     *
+     * @param minWidth  minimum width value to select.
+     * @param minHeight minimum width value to select.
+     * @param maxWidth  maximum height value to select.
+     * @param maxHeight maximum height value to select.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder size(int minWidth, int minHeight, int maxWidth, int maxHeight) {
+        mSelectionSpec.setMinSize(minWidth, minHeight);
+        mSelectionSpec.setMaxSize(maxWidth, maxHeight);
         return this;
     }
 

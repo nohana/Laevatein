@@ -71,7 +71,7 @@ public class LSampleActivity extends AppCompatActivity {
                 .choose(MimeType.of(MimeType.JPEG))
                 .count(10, 10)
                 .quality(300000, Integer.MAX_VALUE)
-                .size(300, Integer.MAX_VALUE)
+                .size(300, 300)
                 .resume(mSelected)
                 .capture(true)
                 .countUnder(ErrorViewResources.ViewType.SNACKBAR, R.string.error_count_under)

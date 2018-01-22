@@ -134,7 +134,7 @@ public final class PhotoMetadataUtils {
             return false;
         }
         Point p = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), uri);
-        return p.x >= spec.getMinSidePixels() && p.y >= spec.getMinSidePixels();
+        return p.x >= spec.getMinWidthPixels() && p.y >= spec.getMinHeightPixels();
     }
 
     public static boolean isShorterThanMaxSize(Context context, SelectionSpec spec, Uri uri) {
@@ -143,7 +143,7 @@ public final class PhotoMetadataUtils {
         }
 
         Point p = PhotoMetadataUtils.getBitmapBound(context.getContentResolver(), uri);
-        return p.x <= spec.getMaxSidePixels() && p.y <= spec.getMaxSidePixels();
+        return p.x <= spec.getMaxWidthPixels() && p.y <= spec.getMaxHeightPixels();
     }
 
     public static boolean isSelectableType(Context context, SelectionSpec spec, Uri uri) {
