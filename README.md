@@ -174,7 +174,7 @@ repositories {
 }
 android {
     dependencies {
-        compile 'jp.co.nohana:Laevatein:2.1.2@aar'
+        compile 'jp.co.nohana:Laevatein:2.3.2@aar'
     }
 }
 ```
@@ -187,7 +187,7 @@ repositories {
 }
 android {
     dependencies {
-        implementation 'jp.co.nohana:Laevatein:2.1.2'
+        implementation 'jp.co.nohana:Laevatein:2.3.2'
     }
 }
 ```
