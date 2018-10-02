@@ -41,13 +41,12 @@ import com.laevatein.internal.ui.adapter.AlbumPhotoAdapter;
 import com.laevatein.internal.ui.adapter.RecyclerViewCursorAdapter;
 import com.laevatein.internal.ui.widget.PhotoDecoration;
 import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.internal.utils.MediaStoreUtils;
 import com.laevatein.ui.ImagePreviewActivity;
 import com.laevatein.ui.PhotoSelectionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
@@ -131,8 +130,8 @@ public final class PhotoGridViewHelper {
 
     public static void callCamera(Context context) {
         PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
-        MediaStoreCompat compat = activity.getMediaStoreCompat();
-        String preparedUri = compat.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
+        MediaStoreUtils utils = activity.getMediaStoreUtils();
+        String preparedUri = utils.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
         activity.prepareCapture(preparedUri);
     }
 

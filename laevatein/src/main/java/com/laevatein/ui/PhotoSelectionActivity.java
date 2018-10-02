@@ -45,10 +45,10 @@ import com.laevatein.internal.ui.helper.PhotoSelectionActivityDrawerToggle;
 import com.laevatein.internal.ui.helper.PhotoSelectionViewHelper;
 import com.laevatein.internal.ui.helper.options.PhotoSelectionOptionsMenu;
 import com.laevatein.internal.utils.ErrorViewUtils;
+import com.laevatein.internal.utils.MediaStoreUtils;
 
 import java.util.ArrayList;
 
-import jp.mixi.compatibility.android.provider.MediaStoreCompat;
 
 /**
  * @author KeithYokoma
@@ -69,7 +69,7 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
     public static final int REQUEST_CODE_CAPTURE = 1;
     public static final int REQUEST_CODE_PREVIEW = 2;
     private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
-    private MediaStoreCompat mMediaStoreCompat;
+    private MediaStoreUtils mMediaStoreUtils;
     private PhotoSelectionActivityDrawerToggle mToggle;
     private DrawerLayout mDrawer;
     private String mCapturePhotoUriHolder;
@@ -82,7 +82,7 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         setContentView(R.layout.l_activity_select_photo);
         PhotoSelectionViewHelper.setUpActivity(this);
         PhotoSelectionViewHelper.setUpCounter(this);
-        mMediaStoreCompat = new MediaStoreCompat(this, HandlerUtils.getMainHandler());
+        mMediaStoreUtils = new MediaStoreUtils(this, HandlerUtils.getMainHandler());
         mCapturePhotoUriHolder = savedInstanceState != null ? savedInstanceState.getString(STATE_CAPTURE_PHOTO_URI) : "";
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(getIntent().<SelectionSpec>getParcelableExtra(EXTRA_SELECTION_SPEC));
@@ -116,7 +116,7 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-        mMediaStoreCompat.destroy();
+        mMediaStoreUtils.destroy();
         super.onDestroy();
     }
 
@@ -125,10 +125,10 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            Uri captured = mMediaStoreCompat.getCapturedPhotoUri(data, mCapturePhotoUriHolder);
+            Uri captured = mMediaStoreUtils.getCapturedPhotoUri(data, mCapturePhotoUriHolder);
             if (captured != null) {
                 mCollection.add(captured);
-                mMediaStoreCompat.cleanUp(mCapturePhotoUriHolder);
+                mMediaStoreUtils.cleanUp(mCapturePhotoUriHolder);
             }
             supportInvalidateOptionsMenu();
         } else if (requestCode == REQUEST_CODE_PREVIEW && resultCode == Activity.RESULT_OK) {
@@ -186,8 +186,8 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         return mCollection;
     }
 
-    public final MediaStoreCompat getMediaStoreCompat() {
-        return mMediaStoreCompat;
+    public final MediaStoreUtils getMediaStoreUtils() {
+        return mMediaStoreUtils;
     }
 
     public final void prepareCapture(String uri) {
