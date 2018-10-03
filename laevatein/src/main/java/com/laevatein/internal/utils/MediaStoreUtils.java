@@ -15,7 +15,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
+
+import com.laevatein.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -87,12 +90,12 @@ public class MediaStoreUtils {
     public String invokeCameraCapture(Activity activity, int requestCode) {
         if (!hasCameraFeature(mContext)) return null;
 
-        File toSave = getOutputFileUri();
+        File toSave = getOutputFile();
         if (toSave == null) return null;
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(toSave));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, activity.getString(R.string.l_file_provider_authorities), toSave));
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
         activity.startActivityForResult(intent, requestCode);
         return toSave.toString();
@@ -314,7 +317,7 @@ public class MediaStoreUtils {
      * @return a file
      */
     @TargetApi(Build.VERSION_CODES.FROYO)
-    private File getOutputFileUri() {
+    private File getOutputFile() {
         File extDir = new File(
                 Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES),
