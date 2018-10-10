@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.3"
 
     defaultConfig {
@@ -18,7 +18,7 @@ android {
     testOptions.unitTests.includeAndroidResources true
 }
 
-ext.supportLibraryVersion = '26.1.0'
+ext.supportLibraryVersion = '27.1.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
