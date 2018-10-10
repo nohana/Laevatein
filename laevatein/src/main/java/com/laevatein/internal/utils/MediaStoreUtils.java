@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
@@ -242,8 +243,7 @@ public class MediaStoreUtils {
             values.put(MediaStore.Images.Media.TITLE, file.getName());
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
             values.put(MediaStore.Images.Media.DESCRIPTION, "mixi Photo");
-            values.put(MediaStore.Images.Media.ORIENTATION,
-                    ExifInterfaceUtils.getExifOrientation(file.getAbsolutePath()));
+            values.put(MediaStore.Images.Media.ORIENTATION, new ExifInterface(file.getAbsolutePath()).getRotationDegrees());
             long date = ExifInterfaceUtils.getExifDateTimeInMillis(file.getAbsolutePath());
             if (date != -1)
                 values.put(MediaStore.Images.Media.DATE_TAKEN, date);

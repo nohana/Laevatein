@@ -19,7 +19,6 @@ import java.util.TimeZone;
  */
 public class ExifInterfaceUtils {
     public static final String TAG = ExifInterfaceUtils.class.getSimpleName();
-    private static final int EXIF_DEGREE_FALLBACK_VALUE = -1;
 
     /**
      * Do not instantiate this class.
@@ -62,37 +61,5 @@ public class ExifInterfaceUtils {
             return -1;
         }
         return datetime.getTime();
-    }
-
-    /**
-     * Read exif info and get orientation value of the photo.
-     *
-     * @param filepath to get exif.
-     * @return exif orientation value
-     */
-    public static int getExifOrientation(String filepath) {
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(filepath);
-        } catch (IOException ex) {
-            Log.e(TAG, "cannot read exif", ex);
-            return EXIF_DEGREE_FALLBACK_VALUE;
-        }
-
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, EXIF_DEGREE_FALLBACK_VALUE);
-        if (orientation == EXIF_DEGREE_FALLBACK_VALUE) {
-            return 0;
-        }
-        // We only recognize a subset of orientation tag values.
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return 90;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return 180;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return 270;
-            default:
-                return 0;
-        }
     }
 }
