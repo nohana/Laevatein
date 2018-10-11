@@ -1,8 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.3"
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 14
@@ -18,7 +17,7 @@ android {
     testOptions.unitTests.includeAndroidResources true
 }
 
-ext.supportLibraryVersion = '26.1.0'
+ext.supportLibraryVersion = '27.1.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -27,13 +26,12 @@ dependencies {
     implementation "com.android.support:support-annotations:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation "com.android.support:exifinterface:${supportLibraryVersion}"
-    implementation ("com.github.bumptech.glide:glide:4.4.0") {
+    implementation("com.github.bumptech.glide:glide:4.4.0") {
         exclude group: 'com.android.support', module: 'support-fragment'
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
     implementation 'jp.co.nohana:Amalgam:0.4.0@aar'
-    implementation 'jp.mixi:AndroidDeviceCompatibility:1.0.0@aar'
 
     // Robolectric
     testImplementation 'junit:junit:4.12'
