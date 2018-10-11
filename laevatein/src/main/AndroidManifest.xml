@@ -8,15 +8,5 @@
     <application android:allowBackup="true">
         <activity android:name=".ui.PhotoSelectionActivity" />
         <activity android:name=".ui.ImagePreviewActivity" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="@string/l_file_provider_authorities"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
     </application>
 </manifest>

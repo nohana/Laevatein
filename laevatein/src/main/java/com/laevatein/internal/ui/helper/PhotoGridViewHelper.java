@@ -32,7 +32,6 @@ import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.Item;
-import com.laevatein.internal.entity.ItemViewResources;
 import com.laevatein.internal.entity.UncapableCause;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
@@ -63,10 +62,10 @@ public final class PhotoGridViewHelper {
         return ((PhotoSelectionActivity) fragment.getActivity()).getCollection();
     }
 
-    public static void setUpGridView(Fragment fragment, ItemViewResources resources, SelectedUriCollection collection, AlbumPhotoAdapter.BindViewListener listener) {
+    public static void setUpGridView(Fragment fragment, ViewResourceSpec resources, SelectedUriCollection collection, AlbumPhotoAdapter.BindViewListener listener) {
         RecyclerView recyclerView = fragment.getView().findViewById(R.id.l_recyclerview);
-        int spanCount = resources.getSpanCount();
-        recyclerView.setLayoutManager(new GridLayoutManager(fragment.getContext(), resources.getSpanCount()));
+        int spanCount = resources.getItemViewResources().getSpanCount();
+        recyclerView.setLayoutManager(new GridLayoutManager(fragment.getContext(), resources.getItemViewResources().getSpanCount()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
@@ -128,10 +127,10 @@ public final class PhotoGridViewHelper {
         activity.startActivityForResult(intent, PhotoSelectionActivity.REQUEST_CODE_PREVIEW);
     }
 
-    public static void callCamera(Context context) {
+    public static void callCamera(Context context, String fileProviderAuthorities) {
         PhotoSelectionActivity activity = (PhotoSelectionActivity) context;
         MediaStoreUtils utils = activity.getMediaStoreUtils();
-        String preparedUri = utils.invokeCameraCapture(activity, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
+        String preparedUri = utils.invokeCameraCapture(activity, fileProviderAuthorities, PhotoSelectionActivity.REQUEST_CODE_CAPTURE);
         activity.prepareCapture(preparedUri);
     }
 

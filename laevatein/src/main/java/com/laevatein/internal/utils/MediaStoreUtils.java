@@ -19,8 +19,6 @@ import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
-import com.laevatein.R;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -88,7 +86,7 @@ public class MediaStoreUtils {
      * @param requestCode activity result handling id.
      * @return a file name to be saved as.
      */
-    public String invokeCameraCapture(Activity activity, int requestCode) {
+    public String invokeCameraCapture(Activity activity, String fileProviderAuthorities, int requestCode) {
         if (!hasCameraFeature(mContext)) return null;
 
         File toSave = getOutputFile();
@@ -96,7 +94,7 @@ public class MediaStoreUtils {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, activity.getString(R.string.l_file_provider_authorities), toSave));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, fileProviderAuthorities, toSave));
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
         activity.startActivityForResult(intent, requestCode);
         return toSave.toString();

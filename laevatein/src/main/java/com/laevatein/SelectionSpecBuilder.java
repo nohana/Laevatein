@@ -25,6 +25,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.laevatein.internal.entity.CaptureResources;
 import com.laevatein.internal.entity.CounterViewResources;
 import com.laevatein.internal.entity.DialogResources;
 import com.laevatein.internal.entity.ErrorViewResources;
@@ -67,7 +68,7 @@ public final class SelectionSpecBuilder {
     private ErrorViewResources mTypeErrorSpec;
     private DialogResources mConfirmDialogSpec;
     private boolean mOpenDrawer = true;
-    private boolean mEnableCapture;
+    private String mFileProviderAuthorities;
     private boolean mEnableSelectedView;
     private int mActivityOrientation;
     private List<Uri> mResumeList;
@@ -419,11 +420,23 @@ public final class SelectionSpecBuilder {
     /**
      * Determines whether the photo capturing is enabled or not on the camera photo grid view.
      * This flag is false by default.
-     * @param enable whether to enable capturing or not.
+     *
+     * @param fileProviderAuthorities your FileProvider authorities name.
      * @return the specification builder context.
      */
-    public SelectionSpecBuilder capture(boolean enable) {
-        mEnableCapture = enable;
+    public SelectionSpecBuilder enableCapture(String fileProviderAuthorities) {
+        mFileProviderAuthorities = fileProviderAuthorities;
+        return this;
+    }
+
+    /**
+     * Determines whether the photo capturing is enabled or not on the camera photo grid view.
+     * This flag is false by default.
+     *
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder disableCapture() {
+        mFileProviderAuthorities = null;
         return this;
     }
 
@@ -464,7 +477,7 @@ public final class SelectionSpecBuilder {
                 .setCounterViewResources(mCounterViewResources)
                 .setPreviewViewResources(mPreviewViewResources)
                 .setOpenDrawer(mOpenDrawer)
-                .setEnableCapture(mEnableCapture)
+                .setCaptureResources(new CaptureResources(mFileProviderAuthorities))
                 .setEnableSelectedView(mEnableSelectedView)
                 .setActivityOrientation(mActivityOrientation)
                 .create();
