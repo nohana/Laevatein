@@ -6,4 +6,6 @@
 
     <string name="permission_denied">this app needs storage permission</string>
     <string name="permission_nerver_ask">you cannot launch app without storage permission ¯\\_(ツ)_/¯</string>
+
+    <string name="file_provider_authorities">com.laevatein.sample.fileprovider</string>
 </resources>
