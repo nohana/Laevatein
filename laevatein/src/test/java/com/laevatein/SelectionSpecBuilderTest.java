@@ -70,8 +70,17 @@ public class SelectionSpecBuilderTest {
     }
 
     @Test
-    public void capture() throws Exception {
-        mBuilder = mBuilder.capture(true);
+    public void enableCapture() throws Exception {
+        mBuilder = mBuilder.enableCapture("com.test.authorities");
+        assertNotNull(mBuilder);
+
+        mBuilder.forResult(MOCK_REQUEST_CODE);
+        mLatch.await();
+    }
+
+    @Test
+    public void disableCapture() throws Exception {
+        mBuilder = mBuilder.disableCapture();
         assertNotNull(mBuilder);
 
         mBuilder.forResult(MOCK_REQUEST_CODE);
