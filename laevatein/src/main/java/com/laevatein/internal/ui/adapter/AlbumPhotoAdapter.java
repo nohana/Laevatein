@@ -28,8 +28,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.laevatein.R;
+import com.laevatein.internal.entity.CaptureResources;
 import com.laevatein.internal.entity.Item;
 import com.laevatein.internal.entity.ItemViewResources;
+import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
 import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 
@@ -42,14 +44,16 @@ import com.laevatein.internal.ui.helper.PhotoGridViewHelper;
 public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapter.ViewHolder> {
     private final Context mContext;
     private final ItemViewResources mResources;
+    private final CaptureResources mCaptureResources;
     private final SelectedUriCollection mCollection;
     private CheckStateListener mListener;
     private BindViewListener mBindViewListener;
 
-    public AlbumPhotoAdapter(Context context, ItemViewResources resources, SelectedUriCollection collection, BindViewListener bindViewListener) {
+    public AlbumPhotoAdapter(Context context, ViewResourceSpec resources, SelectedUriCollection collection, BindViewListener bindViewListener) {
         super(null);
         mContext = context;
-        mResources = resources;
+        mResources = resources.getItemViewResources();
+        mCaptureResources = resources.getCaptureResource();
         mCollection = collection;
         mBindViewListener = bindViewListener;
     }
@@ -67,7 +71,10 @@ public class AlbumPhotoAdapter extends RecyclerViewCursorAdapter<AlbumPhotoAdapt
             @Override
             public void onClick(View v) {
                 if (item.isCapture()) {
-                    PhotoGridViewHelper.callCamera(mContext);
+                    if (mCaptureResources.getFileProviderAuthorities() == null) {
+                        throw new IllegalStateException();
+                    }
+                    PhotoGridViewHelper.callCamera(mContext, mCaptureResources.getFileProviderAuthorities());
                 } else {
                     PhotoGridViewHelper.callPreview(mContext, item, mCollection.asList());
                 }

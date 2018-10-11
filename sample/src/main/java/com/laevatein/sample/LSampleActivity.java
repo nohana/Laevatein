@@ -67,13 +67,14 @@ public class LSampleActivity extends AppCompatActivity {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void startPhotoSelect() {
+        String authorities = getString(R.string.file_provider_authorities);
         Laevatein.from(this)
                 .choose(MimeType.of(MimeType.JPEG))
                 .count(10, 10)
                 .quality(300000, Integer.MAX_VALUE)
                 .size(300, 300)
                 .resume(mSelected)
-                .capture(true)
+                .enableCapture(authorities)
                 .countUnder(ErrorViewResources.ViewType.SNACKBAR, R.string.error_count_under)
                 .countOver(ErrorViewResources.ViewType.DIALOG, R.string.error_count_over)
                 .enableSelectedView(true)

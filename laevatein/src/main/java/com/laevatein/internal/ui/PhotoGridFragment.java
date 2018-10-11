@@ -68,9 +68,9 @@ public class PhotoGridFragment extends Fragment implements
         } catch (ClassCastException e) {
             throw new IllegalStateException("the host activity should implement BindViewListener.");
         }
-        PhotoGridViewHelper.setUpGridView(this, resources.getItemViewResources(), PhotoGridViewHelper.getSelectedPhotoSet(this), listener);
+        PhotoGridViewHelper.setUpGridView(this, resources, PhotoGridViewHelper.getSelectedPhotoSet(this), listener);
         mPhotoCollection.onCreate(getActivity(), this);
-        mPhotoCollection.load(album, resources.isEnableCapture());
+        mPhotoCollection.load(album, resources.getCaptureResource().enabled());
         getActivity().setTitle(album.getDisplayName(getActivity()));
     }
 
