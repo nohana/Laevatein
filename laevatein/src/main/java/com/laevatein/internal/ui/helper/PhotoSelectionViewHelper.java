@@ -35,6 +35,7 @@ import com.laevatein.internal.entity.ErrorViewResources;
 import com.laevatein.internal.entity.ErrorViewSpec;
 import com.laevatein.internal.entity.ViewResourceSpec;
 import com.laevatein.internal.model.SelectedUriCollection;
+import com.laevatein.internal.ui.AlbumListFragment;
 import com.laevatein.internal.ui.PhotoGridFragment;
 import com.laevatein.internal.ui.SelectedPhotoGridFragment;
 import com.laevatein.ui.PhotoSelectionActivity;
@@ -110,6 +111,14 @@ public final class PhotoSelectionViewHelper {
                 drawer.openDrawer(GravityCompat.START);
             }
         }
+    }
+
+    public static void setAlbumList(FragmentActivity activity, String albumId) {
+        Fragment fragment = AlbumListFragment.newInstance(albumId);
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.l_container_album_list, fragment, PhotoGridFragment.TAG)
+                .commit();
     }
 
     public static void setSelectedGridFragment(FragmentActivity activity) {

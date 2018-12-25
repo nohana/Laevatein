@@ -372,6 +372,17 @@ public final class SelectionSpecBuilder {
     }
 
     /**
+     * Sets the default selected album.
+     *
+     * @param albumId default selected album.
+     * @return the specification builder context.
+     */
+    public SelectionSpecBuilder albumId(String albumId) {
+        mSelectionSpec.setDefaultAlbumId(albumId);
+        return this;
+    }
+
+    /**
      * Sets the Activity instead of PhotoSelectionActivity
      * @param photoSelectionActivityClass an Activity called on photo selecting
      * @return the specification builder context.

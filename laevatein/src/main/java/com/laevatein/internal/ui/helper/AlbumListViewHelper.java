@@ -31,6 +31,7 @@ import com.amalgam.os.HandlerUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.misc.ui.FragmentUtils;
+import com.laevatein.internal.model.DevicePhotoAlbumCollection;
 import com.laevatein.internal.ui.AlbumListFragment;
 import com.laevatein.internal.ui.adapter.DevicePhotoAlbumAdapter;
 
@@ -79,7 +80,8 @@ public final class AlbumListViewHelper {
         listener.onSelect(album);
     }
 
-    public static void callOnDefaultSelect(final Fragment fragment, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor) {
+    public static void callOnDefaultSelect(final Fragment fragment, final AlbumListFragment.OnDirectorySelectListener listener, final Cursor cursor,
+                                           final String albumId, final DevicePhotoAlbumCollection collection) {
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +97,22 @@ public final class AlbumListViewHelper {
                 }
 
                 cursor.moveToFirst();
+                do {
+                    Album item = Album.valueOf(cursor);
+                    if (item.getId().equals(albumId)) {
+                        ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
+                        int position = cursor.getPosition() + listView.getHeaderViewsCount();
+                        collection.setStateCurrentSelection(position);
+                        setCheckedState(fragment, position);
+                        listener.onSelect(item);
+                        return;
+                    }
+                } while (cursor.moveToNext());
+
+                cursor.moveToFirst();
                 callOnSelect(listener, cursor);
+                ListView listView = (ListView) FragmentUtils.findViewById(fragment, R.id.l_list_album);
+                setCheckedState(fragment, listView.getHeaderViewsCount());
             }
         });
     }
