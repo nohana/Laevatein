@@ -15,10 +15,10 @@
  */
 package com.laevatein.internal.entity;
 
-import com.laevatein.MimeType;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.laevatein.MimeType;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -52,6 +52,7 @@ public final class SelectionSpec implements Parcelable {
     private int mMaxWidthPixels;
     private int mMaxHeightPixels;
     private Set<MimeType> mMimeTypeSet;
+    private String mDefaultAlbumId;
 
     public SelectionSpec() {
         mMinSelectable = 0;
@@ -62,6 +63,7 @@ public final class SelectionSpec implements Parcelable {
         mMinHeightPixels = 0;
         mMaxWidthPixels = Integer.MAX_VALUE;
         mMaxHeightPixels = Integer.MAX_VALUE;
+        mDefaultAlbumId = Album.ALBUM_ID_ALL;
     }
 
     /* package */ SelectionSpec(Parcel source) {
@@ -76,6 +78,7 @@ public final class SelectionSpec implements Parcelable {
         List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
+        mDefaultAlbumId = source.readString();
     }
 
     @Override
@@ -94,6 +97,7 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxWidthPixels);
         dest.writeInt(mMaxHeightPixels);
         dest.writeList(new ArrayList<>(mMimeTypeSet));
+        dest.writeString(mDefaultAlbumId);
     }
 
     public void setMaxSelectable(int maxSelectable) {
@@ -124,6 +128,10 @@ public final class SelectionSpec implements Parcelable {
 
     public void setMimeTypeSet(Set<MimeType> set) {
         mMimeTypeSet = set;
+    }
+
+    public void setDefaultAlbumId(String albumId) {
+        mDefaultAlbumId = albumId;
     }
 
     public int getMinSelectable() {
@@ -160,5 +168,9 @@ public final class SelectionSpec implements Parcelable {
 
     public Set<MimeType> getMimeTypeSet() {
         return mMimeTypeSet;
+    }
+
+    public String getDefaultAlbumId() {
+        return mDefaultAlbumId;
     }
 }

@@ -81,6 +81,8 @@ public class PhotoSelectionActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_activity_select_photo);
         PhotoSelectionViewHelper.setUpActivity(this);
+        SelectionSpec selectionSpec = getIntent().getParcelableExtra(EXTRA_SELECTION_SPEC);
+        PhotoSelectionViewHelper.setAlbumList(this, selectionSpec.getDefaultAlbumId());
         PhotoSelectionViewHelper.setUpCounter(this);
         mMediaStoreUtils = new MediaStoreUtils(this, HandlerUtils.getMainHandler());
         mCapturePhotoUriHolder = savedInstanceState != null ? savedInstanceState.getString(STATE_CAPTURE_PHOTO_URI) : "";

@@ -31,11 +31,9 @@
             android:layout_below="@id/l_app_bar" />
     </RelativeLayout>
 
-    <fragment
-        android:id="@+id/l_fragment_list_directory"
-        android:name="com.laevatein.internal.ui.AlbumListFragment"
+    <FrameLayout
+        android:id="@+id/l_container_album_list"
         android:layout_width="@dimen/l_drawerMenuWidth"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        tools:layout="@layout/l_fragment_list_album" />
+        android:layout_gravity="start" />
 </android.support.v4.widget.DrawerLayout>

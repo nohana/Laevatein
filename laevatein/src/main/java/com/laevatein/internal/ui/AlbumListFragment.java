@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.amalgam.os.BundleUtils;
 import com.laevatein.R;
 import com.laevatein.internal.entity.Album;
 import com.laevatein.internal.misc.ui.FragmentUtils;
@@ -40,8 +41,20 @@ import com.laevatein.internal.ui.helper.AlbumListViewHelper;
 public class AlbumListFragment extends Fragment implements
         AdapterView.OnItemClickListener,
         DevicePhotoAlbumCollection.DevicePhotoAlbumCallbacks {
+    private static final String ARGS_ALBUM_ID = BundleUtils.buildKey(AlbumListFragment.class, "ARGS_ALBUM_ID");
+
     private final DevicePhotoAlbumCollection mCollection = new DevicePhotoAlbumCollection();
     private OnDirectorySelectListener mListener;
+    private String defaultAlbum;
+
+    public static AlbumListFragment newInstance(String defaultAlbumId) {
+        AlbumListFragment fragment = new AlbumListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARGS_ALBUM_ID, defaultAlbumId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -63,6 +76,7 @@ public class AlbumListFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
         AlbumListViewHelper.setUpHeader(this);
         AlbumListViewHelper.setUpListView(this, this);
+        defaultAlbum = getArguments().getString(ARGS_ALBUM_ID);
         mCollection.onCreate(getActivity(), this);
         mCollection.onRestoreInstanceState(savedInstanceState);
         ListView list = (ListView) FragmentUtils.findViewById(this, R.id.l_list_album);
@@ -101,8 +115,7 @@ public class AlbumListFragment extends Fragment implements
     @Override
     public void onLoad(final Cursor cursor) {
         AlbumListViewHelper.setCursor(this, cursor);
-        AlbumListViewHelper.callOnDefaultSelect(this, mListener, cursor);
-        AlbumListViewHelper.setCheckedState(this, mCollection.getCurrentSelection());
+        AlbumListViewHelper.callOnDefaultSelect(this, mListener, cursor, defaultAlbum, mCollection);
     }
 
     @Override
