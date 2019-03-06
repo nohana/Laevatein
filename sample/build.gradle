@@ -25,6 +25,6 @@ dependencies {
     implementation project(':laevatein')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.github.hotchemi:permissionsdispatcher:2.2.0'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
+    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.3.0'
+    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.3.0'
 }

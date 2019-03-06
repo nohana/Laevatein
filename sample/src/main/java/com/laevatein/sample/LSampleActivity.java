@@ -45,7 +45,7 @@ public class LSampleActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LSampleActivityPermissionsDispatcher.startPhotoSelectWithCheck(LSampleActivity.this);
+                LSampleActivityPermissionsDispatcher.startPhotoSelectWithPermissionCheck(LSampleActivity.this);
             }
         });
     }
