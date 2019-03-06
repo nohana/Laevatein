@@ -1,6 +1,6 @@
 package com.laevatein.internal.utils;
 
-import android.support.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.text.TextUtils;
 import android.util.Log;
 

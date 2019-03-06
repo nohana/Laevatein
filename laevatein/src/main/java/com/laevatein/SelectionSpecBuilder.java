@@ -18,11 +18,11 @@ package com.laevatein;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.laevatein.internal.entity.CaptureResources;

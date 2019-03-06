@@ -16,12 +16,12 @@
 package com.laevatein.internal.ui.helper;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.laevatein.R;
@@ -37,7 +37,7 @@ public class PhotoSelectionActivityDrawerToggle extends ActionBarDrawerToggle {
     /**
      * Construct a new ActionBarDrawerToggle.
      *
-     * <p>The given {@link android.app.Activity} will be linked to the specified {@link android.support.v4.widget.DrawerLayout}.
+     * <p>The given {@link android.app.Activity} will be linked to the specified {@link DrawerLayout}.
      * The provided drawer indicator drawable will animate slightly off-screen as the drawer
      * is opened, indicating that in the open state the drawer will move off-screen when pressed
      * and in the closed state the drawer will move on-screen when pressed.</p>
