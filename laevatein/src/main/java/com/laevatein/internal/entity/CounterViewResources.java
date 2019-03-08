@@ -2,8 +2,8 @@ package com.laevatein.internal.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntDef;
-import android.support.annotation.StringRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.StringRes;
 
 import com.laevatein.R;
 

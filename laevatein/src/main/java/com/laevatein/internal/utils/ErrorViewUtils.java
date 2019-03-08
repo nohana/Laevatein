@@ -1,7 +1,7 @@
 package com.laevatein.internal.utils;
 
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.amalgam.app.SupportSimpleAlertDialogFragment;

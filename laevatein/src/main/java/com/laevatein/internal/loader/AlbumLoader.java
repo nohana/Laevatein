@@ -22,10 +22,10 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
 import android.provider.MediaStore;
-import android.support.v4.content.CursorLoader;
+import androidx.loader.content.CursorLoader;
 
 /**
- * Wrapper for {@link android.support.v4.content.CursorLoader} to merge custom cursors.
+ * Wrapper for {@link CursorLoader} to merge custom cursors.
  * @author KeithYokoma
  * @since 2014/03/26
  * @version 1.0.0

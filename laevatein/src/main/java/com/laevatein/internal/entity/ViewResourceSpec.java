@@ -3,8 +3,8 @@ package com.laevatein.internal.entity;
 import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 
 import com.amalgam.os.ParcelUtils;
 import com.laevatein.ui.ImagePreviewActivity;

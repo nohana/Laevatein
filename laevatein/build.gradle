@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 14
@@ -17,19 +17,17 @@ android {
     testOptions.unitTests.includeAndroidResources true
 }
 
-ext.supportLibraryVersion = '27.1.0'
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:support-v4:${supportLibraryVersion}"
-    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    implementation "com.android.support:support-annotations:${supportLibraryVersion}"
-    implementation "com.android.support:design:${supportLibraryVersion}"
-    implementation "com.android.support:exifinterface:${supportLibraryVersion}"
-    implementation("com.github.bumptech.glide:glide:4.4.0") {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation("com.github.bumptech.glide:glide:4.9.0") {
         exclude group: 'com.android.support', module: 'support-fragment'
     }
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
     implementation 'jp.co.nohana:Amalgam:0.4.0@aar'
 
