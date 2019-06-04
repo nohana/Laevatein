@@ -1,8 +1,5 @@
 package com.laevatein;
 
-import android.net.Uri;
-import android.test.mock.MockContentResolver;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -95,34 +92,5 @@ public class MimeTypeTest {
         assertEquals("image/jpeg", MimeType.JPEG.toString());
         assertEquals("image/png", MimeType.PNG.toString());
         assertEquals("image/gif", MimeType.GIF.toString());
-    }
-
-    @Test
-    public void typeCheck() throws Exception {
-        MockContentResolver resolver = new MockContentResolver();
-
-        {
-            assertTrue(MimeType.JPEG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpg")));
-            assertTrue(MimeType.JPEG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpeg")));
-            assertFalse(MimeType.JPEG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.png")));
-            assertFalse(MimeType.JPEG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.gif")));
-            assertFalse(MimeType.JPEG.checkType(resolver, null));
-        }
-
-        {
-            assertFalse(MimeType.PNG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpg")));
-            assertFalse(MimeType.PNG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpeg")));
-            assertTrue(MimeType.PNG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.png")));
-            assertFalse(MimeType.PNG.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.gif")));
-            assertFalse(MimeType.PNG.checkType(resolver, null));
-        }
-
-        {
-            assertFalse(MimeType.GIF.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpg")));
-            assertFalse(MimeType.GIF.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.jpeg")));
-            assertFalse(MimeType.GIF.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.png")));
-            assertTrue(MimeType.GIF.checkType(resolver, Uri.parse("file://hogehoge/fugafuga/image.gif")));
-            assertFalse(MimeType.GIF.checkType(resolver, null));
-        }
     }
 }
