@@ -24,8 +24,8 @@ import androidx.loader.content.CursorLoader;
 
 import com.laevatein.internal.entity.Album;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Wrapper for {@link CursorLoader} to merge custom cursors.
@@ -37,7 +37,7 @@ import java.util.Set;
 public class AlbumLoader extends CursorLoader {
     public static final String TAG = AlbumLoader.class.getSimpleName();
     private static final String[] PROJECTION = { MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID };
-    private static final String BUCKET_ORDER_BY = MediaStore.Images.Media.DATE_MODIFIED + " desc";
+    private static final String BUCKET_ORDER_BY = "datetaken DESC";
     private static final String MEDIA_ID_DUMMY = String.valueOf(-1);
 
     public AlbumLoader(Context context) {
@@ -48,53 +48,40 @@ public class AlbumLoader extends CursorLoader {
     public Cursor loadInBackground() {
         Cursor albums = super.loadInBackground();
 
-        Set<BucketEntry> buckets = new HashSet<>();
+        Map<String, BucketEntry> buckets = new LinkedHashMap<>();
         if (albums != null) {
             try {
                 while (albums.moveToNext()) {
-                    buckets.add(new BucketEntry(
-                            albums.getString(albums.getColumnIndex(MediaStore.Images.Media.BUCKET_ID)),
-                            albums.getString(albums.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)),
-                            albums.getString(albums.getColumnIndex(MediaStore.Images.Media._ID))
-                    ));
+                    String bucketId = albums.getString(albums.getColumnIndex(MediaStore.Images.Media.BUCKET_ID));
+                    if (!buckets.containsKey(bucketId)) {
+                        buckets.put(bucketId, new BucketEntry(
+                                albums.getString(albums.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)),
+                                albums.getString(albums.getColumnIndex(MediaStore.Images.Media._ID))
+                        ));
+                    }
                 }
             } finally {
                 albums.close();
             }
         }
+
         MatrixCursor allAlbum = new MatrixCursor(PROJECTION);
-        allAlbum.addRow(new String[] {Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, MEDIA_ID_DUMMY});
-        for (BucketEntry bucket : buckets) {
-            allAlbum.addRow(new String[] {bucket.bucketId, bucket.displayName, bucket.id});
+        allAlbum.addRow(new String[]{Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, MEDIA_ID_DUMMY});
+        for (Map.Entry<String, BucketEntry> entry : buckets.entrySet()) {
+            BucketEntry bucket = entry.getValue();
+            allAlbum.addRow(new String[]{entry.getKey(), bucket.displayName, bucket.mediaId});
         }
 
         return allAlbum;
     }
 
     private static class BucketEntry {
-        private final String bucketId;
         private final String displayName;
-        private final String id;
+        private final String mediaId;
 
-        public BucketEntry(String bucketId, String displayName, String id) {
-            this.bucketId = bucketId;
+        public BucketEntry(String displayName, String mediaId) {
             this.displayName = displayName;
-            this.id = id;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            BucketEntry bucket = (BucketEntry) o;
-
-            return bucketId.equals(bucket.bucketId);
-        }
-
-        @Override
-        public int hashCode() {
-            return bucketId.hashCode();
+            this.mediaId = mediaId;
         }
     }
 }
