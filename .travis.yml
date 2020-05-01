@@ -2,7 +2,7 @@ language: android
 jdk: oraclejdk8
 env:
  global:
-    - ANDROID_SDK=android-28
+    - ANDROID_SDK=android-29
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
     - ANDROID_ABI=armeabi-v7a
     - ANDROID_EMULATOR_SDK=android-22
